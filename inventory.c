@@ -10,9 +10,9 @@
  *
  */
 
-#ifndef CURSES
+#ifndef BUILTIN_CURSES
 #include <curses.h>
-#endif CURSES
+#endif
 #include "rogue.h"
 
 #define swap_string(x,y) {t = x; x = y; y = t;}

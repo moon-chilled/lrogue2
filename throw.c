@@ -10,9 +10,9 @@
  *
  */
 
-#ifndef CURSES
+#ifndef BUILTIN_CURSES
 #include <curses.h>
-#endif CURSES
+#endif
 #include "rogue.h"
 
 extern short cur_room;

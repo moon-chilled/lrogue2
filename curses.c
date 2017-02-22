@@ -10,7 +10,7 @@
  *
  */
 
-#ifdef CURSES
+#ifdef BUILTIN_CURSES
 
 /* The following is a curses emulation package suitable for the rogue program
  * in which it is included.  No other suitability is claimed or suspected.
@@ -647,4 +647,4 @@ tc_cmget()
 	cm_end[j] = 0;
 }
 
-#endif CURSES
+#endif /* BUILTIN_CURSES */

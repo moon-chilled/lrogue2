@@ -57,9 +57,16 @@
 #include <sys/file.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+
+/* so struct timezone is defined */
+#define __USE_MISC
 #include <sys/time.h>
+#undef __USE_MISC
+
 #include <signal.h>
+#include <time.h>
 #include "rogue.h"
+#include <unistd.h>
 
 #ifdef _POSIX_SOURCE
 #include <unistd.h>
@@ -350,10 +357,9 @@ char *fname;
 char *
 md_gln()
 {
-	char *getlogin();
-	char *t;
-	t = getlogin();
-	return(t);
+	char *t = malloc(sizeof(char)*30);
+	getlogin_r(t, 30);
+	return t;
 }
 
 /* md_sleep:
@@ -477,7 +483,7 @@ int status;
  * implementing the routines below.  And don't compile with -DCURSES.
  */
 
-#ifdef CURSES
+#ifdef BUILTIN_CURSES
 
 /* md_cbreak_no_echo_nonl:
  *
@@ -588,6 +594,6 @@ md_tstp()
 #endif UNIX_BSD4_2
 }
 
-#endif CURSES
+#endif
 
 #endif UNIX

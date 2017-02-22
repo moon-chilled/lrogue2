@@ -421,7 +421,7 @@ struct rogue_time {
 	short second;	/* 0 - 59 */
 };
 
-#ifdef CURSES
+#ifdef BUILTIN_CURSES
 struct _win_st {
 	short _cury, _curx;
 	short _maxy, _maxx;
@@ -435,4 +435,4 @@ extern char *CL;
 
 char *md_gdtcf();
 
-#endif CURSES
+#endif

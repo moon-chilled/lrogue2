@@ -1,0 +1,5 @@
+rogue
+*.o
+*.sav
+.*.swp
+.*.swo

@@ -2,9 +2,9 @@
  *	Instructions command for rogue clone. Alan Cox 1992
  */
 
-#ifndef CURSES
+#ifndef BUILTIN_CURSES
 #include <curses.h>
-#endif CURSES
+#endif
 #include "rogue.h"
 #include <string.h>
 #include <stdio.h>

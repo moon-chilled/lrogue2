@@ -10,9 +10,9 @@
  *
  */
 
-#ifndef CURSES
+#ifndef BUILTIN_CURSES
 #include <curses.h>
-#endif CURSES
+#endif
 #include <stdio.h>
 #include "rogue.h"
 
@@ -44,6 +44,7 @@ char *argv[];
 	if ((!pn) || (strlen(pn) >= 30)) {
 		clean_up("Hey!  Who are you?");
 	}
+
 	(void) strcpy(login_name, pn);
 
 	if (!score_only && !rest_file) {

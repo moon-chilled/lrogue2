@@ -10,10 +10,12 @@ CC = cc
 # -DCURSES enables a self-contained curses emulation package.  See notes
 # in curses.c for more info.
 
-CFLAGS = -c -DUNIX -DUNIX_SYS5 -DCURSES
+CFLAGS = -c -DUNIX -DUNIX_SYS5 -std=c99 -g
+LDFLAGS = -lcurses
+
 
 rogue: $(ROGUE_OBJS)
-	$(CC) $(ROGUE_OBJS) -o rogue
+	$(CC) $(LDFLAGS) $(ROGUE_OBJS) -o rogue
 
 curses.o: curses.c rogue.h
 	$(CC) $(CFLAGS) curses.c
