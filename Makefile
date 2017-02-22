@@ -14,6 +14,9 @@ CFLAGS = -c -DUNIX -DUNIX_SYS5 -std=c99 -g
 LDFLAGS = -lcurses
 
 
+clean:
+	rm *.o rogue
+
 rogue: $(ROGUE_OBJS)
 	$(CC) $(LDFLAGS) $(ROGUE_OBJS) -o rogue
 
