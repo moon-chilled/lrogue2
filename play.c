@@ -16,12 +16,12 @@
 boolean interrupted = 0;
 char *unknown_command = "unknown command";
 
-extern short party_room, bear_trap;
+extern int party_room, bear_trap;
 extern char hit_message[];
 extern boolean wizard, trap_door;
 
 void play_level() {
-	short ch;
+	int ch;
 	int count;
 
 	for (;;) {

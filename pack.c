@@ -47,7 +47,7 @@ void take_from_pack(object *obj, object *pack) {
 	pack->next_object = pack->next_object->next_object;
 }
 
-object *pick_up(int row, int col, short *status) {
+object *pick_up(int row, int col, int *status) {
 	object *obj;
 
 	obj = object_at(&level_objects, row, col);
@@ -84,7 +84,7 @@ object *pick_up(int row, int col, short *status) {
 
 void drop() {
 	object *obj, *new;
-	short ch;
+	int ch;
 	char desc[DCOLS];
 
 	if (dungeon[rogue.row][rogue.col] & (OBJECT | STAIRS | TRAP)) {
@@ -199,9 +199,9 @@ void wait_for_ack() {
 	while (rgetchar() != ' ') ;
 }
 
-int pack_letter(char *prompt, unsigned short mask) {
+int pack_letter(char *prompt, unsigned int mask) {
 	int ch;
-	unsigned short tmask = mask;
+	unsigned int tmask = mask;
 
 	if (!mask_pack(&rogue.pack, mask)) {
 		message("nothing appropriate", 0);
@@ -255,7 +255,7 @@ void take_off() {
 }
 
 void wear() {
-	short ch;
+	int ch;
 	register object *obj;
 	char desc[DCOLS];
 
@@ -299,7 +299,7 @@ void do_wear(object *obj) {
 }
 
 void wield() {
-	short ch;
+	int ch;
 	register object *obj;
 	char desc[DCOLS];
 
@@ -347,7 +347,7 @@ void unwield(object *obj) {
 }
 
 void call_it() {
-	short ch;
+	int ch;
 	register object *obj;
 	struct id *id_table;
 	char buf[MAX_TITLE_LENGTH+2];
@@ -375,7 +375,7 @@ void call_it() {
 
 int pack_count(object *new_obj) {
 	object *obj;
-	short count = 0;
+	int count = 0;
 
 	obj = rogue.pack.next_object;
 
@@ -398,7 +398,7 @@ int pack_count(object *new_obj) {
 	return(count);
 }
 
-boolean mask_pack(object *pack, unsigned short mask) {
+boolean mask_pack(object *pack, unsigned int mask) {
 	while (pack->next_object) {
 		pack = pack->next_object;
 		if (pack->what_is & mask) {
@@ -408,7 +408,7 @@ boolean mask_pack(object *pack, unsigned short mask) {
 	return(0);
 }
 
-boolean is_pack_letter(short *c, unsigned short *mask) {
+boolean is_pack_letter(int *c, unsigned int *mask) {
 	if (((*c == '?') || (*c == '!') || (*c == ':') || (*c == '=') ||
 		(*c == ')') || (*c == ']') || (*c == '/') || (*c == ','))) {
 		switch(*c) {
@@ -450,7 +450,7 @@ boolean has_amulet() {
 void kick_into_pack() {
     object *obj;
     char desc[DCOLS];
-    short n, stat;
+    int n, stat;
 
     if (!(dungeon[rogue.row][rogue.col] & OBJECT)) {
         message("nothing here", 0);

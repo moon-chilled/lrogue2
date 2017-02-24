@@ -13,15 +13,15 @@
 #include "rogue.h"
 #include "extern.h"
 
-extern short cur_room;
+extern int cur_room;
 extern char *curse_message;
 extern char hit_message[];
 
 void throw() {
-	short wch;
+	int wch;
 	boolean first_miss = 1;
 	object *weapon;
-	short dir, row, col;
+	int dir, row, col;
 	object *monster;
 
 	while (!is_direction(dir = rgetchar())) {
@@ -80,8 +80,8 @@ void throw() {
 }
 
 boolean throw_at_monster(object *monster, object *weapon) {
-	short damage, hit_chance;
-	short t;
+	int damage, hit_chance;
+	int t;
 
 	hit_chance = get_hit_chance(weapon);
 	damage = get_weapon_damage(weapon);
@@ -115,9 +115,9 @@ boolean throw_at_monster(object *monster, object *weapon) {
 	return(1);
 }
 
-object *get_thrown_at_monster(object *obj, short dir, short *row, short *col) {
-	short orow, ocol;
-	short i, ch;
+object *get_thrown_at_monster(object *obj, int dir, int *row, int *col) {
+	int orow, ocol;
+	int i, ch;
 
 	orow = *row; ocol = *col;
 
@@ -154,13 +154,13 @@ object *get_thrown_at_monster(object *obj, short dir, short *row, short *col) {
 	return(0);
 }
 
-void flop_weapon(object *weapon, short row, short col) {
+void flop_weapon(object *weapon, int row, int col) {
 	object *new_weapon, *monster;
-	short i = 0;
+	int i = 0;
 	char msg[80];
 	boolean found = 0;
-	short mch, dch;
-	unsigned short mon;
+	int mch, dch;
+	unsigned int mon;
 
 	while ((i < 9) && dungeon[row][col] & ~(FLOOR | TUNNEL | DOOR | MONSTER)) {
 		rand_around(i++, &row, &col);
@@ -199,7 +199,7 @@ void flop_weapon(object *weapon, short row, short col) {
 			dungeon[row][col] |= mon;
 		}
 	} else {
-		short t;
+		int t;
 
 		t = weapon->quantity;
 		weapon->quantity = 1;
@@ -209,13 +209,13 @@ void flop_weapon(object *weapon, short row, short col) {
 	}
 }
 
-void rand_around(short i, short *r, short *c) {
+void rand_around(int i, int *r, int *c) {
 	static char* pos = "\010\007\001\003\004\005\002\006\0";
-	static short row, col;
-	short j;
+	static int row, col;
+	int j;
 
 	if (i == 0) {
-		short x, y, o, t;
+		int x, y, o, t;
 
 		row = *r;
 		col = *c;
@@ -230,7 +230,7 @@ void rand_around(short i, short *r, short *c) {
 			pos[y] = t;
 		}
 	}
-	switch((short)pos[i]) {
+	switch(pos[i]) {
 	case 0:
 		*r = row + 1;
 		*c = col + 1;

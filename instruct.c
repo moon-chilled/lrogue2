@@ -11,7 +11,7 @@ void Instructions() {
 	char buffer[DROWS+1][DCOLS+1];
 	char buf[256];
 	FILE *f;
-	short row;
+	int row;
 	int i,j;
 	f=fopen(instructions,"r");
 	if(f==NULL)

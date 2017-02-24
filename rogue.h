@@ -21,28 +21,28 @@
 
 #define boolean char
 
-#define NOTHING		((unsigned short)     0)
-#define OBJECT		((unsigned short)    01)
-#define MONSTER		((unsigned short)    02)
-#define STAIRS		((unsigned short)    04)
-#define HORWALL		((unsigned short)   010)
-#define VERTWALL	((unsigned short)   020)
-#define DOOR		((unsigned short)   040)
-#define FLOOR		((unsigned short)  0100)
-#define TUNNEL		((unsigned short)  0200)
-#define TRAP		((unsigned short)  0400)
-#define HIDDEN		((unsigned short) 01000)
+#define NOTHING		((unsigned int)     0)
+#define OBJECT		((unsigned int)    01)
+#define MONSTER		((unsigned int)    02)
+#define STAIRS		((unsigned int)    04)
+#define HORWALL		((unsigned int)   010)
+#define VERTWALL	((unsigned int)   020)
+#define DOOR		((unsigned int)   040)
+#define FLOOR		((unsigned int)  0100)
+#define TUNNEL		((unsigned int)  0200)
+#define TRAP		((unsigned int)  0400)
+#define HIDDEN		((unsigned int) 01000)
 
-#define ARMOR		((unsigned short)   01)
-#define WEAPON		((unsigned short)   02)
-#define SCROLL		((unsigned short)   04)
-#define POTION		((unsigned short)  010)
-#define GOLD		((unsigned short)  020)
-#define FOOD		((unsigned short)  040)
-#define WAND		((unsigned short) 0100)
-#define RING		((unsigned short) 0200)
-#define AMULET		((unsigned short) 0400)
-#define ALL_OBJECTS	((unsigned short) 0777)
+#define ARMOR		((unsigned int)   01)
+#define WEAPON		((unsigned int)   02)
+#define SCROLL		((unsigned int)   04)
+#define POTION		((unsigned int)  010)
+#define GOLD		((unsigned int)  020)
+#define FOOD		((unsigned int)  040)
+#define WAND		((unsigned int) 0100)
+#define RING		((unsigned int) 0200)
+#define AMULET		((unsigned int) 0400)
+#define ALL_OBJECTS	((unsigned int) 0777)
 
 #define LEATHER 0
 #define RINGMAIL 1
@@ -123,13 +123,13 @@
 #define RATION 0
 #define FRUIT 1
 
-#define NOT_USED		((unsigned short)   0)
-#define BEING_WIELDED	((unsigned short)  01)
-#define BEING_WORN		((unsigned short)  02)
-#define ON_LEFT_HAND	((unsigned short)  04)
-#define ON_RIGHT_HAND	((unsigned short) 010)
-#define ON_EITHER_HAND	((unsigned short) 014)
-#define BEING_USED		((unsigned short) 017)
+#define NOT_USED	((unsigned int)   0)
+#define BEING_WIELDED	((unsigned int)  01)
+#define BEING_WORN	((unsigned int)  02)
+#define ON_LEFT_HAND	((unsigned int)  04)
+#define ON_RIGHT_HAND	((unsigned int) 010)
+#define ON_EITHER_HAND	((unsigned int) 014)
+#define BEING_USED	((unsigned int) 017)
 
 #define NO_TRAP -1
 #define TRAP_DOOR 0
@@ -143,9 +143,9 @@
 #define STEALTH_FACTOR 3
 #define R_TELE_PERCENT 8
 
-#define UNIDENTIFIED ((unsigned short) 00)	/* MUST BE ZERO! */
-#define IDENTIFIED ((unsigned short) 01)
-#define CALLED ((unsigned short) 02)
+#define UNIDENTIFIED	((unsigned int) 00)	/* MUST BE ZERO! */
+#define IDENTIFIED	((unsigned int) 01)
+#define CALLED		((unsigned int) 02)
 
 #define DROWS 24
 #define DCOLS 80
@@ -159,10 +159,10 @@
 #define GOLD_PERCENT 46
 
 struct id {
-	short value;
+	int value;
 	char *title;
 	char *real;
-	unsigned short id_status;
+	unsigned int id_status;
 };
 
 /* The following #defines provide more meaningful names for some of the
@@ -189,23 +189,23 @@ struct id {
 struct obj {				/* comment is monster meaning */
 	unsigned long m_flags;	/* monster flags */
 	char *damage;			/* damage it does */
-	short quantity;			/* hit points to kill */
-	short ichar;			/* 'A' is for aquatar */
-	short kill_exp;			/* exp for killing it */
-	short is_protected;		/* level starts */
-	short is_cursed;		/* level ends */
-	short class;			/* chance of hitting you */
-	short identified;		/* 'F' damage, 1,2,3... */
-	unsigned short which_kind; /* item carry/drop % */
-	short o_row, o_col, o;	/* o is how many times stuck at o_row, o_col */
-	short row, col;			/* current row, col */
-	short d_enchant;		/* room char when detect_monster */
-	short quiver;			/* monster slowed toggle */
-	short trow, tcol;		/* target row, col */
-	short hit_enchant;		/* how many moves is confused */
-	unsigned short what_is;	/* imitator's charactor (?!%: */
-	short picked_up;		/* sleep from wand of sleep */
-	unsigned short in_use_flags;
+	int quantity;			/* hit points to kill */
+	int ichar;			/* 'A' is for aquatar */
+	int kill_exp;			/* exp for killing it */
+	int is_protected;		/* level starts */
+	int is_cursed;		/* level ends */
+	int class;			/* chance of hitting you */
+	int identified;		/* 'F' damage, 1,2,3... */
+	unsigned int which_kind; /* item carry/drop % */
+	int o_row, o_col, o;	/* o is how many times stuck at o_row, o_col */
+	int row, col;			/* current row, col */
+	int d_enchant;		/* room char when detect_monster */
+	int quiver;			/* monster slowed toggle */
+	int trow, tcol;		/* target row, col */
+	int hit_enchant;		/* how many moves is confused */
+	unsigned int what_is;	/* imitator's charactor (?!%: */
+	int picked_up;		/* sleep from wand of sleep */
+	unsigned int in_use_flags;
 	struct obj *next_object;	/* next monster */
 };
 
@@ -217,26 +217,26 @@ struct fight {
 	object *armor;
 	object *weapon;
 	object *left_ring, *right_ring;
-	short hp_current;
-	short hp_max;
-	short str_current;
-	short str_max;
+	int hp_current;
+	int hp_max;
+	int str_current;
+	int str_max;
 	object pack;
 	long gold;
-	short exp;
+	int exp;
 	long exp_points;
-	short row, col;
-	short fchar;
-	short moves_left;
+	int row, col;
+	int fchar;
+	int moves_left;
 };
 
 typedef struct fight fighter;
 
 struct dr {
-	short oth_room;
-	short oth_row,
+	int oth_room;
+	int oth_row,
 	      oth_col;
-	short door_row,
+	int door_row,
 		  door_col;
 };
 
@@ -245,7 +245,7 @@ typedef struct dr door;
 struct rm {
 	char bottom_row, right_col, left_col, top_row;
 	door doors[4];
-	unsigned short is_room;
+	unsigned int is_room;
 };
 
 typedef struct rm room;
@@ -259,11 +259,11 @@ typedef struct rm room;
 
 #define AMULET_LEVEL 26
 
-#define R_NOTHING	((unsigned short) 01)
-#define R_ROOM		((unsigned short) 02)
-#define R_MAZE		((unsigned short) 04)
-#define R_DEADEND	((unsigned short) 010)
-#define R_CROSS		((unsigned short) 020)
+#define R_NOTHING	((unsigned int) 01)
+#define R_ROOM		((unsigned int) 02)
+#define R_MAZE		((unsigned int) 04)
+#define R_DEADEND	((unsigned int) 010)
+#define R_CROSS		((unsigned int) 020)
 
 #define MAX_EXP_LEVEL 21
 #define MAX_EXP 10000000L
@@ -290,8 +290,8 @@ typedef struct rm room;
 #define HIDE_PERCENT 12
 
 struct tr {
-	short trap_type;
-	short trap_row, trap_col;
+	int trap_type;
+	int trap_row, trap_col;
 };
 
 typedef struct tr trap;
@@ -299,7 +299,7 @@ typedef struct tr trap;
 extern fighter rogue;
 extern room rooms[];
 extern trap traps[];
-extern unsigned short dungeon[DROWS][DCOLS];
+extern unsigned int dungeon[DROWS][DCOLS];
 extern object level_objects;
 
 extern struct id id_scrolls[];
@@ -384,11 +384,11 @@ extern object level_monsters;
 #define MIN_ROW 1
 
 struct rogue_time {
-	short year;		/* >= 1987 */
-	short month;	/* 1 - 12 */
-	short day;		/* 1 - 31 */
-	short hour;		/* 0 - 23 */
-	short minute;	/* 0 - 59 */
-	short second;	/* 0 - 59 */
+	int year;		/* >= 1987 */
+	int month;	/* 1 - 12 */
+	int day;		/* 1 - 31 */
+	int hour;		/* 0 - 23 */
+	int minute;	/* 0 - 59 */
+	int second;	/* 0 - 59 */
 };
 #endif /* ROGUE_H */

@@ -13,26 +13,26 @@
 #include "rogue.h"
 #include "extern.h"
 
-short halluc = 0;
-short blind = 0;
-short confused = 0;
-short levitate = 0;
-short haste_self = 0;
+int halluc = 0;
+int blind = 0;
+int confused = 0;
+int levitate = 0;
+int haste_self = 0;
 boolean see_invisible = 0;
-short extra_hp = 0;
+int extra_hp = 0;
 boolean detect_monster = 0;
 char *strange_feeling = "you have a strange feeling for a moment, then it passes";
 
-extern short bear_trap;
+extern int bear_trap;
 extern char hunger_str[];
-extern short cur_room;
+extern int cur_room;
 extern long level_points[];
 extern boolean being_held;
 extern char *fruit, *you_can_move_again;
 extern boolean sustain_strength;
 
 void quaff() {
-	short ch;
+	int ch;
 	char buf[80];
 	object *obj;
 
@@ -143,7 +143,7 @@ void quaff() {
 }
 
 void read_scroll() {
-	short ch;
+	int ch;
 	object *obj;
 	char msg[DCOLS];
 
@@ -254,7 +254,7 @@ void read_scroll() {
    arrow (or whatever) in the quiver.  It will only decrement the count.
 */
 
-void vanish(object *obj, short rm, object *pack) {
+void vanish(object *obj, int rm, object *pack) {
 	if (obj->quantity > 1) {
 		obj->quantity--;
 	} else {
@@ -275,7 +275,7 @@ void vanish(object *obj, short rm, object *pack) {
 
 void potion_heal(boolean extra) {
 	int ratio;
-	short add;
+	int add;
 
 	rogue.hp_current += rogue.exp;
 
@@ -296,7 +296,7 @@ void potion_heal(boolean extra) {
 		if (extra) {
 			ratio += ratio;
 		}
-		add = (short)(ratio * (rogue.hp_max - rogue.hp_current));
+		add = ratio * (rogue.hp_max - rogue.hp_current);
 		rogue.hp_current += add;
 		if (rogue.hp_current > rogue.hp_max) {
 			rogue.hp_current = rogue.hp_max;
@@ -318,7 +318,7 @@ void potion_heal(boolean extra) {
 }
 
 void idntfy() {
-	short ch;
+	int ch;
 	object *obj;
 	struct id *id_table;
 	char desc[DCOLS];
@@ -344,8 +344,8 @@ AGAIN:
 }
 
 void eat() {
-	short ch;
-	short moves;
+	int ch;
+	int moves;
 	object *obj;
 	char buf[70];
 
@@ -384,10 +384,10 @@ void eat() {
 }
 
 void hold_monster() {
-	short i, j;
-	short mcount = 0;
+	int i, j;
+	int mcount = 0;
 	object *monster;
-	short row, col;
+	int row, col;
 
 	for (i = -2; i <= 2; i++) {
 		for (j = -2; j <= 2; j++) {
@@ -427,7 +427,7 @@ void tele() {
 
 void hallucinate() {
 	object *obj, *monster;
-	short ch;
+	int ch;
 
 	if (blind) return;
 
@@ -481,7 +481,7 @@ void relight() {
 }
 
 void take_a_nap() {
-	short i;
+	int i;
 
 	i = get_rand(2, 5);
 	md_sleep(1);
@@ -494,7 +494,7 @@ void take_a_nap() {
 }
 
 void go_blind() {
-	short i, j;
+	int i, j;
 
 	if (!blind) {
 		message("a cloak of darkness falls around you", 0);

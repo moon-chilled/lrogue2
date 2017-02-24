@@ -17,11 +17,11 @@ char *score_file = "/usr/games/rogue.scores";
 
 extern char login_name[];
 extern char *m_names[];
-extern short max_level;
+extern int max_level;
 extern boolean score_only, show_skull, msg_cleared;
 extern char *byebye_string, *nick_name;
 
-void killed_by(object *monster, short other) {
+void killed_by(object *monster, int other) {
 	char buf[80];
 
 	md_ignore_signals();
@@ -107,7 +107,7 @@ void win() {
 
 void quit(boolean from_intrpt) {
 	char buf[128];
-	short i, orow, ocol;
+	int i, orow, ocol;
 	boolean mc;
 
 	md_ignore_signals();
@@ -144,8 +144,8 @@ void quit(boolean from_intrpt) {
 	killed_by((object *) 0, QUIT);
 }
 
-void put_scores(object *monster, short other) {
-	short i, n, rank = 10, x, ne = 0, found_player = -1;
+void put_scores(object *monster, int other) {
+	int i, n, rank = 10, x, ne = 0, found_player = -1;
 	char scores[10][82];
 	char n_names[10][30];
 	char buf[100];
@@ -266,8 +266,8 @@ void put_scores(object *monster, short other) {
 	clean_up("");
 }
 
-void insert_score(char scores[][82], char n_names[][30], char *n_name, short rank, short n, object *monster, boolean other) {
-	short i;
+void insert_score(char scores[][82], char n_names[][30], char *n_name, int rank, int n, object *monster, boolean other) {
+	int i;
 	char buf[82];
 
 	if (n > 0) {
@@ -329,7 +329,7 @@ boolean is_vowel(char ch) {
 
 void sell_pack() {
 	object *obj;
-	short row = 2, val;
+	int row = 2, val;
 	char buf[80];
 
 	obj = rogue.pack.next_object;
@@ -359,7 +359,7 @@ void sell_pack() {
 }
 
 int get_value(object *obj) {
-	short wc;
+	int wc;
 	int val;
 
 	wc = obj->which_kind;
@@ -404,7 +404,7 @@ int get_value(object *obj) {
 }
 
 void id_all() {
-	short i;
+	int i;
 
 	for (i = 0; i < SCROLLS; i++) {
 		id_scrolls[i].id_status = IDENTIFIED;
@@ -424,7 +424,7 @@ void id_all() {
 }
 
 int name_cmp(char *s1, char *s2) {
-	short i = 0;
+	int i = 0;
 	int r;
 
 	while(s1[i] != ':') {
@@ -436,8 +436,8 @@ int name_cmp(char *s1, char *s2) {
 	return(r);
 }
 
-void xxxx(char *buf, short n) {
-	short i;
+void xxxx(char *buf, int n) {
+	int i;
 	unsigned char c;
 
 	for (i = 0; i < n; i++) {
@@ -465,7 +465,7 @@ long xxx(boolean st) {
 }
 
 void nickize(char *buf, char *score, char *n_name) {
-	short i = 15, j;
+	int i = 15, j;
 
 	if (!n_name[0]) {
 		(void) strcpy(buf, score);
@@ -487,8 +487,8 @@ void nickize(char *buf, char *score, char *n_name) {
 	buf[79] = 0;
 }
 
-void center(short row, char *buf) {
-	short margin;
+void center(int row, char *buf) {
+	int margin;
 
 	margin = ((DCOLS - strlen(buf)) / 2);
 	mvaddstr(row, margin, buf);

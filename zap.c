@@ -18,10 +18,10 @@ boolean wizard = 0;
 extern boolean being_held, score_only, detect_monster;
 
 void zapp() {
-	short wch;
+	int wch;
 	boolean first_miss = 1;
 	object *wand;
-	short dir, row, col;
+	int dir, row, col;
 	object *monster;
 
 	while (!is_direction(dir = rgetchar())) {
@@ -63,8 +63,8 @@ void zapp() {
 	(void) reg_move();
 }
 
-object *get_zapped_monster(short dir, short *row, short *col) {
-	short orow, ocol;
+object *get_zapped_monster(int dir, int *row, int *col) {
+	int orow, ocol;
 
 	for (;;) {
 		orow = *row; ocol = *col;
@@ -82,10 +82,10 @@ object *get_zapped_monster(short dir, short *row, short *col) {
 	}
 }
 
-void zap_monster(object *monster, unsigned short kind) {
-	short row, col;
+void zap_monster(object *monster, unsigned int kind) {
+	int row, col;
 	object *nm;
-	short tc;
+	int tc;
 
 	row = monster->row;
 	col = monster->col;
@@ -156,7 +156,7 @@ void zap_monster(object *monster, unsigned short kind) {
 
 #ifdef BROKEN
 void tele_away(object *monster) {
-	short row, col;
+	int row, col;
 
 	if (monster->m_flags & HOLDS) {
 		being_held = 0;
@@ -170,7 +170,7 @@ void tele_away(object *monster) {
 }
 #else
 void tele_away(object *monster) {
-    short row, col;
+    int row, col;
 
     if (monster->m_flags & HOLDS) {
         being_held = 0;

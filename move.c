@@ -13,22 +13,22 @@
 #include "rogue.h"
 #include "extern.h"
 
-short m_moves = 0;
+int m_moves = 0;
 boolean jump = 1;
 char *you_can_move_again = "you can move again";
 
-extern short cur_room, halluc, blind, levitate;
-extern short cur_level, max_level;
-extern short bear_trap, haste_self, confused;
-extern short e_rings, regeneration, auto_search;
+extern int cur_room, halluc, blind, levitate;
+extern int cur_level, max_level;
+extern int bear_trap, haste_self, confused;
+extern int e_rings, regeneration, auto_search;
 extern char hunger_str[];
 extern boolean being_held, interrupted, r_teleport;
 
-int one_move_rogue(short dirch, short pickup) {
-	short row, col;
+int one_move_rogue(int dirch, int pickup) {
+	int row, col;
 	object *obj;
 	char desc[DCOLS];
-	short n, status;
+	int n, status;
 
 	row = rogue.row;
 	col = rogue.col;
@@ -134,40 +134,40 @@ MVED:	if (reg_move()) {			/* fainted from hunger */
 	return((confused ? STOPPED_ON_SOMETHING : MOVED));
 }
 
-void multiple_move_rogue(int dirch) {
-	short row, col;
-	short m;
+void multiple_move_rogue(char dirch) {
+	int row, col;
+	int m;
 
 	switch(dirch) {
-	case '\010':
-	case '\012':
-	case '\013':
-	case '\014':
-	case '\031':
-	case '\025':
-	case '\016':
-	case '\002':
-		do {
-			row = rogue.row;
-			col = rogue.col;
-			if (((m = one_move_rogue((dirch + 96), 1)) == MOVE_FAILED) ||
-				(m == STOPPED_ON_SOMETHING) ||
-				interrupted) {
-				break;
-			}
-		} while (!next_to_something(row, col));
-		break;
-	case 'H':
-	case 'J':
-	case 'K':
-	case 'L':
-	case 'B':
-	case 'Y':
-	case 'U':
-	case 'N':
-		while (	(!interrupted) &&
-				(one_move_rogue((dirch + 32), 1) == MOVED)) ;
-		break;
+		case '\010':
+		case '\012':
+		case '\013':
+		case '\014':
+		case '\031':
+		case '\025':
+		case '\016':
+		case '\002':
+			do {
+				row = rogue.row;
+				col = rogue.col;
+				if (((m = one_move_rogue((dirch + 96), 1)) == MOVE_FAILED) ||
+					(m == STOPPED_ON_SOMETHING) ||
+					interrupted) {
+					break;
+				}
+			} while (!next_to_something(row, col));
+			break;
+		case 'H':
+		case 'J':
+		case 'K':
+		case 'L':
+		case 'B':
+		case 'Y':
+		case 'U':
+		case 'N':
+			while (	(!interrupted) &&
+					(one_move_rogue((dirch + 32), 1) == MOVED)) ;
+			break;
 	}
 }
 
@@ -183,9 +183,9 @@ boolean is_passable(int row, int col) {
 }
 
 boolean next_to_something(int drow, int dcol) {
-	short i, j, i_end, j_end, row, col;
-	short pass_count = 0;
-	unsigned short s;
+	int i, j, i_end, j_end, row, col;
+	int pass_count = 0;
+	unsigned int s;
 
 	if (confused) {
 		return(1);
@@ -257,7 +257,7 @@ boolean can_move(int row1, int col1, int row2, int col2) {
 }
 
 void move_onto() {
-	short ch;
+	int ch;
 	boolean first_miss = 1;
 
 	while (!is_direction(ch = rgetchar())) {
@@ -288,7 +288,7 @@ boolean is_direction(char c) {
 }
 
 boolean check_hunger(boolean messages_only) {
-	register short i, n;
+	register int i, n;
 	boolean fainted = 0;
 
 	if (rogue.moves_left == HUNGRY) {
@@ -421,8 +421,8 @@ void rest(int count) {
 	}
 }
 
-short gr_dir() {
-	short d;
+int gr_dir() {
+	int d;
 
 	d = get_rand(1, 8);
 
@@ -456,7 +456,7 @@ short gr_dir() {
 }
 
 void heal() {
-	static short heal_exp = -1, n, c = 0;
+	static int heal_exp = -1, n, c = 0;
 	static boolean alt;
 
 	if (rogue.hp_current == rogue.hp_max) {

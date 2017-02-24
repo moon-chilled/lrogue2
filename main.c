@@ -13,7 +13,7 @@
 #include "rogue.h"
 #include "extern.h"
 
-extern short party_room;
+extern int party_room;
 
 int saved_uid= -1;
 int true_uid= -1;

@@ -15,7 +15,7 @@
 
 trap traps[MAX_TRAPS];
 boolean trap_door = 0;
-short bear_trap = 0;
+int bear_trap = 0;
 
 char *trap_strings[TRAPS * 2] = {
 	"trap door",
@@ -32,15 +32,15 @@ char *trap_strings[TRAPS * 2] = {
 			"a gush of water hits you on the head"
 };
 
-extern short cur_level, party_room;
+extern int cur_level, party_room;
 extern char *new_level_message;
 extern boolean interrupted;
-extern short ring_exp;
+extern int ring_exp;
 extern boolean sustain_strength;
-extern short blind;
+extern int blind;
 
 int trap_at(int row, int col) {
-	short i;
+	int i;
 
 	for (i = 0; ((i < MAX_TRAPS) && (traps[i].trap_type != NO_TRAP)); i++) {
 		if ((traps[i].trap_row == row) && (traps[i].trap_col == col)) {
@@ -50,8 +50,8 @@ int trap_at(int row, int col) {
 	return(NO_TRAP);
 }
 
-void trap_player(short row, short col) {
-	short t;
+void trap_player(int row, int col) {
+	int t;
 
 	if ((t = trap_at(row, col)) == NO_TRAP) {
 		return;
@@ -101,8 +101,8 @@ void trap_player(short row, short col) {
 }
 
 void add_traps() {
-	short i, n, tries = 0;
-	short row, col;
+	int i, n, tries = 0;
+	int row, col;
 
 	if (cur_level <= 2) {
 		n = 0;
@@ -144,8 +144,8 @@ void add_traps() {
 }
 
 void id_trap() {
-	short dir, row, col;
-	short t;
+	int dir, row, col;
+	int t;
 
 	message("direction? ", 0);
 
@@ -171,7 +171,7 @@ void id_trap() {
 }
 
 void show_traps() {
-	short i, j;
+	int i, j;
 
 	for (i = 0; i < DROWS; i++) {
 		for (j = 0; j < DCOLS; j++) {
@@ -182,9 +182,9 @@ void show_traps() {
 	}
 }
 
-void search(short n, boolean is_auto) {
-	short s, i, j, row, col, t;
-	short shown = 0, found = 0;
+void search(int n, boolean is_auto) {
+	int s, i, j, row, col, t;
+	int shown = 0, found = 0;
 	static boolean reg_search;
 
 	for (i = -1; i <= 1; i++) {

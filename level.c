@@ -15,10 +15,10 @@
 
 #define swap(x,y) {t = x; x = y; y = t;}
 
-short cur_level = 0, max_level = 1, cur_room;
+int cur_level = 0, max_level = 1, cur_room;
 char *new_level_message = 0;
-short party_room = NO_ROOM;
-short r_de;
+int party_room = NO_ROOM;
+int r_de;
 
 long level_points[MAX_EXP_LEVEL] = {
 		  10L,
@@ -48,12 +48,12 @@ char random_rooms[MAXROOMS+1] = { 3,7,5,2,0,6,1,4,8 };
 
 extern boolean being_held, wizard, detect_monster;
 extern boolean see_invisible;
-extern short bear_trap, levitate, extra_hp, less_hp, cur_room;
-extern short party_counter;
+extern int bear_trap, levitate, extra_hp, less_hp, cur_room;
+extern int party_counter;
 
 void make_level() {
-	short i, j;
-	short must_exist1, must_exist2, must_exist3;
+	int i, j;
+	int must_exist1, must_exist2, must_exist3;
 	boolean big_room;
 
 	if (cur_level < LAST_DUNGEON) {
@@ -144,12 +144,12 @@ void make_level() {
 	}
 }
 
-void make_room(short rn, short r1, short r2, short r3) {
-	short left_col, right_col, top_row, bottom_row;
-	short width, height;
-	short row_offset, col_offset;
-	short i, j;
-	short ch;
+void make_room(int rn, int r1, int r2, int r3) {
+	int left_col, right_col, top_row, bottom_row;
+	int width, height;
+	int row_offset, col_offset;
+	int i, j;
+	int ch;
 
 	switch(rn) {
 	case 0:
@@ -252,8 +252,8 @@ END:
 	rooms[rn].right_col = right_col;
 }
 
-boolean connect_rooms(short room1, short room2) {
-	short row1, col1, row2, col2, dir;
+boolean connect_rooms(int room1, int room2) {
+	int row1, col1, row2, col2, dir;
 
 	if ((!(rooms[room1].is_room & (R_ROOM | R_MAZE))) ||
 		(!(rooms[room2].is_room & (R_ROOM | R_MAZE)))) {
@@ -298,7 +298,7 @@ boolean connect_rooms(short room1, short room2) {
 }
 
 void clear_level() {
-	short i, j;
+	int i, j;
 
 	for (i = 0; i < MAXROOMS; i++) {
 		rooms[i].is_room = R_NOTHING;
@@ -322,8 +322,8 @@ void clear_level() {
 	clear();
 }
 
-void put_door(room *rm, short dir, short *row, short *col) {
-	short wall_width;
+void put_door(room *rm, int dir, int *row, int *col) {
+	int wall_width;
 
 	wall_width = (rm->is_room & R_MAZE) ? 0 : 1;
 
@@ -355,8 +355,8 @@ void put_door(room *rm, short dir, short *row, short *col) {
 	rm->doors[dir/2].door_col = *col;
 }
 
-void draw_simple_passage(short row1, short col1, short row2, short col2, short dir) {
-	short i, middle, t;
+void draw_simple_passage(int row1, int col1, int row2, int col2, int dir) {
+	int i, middle, t;
 
 	if ((dir == LEFT) || (dir == RIGHT)) {
 		if (col1 > col2) {
@@ -394,18 +394,18 @@ void draw_simple_passage(short row1, short col1, short row2, short col2, short d
 	}
 }
 
-boolean same_row(short room1, short room2) {
+boolean same_row(int room1, int room2) {
 	return((room1 / 3) == (room2 / 3));
 }
 
-boolean same_col(short room1, short room2) {
+boolean same_col(int room1, int room2) {
 	return((room1 % 3) == (room2 % 3));
 }
 
 void add_mazes() {
-	short i, j;
-	short start;
-	short maze_percent;
+	int i, j;
+	int start;
+	int maze_percent;
 
 	if (cur_level > 1) {
 		start = get_rand(0, (MAXROOMS-1));
@@ -433,7 +433,7 @@ void add_mazes() {
 }
 
 void fill_out_level() {
-	short i, rn;
+	int i, rn;
 
 	mix_random_rooms();
 
@@ -452,10 +452,10 @@ void fill_out_level() {
 }
 
 void fill_it(int rn, boolean do_rec_de) {
-	short i, tunnel_dir, door_dir, drow, dcol;
-	short target_room, rooms_found = 0;
-	short srow, scol, t;
-	static short offsets[4] = {-1, 1, 3, -3};
+	int i, tunnel_dir, door_dir, drow, dcol;
+	int target_room, rooms_found = 0;
+	int srow, scol, t;
+	static int offsets[4] = {-1, 1, 3, -3};
 	boolean did_this = 0;
 
 	for (i = 0; i < 10; i++) {
@@ -509,9 +509,9 @@ void fill_it(int rn, boolean do_rec_de) {
 	}
 }
 
-void recursive_deadend(short rn, short *offsets, short srow, short scol) {
-	short i, de;
-	short drow, dcol, tunnel_dir;
+void recursive_deadend(int rn, int *offsets, int srow, int scol) {
+	int i, de;
+	int drow, dcol, tunnel_dir;
 
 	rooms[rn].is_room = R_DEADEND;
 	dungeon[srow][scol] = TUNNEL;
@@ -540,8 +540,8 @@ void recursive_deadend(short rn, short *offsets, short srow, short scol) {
 	}
 }
 
-boolean mask_room(short rn, short *row, short *col, unsigned short mask) {
-	short i, j;
+boolean mask_room(int rn, int *row, int *col, unsigned int mask) {
+	int i, j;
 
 	for (i = rooms[rn].top_row; i <= rooms[rn].bottom_row; i++) {
 		for (j = rooms[rn].left_col; j <= rooms[rn].right_col; j++) {
@@ -555,9 +555,9 @@ boolean mask_room(short rn, short *row, short *col, unsigned short mask) {
 	return(0);
 }
 
-void make_maze(short r, short c, short tr, short br, short lc, short rc) {
+void make_maze(int r, int c, int tr, int br, int lc, int rc) {
 	char dirs[4];
-	short i, t;
+	int i, t;
 
 	dirs[0] = UP;
 	dirs[1] = DOWN;
@@ -568,7 +568,7 @@ void make_maze(short r, short c, short tr, short br, short lc, short rc) {
 
 	if (rand_percent(33)) {
 		for (i = 0; i < 10; i++) {
-			short t1, t2;
+			int t1, t2;
 
 			t1 = get_rand(0, 3);
 			t2 = get_rand(0, 3);
@@ -618,10 +618,10 @@ void make_maze(short r, short c, short tr, short br, short lc, short rc) {
 	}
 }
 
-void hide_boxed_passage(short row1, short col1, short row2, short col2, short n) {
-	short i, j, t;
-	short row, col, row_cut, col_cut;
-	short h, w;
+void hide_boxed_passage(int row1, int col1, int row2, int col2, int n) {
+	int i, j, t;
+	int row, col, row_cut, col_cut;
+	int h, w;
 
 	if (cur_level > 2) {
 		if (row1 > row2) {
@@ -652,9 +652,9 @@ void hide_boxed_passage(short row1, short col1, short row2, short col2, short n)
 }
 
 /* try not to put in this room */
-void put_player(short nr) {
-	short rn = nr, misses;
-	short row, col;
+void put_player(int nr) {
+	int rn = nr, misses;
+	int row, col;
 
 	for (misses = 0; ((misses < 2) && (rn == nr)); misses++) {
 		gr_row_col(&row, &col, (FLOOR | TUNNEL | OBJECT | STAIRS));
@@ -719,8 +719,8 @@ boolean check_up() {
 
 void add_exp(int e, boolean promotion) {
 	char mbuf[40];
-	short new_exp;
-	short i, hp;
+	int new_exp;
+	int i, hp;
 
 	rogue.exp_points += e;
 
@@ -745,8 +745,8 @@ void add_exp(int e, boolean promotion) {
 	}
 }
 
-short get_exp_level(long e) {
-	short i;
+int get_exp_level(long e) {
+	int i;
 
 	for (i = 0; i < (MAX_EXP_LEVEL - 1); i++) {
 		if (level_points[i] > e) {
@@ -782,8 +782,8 @@ void show_average_hp() {
 }
 
 void mix_random_rooms() {
-	short i, t;
-	short x, y;
+	int i, t;
+	int x, y;
 
 	for (i = 0; i < (3 * MAXROOMS); i++) {
 		do {

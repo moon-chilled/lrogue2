@@ -113,11 +113,11 @@ char *syllables[MAXSYLLABLES] = {
 
 extern boolean wizard;
 
-void inventory(object *pack, unsigned short mask) {
+void inventory(object *pack, unsigned int mask) {
 	object *obj;
-	short i = 0, j, maxlen = 0, n;
+	int i = 0, j, maxlen = 0, n;
 	char descs[MAX_PACK_COUNT+1][DCOLS];
-	short row, col;
+	int row, col;
 
 	obj = pack->next_object;
 
@@ -166,7 +166,7 @@ void inventory(object *pack, unsigned short mask) {
 }
 
 void mix_colors() {
-	short i, j, k;
+	int i, j, k;
 	char *t;
 
 	for (i = 0; i <= 32; i++) {
@@ -177,8 +177,8 @@ void mix_colors() {
 }
 
 void make_scroll_titles() {
-	short i, j, n;
-	short sylls, s;
+	int i, j, n;
+	int sylls, s;
 
 	for (i = 0; i < SCROLLS; i++) {
 		sylls = get_rand(2, 5);
@@ -200,7 +200,7 @@ void get_desc(object *obj, char *desc) {
 	char *item_name;
 	struct id *id_table;
 	char more_info[32];
-	short i;
+	int i;
 
 	if (obj->what_is == AMULET) {
 		(void) strcpy(desc, "the amulet of Yendor ");
@@ -359,7 +359,7 @@ ANA:
 }
 
 void get_wand_and_ring_materials() {
-	short i, j;
+	int i, j;
 	boolean used[WAND_MATERIALS];
 
 	for (i = 0; i < WAND_MATERIALS; i++) {
@@ -387,8 +387,8 @@ void get_wand_and_ring_materials() {
 	}
 }
 
-void single_inv(short ichar) {
-	short ch;
+void single_inv(int ichar) {
+	int ch;
 	char desc[DCOLS];
 	object *obj;
 

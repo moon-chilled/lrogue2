@@ -14,13 +14,13 @@
 #include "extern.h"
 
 char msg_line[DCOLS] = "";
-short msg_col = 0;
+int msg_col = 0;
 boolean msg_cleared = 1;
 char hunger_str[8] = "";
 
 extern boolean cant_int, did_int, interrupted, save_is_interactive;
-extern short add_strength;
-extern short cur_level;
+extern int add_strength;
+extern int cur_level;
 
 void message(char *msg, boolean intrpt) {
 	if (!save_is_interactive) {
@@ -68,9 +68,9 @@ void check_message() {
 	msg_cleared = 1;
 }
 
-short get_input_line(char *prompt, char *insert, char *buf, char *if_cancelled, boolean add_blank, boolean do_echo) {
-	short ch;
-	short i = 0, n;
+int get_input_line(char *prompt, char *insert, char *buf, char *if_cancelled, boolean add_blank, boolean do_echo) {
+	int ch;
+	int i = 0, n;
 
 	message(prompt, 0);
 	n = strlen(prompt);
@@ -230,8 +230,8 @@ void print_stats(int stat_mask) {
 	refresh();
 }
 
-void pad(char *s, short n) {
-	short i;
+void pad(char *s, int n) {
+	int i;
 
 	for (i = strlen(s); i < n; i++) {
 		addch(' ');
@@ -240,7 +240,7 @@ void pad(char *s, short n) {
 
 void save_screen() {
 	FILE *fp;
-	short i, j, row, col;
+	int i, j, row, col;
 	char buf[DCOLS+2];
 	boolean found_non_blank;
 
@@ -271,7 +271,7 @@ void sound_bell() {
 	fflush(stdout);
 }
 
-boolean is_digit(short ch) {
+boolean is_digit(int ch) {
 	return((ch >= '0') && (ch <= '9'));
 }
 

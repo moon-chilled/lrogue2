@@ -17,12 +17,12 @@ object *fight_monster = 0;
 boolean detect_monster;
 char hit_message[80] = "";
 
-extern short halluc, blind, cur_level;
-extern short add_strength, ring_exp, r_rings;
+extern int halluc, blind, cur_level;
+extern int add_strength, ring_exp, r_rings;
 extern boolean being_held, interrupted, wizard;
 
 void mon_hit(object *monster, char *other, boolean flame) {
-	short damage, hit_chance;
+	int damage, hit_chance;
 	char *mn;
 	int minus;
 
@@ -78,7 +78,7 @@ void mon_hit(object *monster, char *other, boolean flame) {
 			minus = get_armor_class(rogue.armor) * 3.00;
 			minus = minus/100 *  damage;
 		}
-		damage -= (short) minus;
+		damage -= minus;
 	} else {
 		damage = monster->stationary_damage++;
 	}
@@ -94,7 +94,7 @@ void mon_hit(object *monster, char *other, boolean flame) {
 }
 
 void rogue_hit(object *monster, boolean force_hit) {
-	short damage, hit_chance;
+	int damage, hit_chance;
 
 	if (monster) {
 		if (check_imitator(monster)) {
@@ -125,7 +125,7 @@ RET:	check_gold_seeker(monster);
 	}
 }
 
-void rogue_damage(short d, object *monster) {
+void rogue_damage(int d, object *monster) {
 	if (d >= rogue.hp_current) {
 		rogue.hp_current = 0;
 		print_stats(STAT_HP);
@@ -202,7 +202,7 @@ int to_hit(object *obj) {
 }
 
 int damage_for_strength() {
-	short strength;
+	int strength;
 
 	strength = rogue.str_current + add_strength;
 
@@ -232,7 +232,7 @@ int damage_for_strength() {
 
 boolean mon_damage(object *monster, int damage) {
 	char *mn;
-	short row, col;
+	int row, col;
 
 	monster->hp_to_kill -= damage;
 
@@ -261,10 +261,10 @@ boolean mon_damage(object *monster, int damage) {
 }
 
 void fight(boolean to_the_death) {
-	short ch, c;
-	short row, col;
+	int ch, c;
+	int row, col;
 	boolean first_miss = 1;
-	short possible_damage;
+	int possible_damage;
 	object *monster;
 
 	while (!is_direction(ch = rgetchar())) {
@@ -309,7 +309,7 @@ void fight(boolean to_the_death) {
 	}
 }
 
-void get_dir_rc(short dir, short *row, short *col, boolean allow_off_screen) {
+void get_dir_rc(int dir, int *row, int *col, boolean allow_off_screen) {
 	switch(dir) {
 	case 'h':
 		if (allow_off_screen || (*col > 0)) {
@@ -358,8 +358,8 @@ void get_dir_rc(short dir, short *row, short *col, boolean allow_off_screen) {
 	}
 }
 
-short get_hit_chance(object *weapon) {
-	short hit_chance;
+int get_hit_chance(object *weapon) {
+	int hit_chance;
 
 	hit_chance = 40;
 	hit_chance += 3 * to_hit(weapon);
@@ -367,8 +367,8 @@ short get_hit_chance(object *weapon) {
 	return(hit_chance);
 }
 
-short get_weapon_damage(object *weapon) {
-	short damage;
+int get_weapon_damage(object *weapon) {
+	int damage;
 
 	damage = get_w_damage(weapon);
 	damage += damage_for_strength();

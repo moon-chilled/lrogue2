@@ -24,7 +24,7 @@ char *byebye_string = "Okay, bye bye!";
 
 extern char *fruit;
 extern char *save_file;
-extern short party_room, party_counter;
+extern int party_room, party_counter;
 extern boolean jump;
 
 int init(int argc, char *argv[]) {
@@ -179,7 +179,7 @@ void error_save() {
 }
 
 void do_args(int argc, char *argv[]) {
-	short i, j;
+	int i, j;
 
 	for (i = 1; i < argc; i++) {
 		if (argv[i][0] == '-') {
@@ -235,7 +235,7 @@ void do_opts() {
 }
 
 void env_get_value(char **s, char *e, boolean add_blank) {
-	short i = 0;
+	int i = 0;
 	char *t;
 
 	t = e;

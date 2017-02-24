@@ -116,7 +116,7 @@ void md_slurp() {
  * cause certain command characters to be unavailable.
  */
 
-void md_control_keyboard(short mode) {
+void md_control_keyboard(int mode) {
 	static boolean called_before = 0;
 #ifdef _POSIX_SOURCE
         static struct termios tc_orig ;

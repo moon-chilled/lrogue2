@@ -16,11 +16,11 @@
 room rooms[MAXROOMS];
 boolean rooms_visited[MAXROOMS];
 
-extern short blind;
+extern int blind;
 extern boolean detect_monster;
 
 void light_up_room(int rn) {
-	short i, j;
+	int i, j;
 
 	if (!blind) {
 		for (i = rooms[rn].top_row;
@@ -45,7 +45,7 @@ void light_up_room(int rn) {
 }
 
 void light_passage(int row, int col) {
-	short i, j, i_end, j_end;
+	int i, j, i_end, j_end;
 
 	if (blind) {
 		return;
@@ -62,8 +62,8 @@ void light_passage(int row, int col) {
 	}
 }
 
-void darken_room(short rn) {
-	short i, j;
+void darken_room(int rn) {
+	int i, j;
 
 	for (i = rooms[rn].top_row + 1; i < rooms[rn].bottom_row; i++) {
 		for (j = rooms[rn].left_col + 1; j < rooms[rn].right_col; j++) {
@@ -85,7 +85,7 @@ void darken_room(short rn) {
 }
 
 char get_dungeon_char(int row, int col) {
-	register unsigned short mask = dungeon[row][col];
+	unsigned int mask = dungeon[row][col];
 
 	if (mask & MONSTER) {
 		return(gmc_row_col(row, col));
@@ -130,7 +130,7 @@ char get_dungeon_char(int row, int col) {
 	return(' ');
 }
 
-char get_mask_char(unsigned short mask) {
+char get_mask_char(unsigned int mask) {
 		switch(mask) {
 		case SCROLL:
 			return('?');
@@ -155,9 +155,9 @@ char get_mask_char(unsigned short mask) {
 		}
 }
 
-void gr_row_col(short *row, short *col, unsigned short mask) {
-	short rn;
-	short r, c;
+void gr_row_col(int *row, int *col, unsigned int mask) {
+	int rn;
+	int r, c;
 
 	do {
 		r = get_rand(MIN_ROW, DROWS-2);
@@ -173,8 +173,8 @@ void gr_row_col(short *row, short *col, unsigned short mask) {
 	*col = c;
 }
 
-short gr_room() {
-	short i;
+int gr_room() {
+	int i;
 
 	do {
 		i = get_rand(0, MAXROOMS-1);
@@ -183,10 +183,10 @@ short gr_room() {
 	return(i);
 }
 
-short party_objects(short rn) {
-	short i, j, nf = 0;
+int party_objects(int rn) {
+	int i, j, nf = 0;
 	object *obj;
-	short n, N, row, col;
+	int n, N, row, col;
 	boolean found;
 
 	N = ((rooms[rn].bottom_row - rooms[rn].top_row) - 1) *
@@ -215,7 +215,7 @@ short party_objects(short rn) {
 }
 
 int get_room_number(int row, int col) {
-	short i;
+	int i;
 
 	for (i = 0; i < MAXROOMS; i++) {
 		if ((row >= rooms[i].top_row) && (row <= rooms[i].bottom_row) &&
@@ -227,7 +227,7 @@ int get_room_number(int row, int col) {
 }
 
 boolean is_all_connected() {
-	short i, starting_room;
+	int i, starting_room;
 
 	for (i = 0; i < MAXROOMS; i++) {
 		rooms_visited[i] = 0;
@@ -247,8 +247,8 @@ boolean is_all_connected() {
 }
 
 void visit_rooms(int rn) {
-	short i;
-	short oth_rn;
+	int i;
+	int oth_rn;
 
 	rooms_visited[rn] = 1;
 
@@ -261,10 +261,10 @@ void visit_rooms(int rn) {
 }
 
 void draw_magic_map() {
-	short i, j, ch, och;
-	unsigned short mask = (HORWALL | VERTWALL | DOOR | TUNNEL | TRAP | STAIRS |
+	int i, j, ch, och;
+	unsigned int mask = (HORWALL | VERTWALL | DOOR | TUNNEL | TRAP | STAIRS |
 			MONSTER);
-	unsigned short s;
+	unsigned int s;
 
 	for (i = 0; i < DROWS; i++) {
 		for (j = 0; j < DCOLS; j++) {
@@ -305,9 +305,9 @@ void draw_magic_map() {
 	}
 }
 
-void dr_course(object *monster, boolean entering, short row, short col) {
-	short i, j, k, rn;
-	short r, rr;
+void dr_course(object *monster, boolean entering, int row, int col) {
+	int i, j, k, rn;
+	int r, rr;
 
 	monster->row = row;
 	monster->col = col;
@@ -375,8 +375,8 @@ void dr_course(object *monster, boolean entering, short row, short col) {
 	}
 }
 
-boolean get_oth_room(short rn, short *row, short *col) {
-	short d = -1;
+boolean get_oth_room(int rn, int *row, int *col) {
+	int d = -1;
 
 	if (*row == rooms[rn].top_row) {
 		d = UP/2;

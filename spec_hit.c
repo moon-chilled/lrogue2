@@ -13,11 +13,11 @@
 #include "rogue.h"
 #include "extern.h"
 
-short less_hp = 0;
+int less_hp = 0;
 char *flame_name = "flame";
 boolean being_held;
 
-extern short cur_level, max_level, blind, levitate, ring_exp;
+extern int cur_level, max_level, blind, levitate, ring_exp;
 extern long level_points[];
 extern boolean detect_monster, mon_disappeared;
 extern boolean sustain_strength, maintain_armor;
@@ -70,8 +70,8 @@ void rust(object *monster) {
 }
 
 void freeze(object *monster) {
-	short freeze_percent = 99;
-	short i, n;
+	int freeze_percent = 99;
+	int i, n;
 
 	if (rand_percent(12)) {
 		return;
@@ -120,7 +120,7 @@ void steal_gold(object *monster) {
 
 void steal_item(object *monster) {
 	object *obj;
-	short i, n, t;
+	int i, n, t;
 	char desc[80];
 	boolean has_something = 0;
 
@@ -171,7 +171,7 @@ DSPR:
 }
 
 void disappear(object *monster) {
-	short row, col;
+	int row, col;
 
 	row = monster->row;
 	col = monster->col;
@@ -187,7 +187,7 @@ void disappear(object *monster) {
 
 void cough_up(object *monster) {
 	object *obj;
-	short row, col, i, n;
+	int row, col, i, n;
 
 	if (cur_level < max_level) {
 		return;
@@ -227,7 +227,7 @@ void cough_up(object *monster) {
 	free_object(obj);
 }
 
-boolean try_to_cough(short row, short col, object *obj) {
+boolean try_to_cough(int row, int col, object *obj) {
 	if ((row < MIN_ROW) || (row > (DROWS-2)) || (col < 0) || (col>(DCOLS-1))) {
 		return(0);
 	}
@@ -244,7 +244,7 @@ boolean try_to_cough(short row, short col, object *obj) {
 }
 
 boolean seek_gold(object *monster) {
-	short i, j, rn, s;
+	int i, j, rn, s;
 
 	if ((rn = get_room_number(monster->row, monster->col)) < 0) {
 		return(0);
@@ -273,7 +273,7 @@ boolean seek_gold(object *monster) {
 	return(0);
 }
 
-boolean gold_at(short row, short col) {
+boolean gold_at(int row, int col) {
 	if (dungeon[row][col] & OBJECT) {
 		object *obj;
 
@@ -306,7 +306,7 @@ boolean check_imitator(object *monster) {
 	return(0);
 }
 
-boolean imitating(short row, short col) {
+boolean imitating(int row, int col) {
 	if (dungeon[row][col] & MONSTER) {
 		object *monster;
 
@@ -320,7 +320,7 @@ boolean imitating(short row, short col) {
 }
 
 void sting(object *monster) {
-	short sting_chance = 35;
+	int sting_chance = 35;
 	char msg[80];
 
 	if ((rogue.str_current <= 3) || sustain_strength) {
@@ -359,7 +359,7 @@ void drop_level() {
 }
 
 void drain_life() {
-	short n;
+	int n;
 
 	if (rand_percent(60) || (rogue.hp_max <= 30) || (rogue.hp_current < 10)) {
 		return;
@@ -406,7 +406,7 @@ boolean m_confuse(object *monster) {
 }
 
 boolean flame_broil(object *monster) {
-	short row, col;
+	int row, col;
 
 	if ((!mon_sees(monster, rogue.row, rogue.col)) || coin_toss()) {
 		return(0);
@@ -446,7 +446,7 @@ boolean flame_broil(object *monster) {
 	return(1);
 }
 
-void get_closer(short *row, short *col, short trow, short tcol) {
+void get_closer(int *row, int *col, int trow, int tcol) {
 	if (*row < trow) {
 		(*row)++;
 	} else if (*row > trow) {

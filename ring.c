@@ -15,15 +15,15 @@
 
 char *left_or_right = "left or right hand?";
 char *no_ring = "there's no ring on that hand";
-short stealthy, r_rings, add_strength, e_rings, regeneration, ring_exp;
-short auto_search;
+int stealthy, r_rings, add_strength, e_rings, regeneration, ring_exp;
+int auto_search;
 boolean r_teleport, r_see_invisible, sustain_strength, maintain_armor;
 
 extern char *curse_message;
 extern boolean wizard;
 
 void  put_on_ring() {
-	short ch;
+	int ch;
 	char desc[DCOLS];
 	object *ring;
 
@@ -93,7 +93,7 @@ void do_put_on(object *ring, boolean on_left) {
 
 void remove_ring() {
 	boolean left = 0, right = 0;
-	short ch;
+	int ch;
 	char buf[DCOLS];
 	object *ring;
 
@@ -213,7 +213,7 @@ void inv_rings() {
 }
 
 void ring_stats(boolean pr) {
-	short i;
+	int i;
 	object *ring;
 
 	stealthy = 0;

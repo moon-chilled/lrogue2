@@ -14,9 +14,9 @@
 #include "extern.h"
 
 object level_objects;
-unsigned short dungeon[DROWS][DCOLS];
-short foods = 0;
-short party_counter;
+unsigned int dungeon[DROWS][DCOLS];
+int foods = 0;
+int party_counter;
 object *free_list = (object *) 0;
 char *fruit = "slime-mold ";
 
@@ -114,13 +114,13 @@ struct id id_rings[RINGS] = {
 	 {270, "                                 ", "of searching ",0},
 };
 
-extern short cur_level, max_level;
-extern short party_room;
+extern int cur_level, max_level;
+extern int party_room;
 extern char *error_file;
 extern boolean is_wood[];
 
 void put_objects() {
-	short i, n;
+	int i, n;
 	object *obj;
 
 	if (cur_level < max_level) {
@@ -142,8 +142,8 @@ void put_objects() {
 }
 
 void put_gold() {
-	short i, j;
-	short row,col;
+	int i, j;
+	int row, col;
 	boolean is_maze, is_room;
 
 	for (i = 0; i < MAXROOMS; i++) {
@@ -169,7 +169,7 @@ void put_gold() {
 	}
 }
 
-void plant_gold(short row, short col, boolean is_maze) {
+void plant_gold(int row, int col, boolean is_maze) {
 	object *obj;
 
 	obj = alloc_object();
@@ -183,14 +183,14 @@ void plant_gold(short row, short col, boolean is_maze) {
 	(void) add_to_pack(obj, &level_objects, 0);
 }
 
-void place_at(object *obj, short row, short col) {
+void place_at(object *obj, int row, int col) {
 	obj->row = row;
 	obj->col = col;
 	dungeon[row][col] |= OBJECT;
 	(void) add_to_pack(obj, &level_objects, 0);
 }
 
-object *object_at(object *pack, short row, short col) {
+object *object_at(object *pack, int row, int col) {
 	object *obj;
 
 	obj = pack->next_object;
@@ -314,9 +314,9 @@ object *gr_object() {
 	return(obj);
 }
 
-unsigned short gr_what_is() {
-	short percent;
-	unsigned short what_is;
+unsigned int gr_what_is() {
+	int percent;
+	unsigned int what_is;
 
 	percent = get_rand(1, 91);
 
@@ -339,7 +339,7 @@ unsigned short gr_what_is() {
 }
 
 void gr_scroll(object *obj) {
-	short percent;
+	int percent;
 
 	percent = get_rand(0, 85);
 
@@ -373,7 +373,7 @@ void gr_scroll(object *obj) {
 }
 
 void gr_potion(object *obj) {
-	short percent;
+	int percent;
 
 	percent = get_rand(1, 118);
 
@@ -411,9 +411,9 @@ void gr_potion(object *obj) {
 }
 
 void gr_weapon(object *obj, boolean assign_wk) {
-	short percent;
-	short i;
-	short blessing, increment;
+	int percent;
+	int i;
+	int blessing, increment;
 
 	obj->what_is = WEAPON;
 	if (assign_wk) {
@@ -473,8 +473,8 @@ void gr_weapon(object *obj, boolean assign_wk) {
 }
 
 void gr_armor(object *obj) {
-	short percent;
-	short blessing;
+	int percent;
+	int blessing;
 
 	obj->what_is = ARMOR;
 	obj->which_kind = get_rand(0, (ARMORS - 1));
@@ -519,7 +519,7 @@ void get_food(object *obj, boolean force_ration) {
 }
 
 void put_stairs() {
-	short row, col;
+	int row, col;
 
 	gr_row_col(&row, &col, (FLOOR | TUNNEL));
 	dungeon[row][col] |= STAIRS;
@@ -558,7 +558,7 @@ void free_object(object *obj) {
 }
 
 void make_party() {
-	short n;
+	int n;
 
 	party_room = gr_room();
 
@@ -570,7 +570,7 @@ void make_party() {
 
 void show_objects() {
 	object *obj;
-	short mc, rc, row, col;
+	int mc, rc, row, col;
 	object *monster;
 
 	obj = level_objects.next_object;
@@ -613,7 +613,7 @@ void put_amulet() {
 }
 
 void rand_place(object *obj) {
-	short row, col;
+	int row, col;
 
 	gr_row_col(&row, &col, (FLOOR | TUNNEL));
 	place_at(obj, row, col);
@@ -621,7 +621,7 @@ void rand_place(object *obj) {
 }
 
 void new_object_for_wizard() {
-	short ch, max, wk;
+	int ch, max, wk;
 	object *obj;
 	char buf[80];
 
@@ -678,7 +678,7 @@ GIL:
 		if (get_input_line("which kind?", "", buf, "", 0, 1)) {
 			wk = get_number(buf);
 			if ((wk >= 0) && (wk <= max)) {
-				obj->which_kind = (unsigned short) wk;
+				obj->which_kind = wk;
 				if (obj->what_is == RING) {
 					gr_ring(obj, 0);
 				}

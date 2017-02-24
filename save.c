@@ -13,30 +13,30 @@
 #include "rogue.h"
 #include "extern.h"
 
-short write_failed = 0;
+int write_failed = 0;
 char *save_file = "";
 
 extern boolean detect_monster;
-extern short cur_level, max_level;
+extern int cur_level, max_level;
 extern char hunger_str[];
 extern char login_name[];
-extern short party_room;
-extern short party_counter;
-extern short foods;
+extern int party_room;
+extern int party_counter;
+extern int foods;
 extern boolean is_wood[];
-extern short cur_room;
+extern int cur_room;
 extern boolean being_held;
-extern short bear_trap;
-extern short halluc;
-extern short blind;
-extern short confused;
-extern short levitate;
-extern short haste_self;
+extern int bear_trap;
+extern int halluc;
+extern int blind;
+extern int confused;
+extern int levitate;
+extern int haste_self;
 extern boolean see_invisible;
 extern boolean detect_monster;
 extern boolean wizard;
 extern boolean score_only;
-extern short m_moves;
+extern int m_moves;
 
 extern boolean msg_cleared;
 
@@ -236,7 +236,7 @@ void read_pack(object *pack, FILE *fp, boolean is_rogue) {
 }
 
 void rw_dungeon(FILE *fp, boolean rw) {
-	short i, j;
+	int i, j;
 	char buf[DCOLS];
 
 	for (i = 0; i < DROWS; i++) {
@@ -257,36 +257,36 @@ void rw_dungeon(FILE *fp, boolean rw) {
 }
 
 void rw_id(struct id id_table[], FILE *fp, int n, boolean wr) {
-	short i;
+	int i;
 
 	for (i = 0; i < n; i++) {
 		if (wr) {
-			r_write(fp, (char *) &(id_table[i].value), sizeof(short));
+			r_write(fp, (char *) &(id_table[i].value), sizeof(int));
 			r_write(fp, (char *) &(id_table[i].id_status),
-				sizeof(unsigned short));
+				sizeof(unsigned int));
 			write_string(id_table[i].title, fp);
 		} else {
-			r_read(fp, (char *) &(id_table[i].value), sizeof(short));
+			r_read(fp, (char *) &(id_table[i].value), sizeof(int));
 			r_read(fp, (char *) &(id_table[i].id_status),
-				sizeof(unsigned short));
+				sizeof(unsigned int));
 			read_string(id_table[i].title, fp);
 		}
 	}
 }
 
 void rw_id_alloc(struct id id_table[], FILE *fp, int n, boolean wr) {
-	short i;
+	int i;
 
 	for (i = 0; i < n; i++) {
 		if (wr) {
-			r_write(fp, (char *) &(id_table[i].value), sizeof(short));
+			r_write(fp, (char *) &(id_table[i].value), sizeof(int));
 			r_write(fp, (char *) &(id_table[i].id_status),
-				sizeof(unsigned short));
+				sizeof(unsigned int));
 			write_string(id_table[i].title, fp);
 		} else {
-			r_read(fp, (char *) &(id_table[i].value), sizeof(short));
+			r_read(fp, (char *) &(id_table[i].value), sizeof(int));
 			r_read(fp, (char *) &(id_table[i].id_status),
-				sizeof(unsigned short));
+				sizeof(unsigned int));
 			id_table[i].title=(char *)malloc(80);
 			read_string(id_table[i].title, fp);
 		}
@@ -294,24 +294,24 @@ void rw_id_alloc(struct id id_table[], FILE *fp, int n, boolean wr) {
 }
 
 void write_string(char *s, FILE *fp) {
-	short n;
+	int n;
 
 	n = strlen(s) + 1;
 	xxxx(s, n);
-	r_write(fp, (char *) &n, sizeof(short));
+	r_write(fp, (char *) &n, sizeof(int));
 	r_write(fp, s, n);
 }
 
 void read_string(char *s, FILE *fp) {
-	short n;
+	int n;
 
-	r_read(fp, (char *) &n, sizeof(short));
+	r_read(fp, (char *) &n, sizeof(int));
 	r_read(fp, s, n);
 	xxxx(s, n);
 }
 
 void rw_rooms(FILE *fp, boolean rw) {
-	short i;
+	int i;
 
 	for (i = 0; i < MAXROOMS; i++) {
 		rw ? r_write(fp, (char *) (rooms + i), sizeof(room)) :
