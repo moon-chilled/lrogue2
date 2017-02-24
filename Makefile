@@ -10,8 +10,8 @@ CC = clang
 # -DCURSES enables a self-contained curses emulation package.  See notes
 # in curses.c for more info.
 
-CFLAGS = -c -DUNIX -DUNIX_SYS5 -std=c89 -g -fwritable-strings
-LDFLAGS = -lcurses
+CFLAGS = -c -DUNIX -DUNIX_SYS5 -std=c99 -g -fwritable-strings
+LDFLAGS = -lncurses
 
 
 
