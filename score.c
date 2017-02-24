@@ -13,7 +13,7 @@
 #include "rogue.h"
 #include "extern.h"
 
-char *score_file = "/usr/games/rogue.scores";
+char *score_file = "rogue.scores";
 
 extern char login_name[];
 extern char *m_names[];

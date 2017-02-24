@@ -88,7 +88,7 @@ rogue_time md_gct();
 void md_gfmt(char*, rogue_time*);
 boolean md_df(char*);
 char *md_gln();
-int md_gseed();
+unsigned long getseed();
 
 
 /* main.c */
@@ -213,7 +213,7 @@ void play_level();
 
 
 /* random.c */
-void srrandom(int);
+void srrandom(unsigned long);
 long rrandom();
 int get_rand(int, int);
 int rand_percent(int);

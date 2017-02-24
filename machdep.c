@@ -299,8 +299,8 @@ char *md_gln() {
  * exactly the same way given the same input.
  */
 
-int md_gseed() {
-	return(getpid());
+unsigned long getseed() {
+	return((getpid() * 1024) | md_gct().second*md_gct().second);
 }
 
 #endif /* UNIX */

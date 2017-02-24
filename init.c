@@ -29,7 +29,6 @@ extern boolean jump;
 
 int init(int argc, char *argv[]) {
 	char *pn;
-	int seed;
 
 	do_args(argc, argv);
 	do_opts();
@@ -59,8 +58,7 @@ int init(int argc, char *argv[]) {
 	if (score_only) {
 		put_scores((object *) 0, 0);
 	}
-	seed = md_gseed();
-	(void) srrandom(seed);
+	(void) srrandom(getseed());
 	if (rest_file) {
 		restore(rest_file);
 		return(1);
