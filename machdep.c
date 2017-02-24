@@ -361,17 +361,6 @@ void md_sleep(int nsecs) {
  * values are strings, and each string is identified by a name.  The names
  * of the values needed, and their use, is as follows:
  *
- *   TERMCAP
- *     The name of the users's termcap file, NOT the termcap entries
- *     themselves.  This is used ONLY if the program is compiled with
- *     CURSES defined (-DCURSES).  Even in this case, the program need
- *     not find a string for TERMCAP.  If it does not, it will use the
- *     default termcap file as returned by md_gdtcf();
- *   TERM
- *     The name of the users's terminal.  This is used ONLY if the program
- *     is compiled with CURSES defined (-DCURSES).  In this case, the string
- *     value for TERM must be found, or the routines in curses.c cannot
- *     function, and the program will quit.
  *   ROGUEOPTS
  *     A string containing the various game options.  This need not be
  *     defined.
@@ -382,12 +371,7 @@ void md_sleep(int nsecs) {
  *
  * If your system does not provide a means of searching for these values,
  * you will have to do it yourself.  None of the values above really need
- * to be defined except TERM when the program is compiled with CURSES
- * defined.  In this case, as a bare minimum, you can check the 'name'
- * parameter, and if it is "TERM" find the terminal name and return that,
- * else return zero.  If the program is not compiled with CURSES, you can
- * get by with simply always returning zero.  Returning zero indicates
- * that their is no defined value for the given string.
+ * to be defined, however.
  */
 
 char *
