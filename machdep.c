@@ -373,10 +373,7 @@ void md_sleep(int nsecs) {
  * to be defined, however.
  */
 
-char *
-md_getenv(name)
-char *name;
-{
+char *md_getenv(char *name) {
 	char *value;
 	char *getenv();
 
@@ -404,8 +401,7 @@ char *name;
  * exactly the same way given the same input.
  */
 
-md_gseed()
-{
+int md_gseed() {
 	return(getpid());
 }
 
@@ -416,9 +412,7 @@ md_gseed()
  * hang when it should quit.
  */
 
-md_exit(status)
-int status;
-{
+void md_exit(int status) {
 	exit(status);
 }
 
