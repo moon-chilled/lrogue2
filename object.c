@@ -14,6 +14,7 @@
 #include <curses.h>
 #endif
 #include "rogue.h"
+#include "extern.h"
 
 object level_objects;
 unsigned short dungeon[DROWS][DCOLS];
@@ -121,8 +122,7 @@ extern short party_room;
 extern char *error_file;
 extern boolean is_wood[];
 
-put_objects()
-{
+void put_objects() {
 	short i, n;
 	object *obj;
 
@@ -144,8 +144,7 @@ put_objects()
 	put_gold();
 }
 
-put_gold()
-{
+void put_gold() {
 	short i, j;
 	short row,col;
 	boolean is_maze, is_room;
@@ -173,10 +172,7 @@ put_gold()
 	}
 }
 
-plant_gold(row, col, is_maze)
-short row, col;
-boolean is_maze;
-{
+void plant_gold(short row, short col, boolean is_maze) {
 	object *obj;
 
 	obj = alloc_object();
@@ -190,20 +186,14 @@ boolean is_maze;
 	(void) add_to_pack(obj, &level_objects, 0);
 }
 
-place_at(obj, row, col)
-object *obj;
-{
+void place_at(object *obj, short row, short col) {
 	obj->row = row;
 	obj->col = col;
 	dungeon[row][col] |= OBJECT;
 	(void) add_to_pack(obj, &level_objects, 0);
 }
 
-object *
-object_at(pack, row, col)
-register object *pack;
-short row, col;
-{
+object *object_at(object *pack, short row, short col) {
 	object *obj;
 
 	obj = pack->next_object;
@@ -214,9 +204,7 @@ short row, col;
 	return(obj);
 }
 
-object *
-get_letter_object(ch)
-{
+object *get_letter_object(int ch) {
 	object *obj;
 
 	obj = rogue.pack.next_object;
@@ -227,9 +215,7 @@ get_letter_object(ch)
 	return(obj);
 }
 
-free_stuff(objlist)
-object *objlist;
-{
+void free_stuff(object *objlist) {
 	object *obj;
 
 	while (objlist->next_object) {
@@ -240,24 +226,7 @@ object *objlist;
 	}
 }
 
-#ifdef OLD
-free_free_list()
-{
-	object *obj;
-
-	while (free_list) {
-		obj = free_list;
-		free_list = free_list->next_object;
-		free_object(obj);
-	}
-}
-
-#endif
-
-char *
-name_of(obj)
-object *obj;
-{
+char *name_of(object *obj) {
 	char *retstring;
 
 	switch(obj->what_is) {
@@ -311,9 +280,7 @@ object *obj;
 	return(retstring);
 }
 
-object *
-gr_object()
-{
+object *gr_object() {
 	object *obj;
 
 	obj = alloc_object();
@@ -350,9 +317,7 @@ gr_object()
 	return(obj);
 }
 
-unsigned short
-gr_what_is()
-{
+unsigned short gr_what_is() {
 	short percent;
 	unsigned short what_is;
 
@@ -376,9 +341,7 @@ gr_what_is()
 	return(what_is);
 }
 
-gr_scroll(obj)
-object *obj;
-{
+void gr_scroll(object *obj) {
 	short percent;
 
 	percent = get_rand(0, 85);
@@ -412,9 +375,7 @@ object *obj;
 	}
 }
 
-gr_potion(obj)
-object *obj;
-{
+void gr_potion(object *obj) {
 	short percent;
 
 	percent = get_rand(1, 118);
@@ -452,10 +413,7 @@ object *obj;
 	}
 }
 
-gr_weapon(obj, assign_wk)
-object *obj;
-int assign_wk;
-{
+void gr_weapon(object *obj, boolean assign_wk) {
 	short percent;
 	short i;
 	short blessing, increment;
@@ -517,9 +475,7 @@ int assign_wk;
 	}
 }
 
-gr_armor(obj)
-object *obj;
-{
+void gr_armor(object *obj) {
 	short percent;
 	short blessing;
 
@@ -543,9 +499,7 @@ object *obj;
 	}
 }
 
-gr_wand(obj)
-object *obj;
-{
+void gr_wand(object *obj) {
 	obj->what_is = WAND;
 	obj->which_kind = get_rand(0, (WANDS - 1));
 	if (obj->which_kind == MAGIC_MISSILE) {
@@ -557,10 +511,7 @@ object *obj;
 	}
 }
 
-get_food(obj, force_ration)
-object *obj;
-boolean force_ration;
-{
+void get_food(object *obj, boolean force_ration) {
 	obj->what_is = FOOD;
 
 	if (force_ration || rand_percent(80)) {
@@ -570,32 +521,27 @@ boolean force_ration;
 	}
 }
 
-put_stairs()
-{
+void put_stairs() {
 	short row, col;
 
 	gr_row_col(&row, &col, (FLOOR | TUNNEL));
 	dungeon[row][col] |= STAIRS;
 }
 
-get_armor_class(obj)
-object *obj;
-{
+int get_armor_class(object *obj) {
 	if (obj) {
 		return(obj->class + obj->d_enchant);
 	}
 	return(0);
 }
 
-object *
-alloc_object()
-{
+object *alloc_object() {
 	object *obj;
 
 	if (free_list) {
 		obj = free_list;
 		free_list = free_list->next_object;
-	} else if (!(obj = (object *) md_malloc(sizeof(object)))) {
+	} else if (!(obj = (object *) malloc(sizeof(object)))) {
 /*			free_free_list();	*/
 			message("cannot allocate object, saving game", 0);
 			save_into_file(error_file);
@@ -609,15 +555,12 @@ alloc_object()
 	return(obj);
 }
 
-free_object(obj)
-object *obj;
-{
+void free_object(object *obj) {
 	obj->next_object = free_list;
 	free_list = obj;
 }
 
-make_party()
-{
+void make_party() {
 	short n;
 
 	party_room = gr_room();
@@ -628,8 +571,7 @@ make_party()
 	}
 }
 
-show_objects()
-{
+void show_objects() {
 	object *obj;
 	short mc, rc, row, col;
 	object *monster;
@@ -665,8 +607,7 @@ show_objects()
 	}
 }
 
-put_amulet()
-{
+void put_amulet() {
 	object *obj;
 
 	obj = alloc_object();
@@ -674,9 +615,7 @@ put_amulet()
 	rand_place(obj);
 }
 
-rand_place(obj)
-object *obj;
-{
+void rand_place(object *obj) {
 	short row, col;
 
 	gr_row_col(&row, &col, (FLOOR | TUNNEL));
@@ -684,8 +623,7 @@ object *obj;
 
 }
 
-new_object_for_wizard()
-{
+void new_object_for_wizard() {
 	short ch, max, wk;
 	object *obj;
 	char buf[80];
@@ -761,8 +699,7 @@ GIL:
 	(void) add_to_pack(obj, &rogue.pack, 1);
 }
 
-next_party()
-{
+int next_party() {
 	int n;
 
 	n = cur_level;

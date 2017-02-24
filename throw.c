@@ -14,13 +14,13 @@
 #include <curses.h>
 #endif
 #include "rogue.h"
+#include "extern.h"
 
 extern short cur_room;
 extern char *curse_message;
 extern char hit_message[];
 
-throw()
-{
+void throw() {
 	short wch;
 	boolean first_miss = 1;
 	object *weapon;
@@ -82,9 +82,7 @@ throw()
 	vanish(weapon, 1, &rogue.pack);
 }
 
-throw_at_monster(monster, weapon)
-object *monster, *weapon;
-{
+boolean throw_at_monster(object *monster, object *weapon) {
 	short damage, hit_chance;
 	short t;
 
@@ -120,12 +118,7 @@ object *monster, *weapon;
 	return(1);
 }
 
-object *
-get_thrown_at_monster(obj, dir, row, col)
-object *obj;
-short dir;
-short *row, *col;
-{
+object *get_thrown_at_monster(object *obj, short dir, short *row, short *col) {
 	short orow, ocol;
 	short i, ch;
 
@@ -164,10 +157,7 @@ short *row, *col;
 	return(0);
 }
 
-flop_weapon(weapon, row, col)
-object *weapon;
-short row, col;
-{
+void flop_weapon(object *weapon, short row, short col) {
 	object *new_weapon, *monster;
 	short i = 0;
 	char msg[80];
@@ -216,16 +206,13 @@ short row, col;
 
 		t = weapon->quantity;
 		weapon->quantity = 1;
-		sprintf(msg, "the %svanishes as it hits the ground",
-		name_of(weapon));
+		sprintf(msg, "the %svanishes as it hits the ground", name_of(weapon));
 		weapon->quantity = t;
 		message(msg, 0);
 	}
 }
 
-rand_around(i, r, c)
-short i, *r, *c;
-{
+void rand_around(short i, short *r, short *c) {
 	static char* pos = "\010\007\001\003\004\005\002\006\0";
 	static short row, col;
 	short j;

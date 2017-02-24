@@ -11,6 +11,7 @@
  */
 
 #include "rogue.h"
+#include "extern.h"
 
 extern short party_room;
 

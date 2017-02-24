@@ -37,7 +37,6 @@
  *      won't work, then a short escape sequence will do.  Same goes for "up"
  */
 
-#include <stdio.h>
 #include "rogue.h"
 
 boolean tc_tname();
@@ -84,46 +83,35 @@ char *SE = "";
 
 short cur_row, cur_col;
 
-initscr()
-{
+void initscr() {
 	get_term_info();
 	clear();
 	printf("%s%s", TI, VS);
 }
 
-endwin()
-{
+void endwin() {
 	printf("%s%s", TE, VE);
 	md_cbreak_no_echo_nonl(0);
 }
 
-move(row, col)
-short row, col;
-{
+void move(short row, short col) {
 	curscr->_cury = row;
 	curscr->_curx = col;
 	screen_dirty = 1;
 }
 
-mvaddstr(row, col, str)
-short row, col;
-char *str;
-{
+void mvaddstr(short row, short col, char *str) {
 	move(row, col);
 	addstr(str);
 }
 
-addstr(str)
-char *str;
-{
+void addstr(char *str) {
 	while (*str) {
 		addch((int) *str++);
 	}
 }
 
-addch(ch)
-register int ch;
-{
+void addch(int ch) {
 	short row, col;
 
 	row = curscr->_cury;
@@ -137,17 +125,13 @@ register int ch;
 	screen_dirty = 1;
 }
 
-mvaddch(row, col, ch)
-short row, col;
-int ch;
-{
+void mvaddch(short row, short col, int ch) {
 	move(row, col);
 	addch(ch);
 }
 
-refresh()
-{
-	register i, j, line;
+void refresh() {
+	int i, j, line;
 	short old_row, old_col, first_row;
 
 	if (screen_dirty) {
@@ -173,9 +157,7 @@ refresh()
 	}
 }
 
-wrefresh(scr)
-WINDOW *scr;
-{
+void wrefresh(WINDOW *scr) {
 	short i, col;
 
 	printf("%s", CL);
@@ -202,15 +184,12 @@ WINDOW *scr;
 	scr = scr;		/* make lint happy */
 }
 
-mvinch(row, col)
-short row, col;
-{
+void mvinch(short row, short col) {
 	move(row, col);
 	return((int) buffer[row][col]);
 }
 
-clear()
-{
+void clear() {
 	printf("%s", CL);
 	fflush(stdout);
 	cur_row = cur_col = 0;
@@ -218,8 +197,7 @@ clear()
 	clear_buffers();
 }
 
-clrtoeol()
-{
+void clrtoeol() {
 	short row, col;
 
 	row = curscr->_cury;
@@ -230,34 +208,28 @@ clrtoeol()
 	lines_dirty[row] = 1;
 }
 
-standout()
-{
+void standout() {
 	buf_stand_out = 1;
 }
 
-standend()
-{
+void standend() {
 	buf_stand_out = 0;
 }
 
-crmode()
-{
+void crmode() {
 	md_cbreak_no_echo_nonl(1);
 }
 
-noecho()
-{
+void noecho() {
 	/* crmode() takes care of this */
 }
 
-nonl()
-{
+void nonl() {
 	/* crmode() takes care of this */
 }
 
-clear_buffers()
-{
-	register i, j;
+void clear_buffers() {
+	int i, j;
 
 	screen_dirty = 0;
 
@@ -270,19 +242,15 @@ clear_buffers()
 	}
 }
 
-put_char_at(row, col, ch)
-register row, col, ch;
-{
+void put_char_at(int row, int col, int ch) {
 	put_cursor(row, col);
 	put_st_char(ch);
 	terminal[row][col] = (char) ch;
 	cur_col++;
 }
 
-put_cursor(row, col)
-register row, col;
-{
-	register i, rdif, cdif;
+void put_cursor(int row, int col) {
+	int i, rdif, cdif;
 	short ch, t;
 
 	rdif = (row > cur_row) ? row - cur_row : cur_row - row;
@@ -333,9 +301,7 @@ register row, col;
 	}
 }
 
-put_st_char(ch)
-register ch;
-{
+void put_st_char(int ch) {
 	if ((ch & ST_MASK) && (!term_stand_out)) {
 		ch &= ~ST_MASK;
 		printf("%s%c", SO, ch);
@@ -349,8 +315,7 @@ register ch;
 	}
 }
 
-get_term_info()
-{
+void get_term_info() {
 	FILE *fp;
 	char *term, *tcf;
 	char buf[BUFLEN];
@@ -383,12 +348,7 @@ get_term_info()
 	fclose(fp);
 }
 
-boolean
-tc_tname(fp, term, buf)
-FILE *fp;
-char *term;
-char *buf;
-{
+boolean tc_tname(FILE *fp, char *term, char *buf) {
 	short i, j;
 	boolean found = 0;
 	char *fg;
@@ -424,10 +384,7 @@ char *buf;
 	return(found);
 }
 
-tc_gtdata(fp, buf)
-FILE *fp;
-char *buf;
-{
+void tc_gtdata(FILE *fp, char *buf) {
 	short i;
 	boolean first = 1;
 
@@ -484,10 +441,7 @@ char *buf;
 	tc_cmget();
 }
 
-tc_gets(ibuf, tcstr)
-char *ibuf;
-char **tcstr;
-{
+void tc_gets(char *ibuf, char **tcstr) {
 	short i, j, k, n;
 	char obuf[BUFLEN];
 
@@ -554,16 +508,13 @@ char **tcstr;
 		j++;
 	}
 	obuf[j] = 0;
-	if (!(*tcstr = md_malloc(j + 1))) {
+	if (!(*tcstr = malloc(j + 1))) {
 		clean_up("cannot alloc() memory");
 	}
 	strcpy(*tcstr, obuf);
 }
 
-tc_gnum(ibuf, n)
-char *ibuf;
-int *n;
-{
+void tc_gnum(char *ibuf, int *n) {
 	short i;
 	int r = 0;
 
@@ -576,8 +527,7 @@ int *n;
 	*n = r;
 }
 
-tstp()
-{
+void tstp() {
 	endwin();
 	md_tstp();
 
@@ -587,8 +537,7 @@ tstp()
 	md_slurp();
 }
 
-tc_cmget()
-{
+void tc_cmget() {
 	short i = 0, j = 0, rc_spec = 0;
 
 	while (CM[i] && (CM[i] != '%') && (j < 15)) {

@@ -53,7 +53,6 @@
 
 #ifdef UNIX
 
-#include <stdio.h>
 #include <sys/file.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -65,8 +64,10 @@
 
 #include <signal.h>
 #include <time.h>
-#include "rogue.h"
 #include <unistd.h>
+
+#include "rogue.h"
+#include "extern.h"
 
 #ifdef _POSIX_SOURCE
 #include <unistd.h>
@@ -85,8 +86,7 @@
  * big deal.
  */
 
-md_slurp()
-{
+void md_slurp() {
 #ifdef UNIX_BSD4_2
 	long ln;
 	int i, n;
@@ -117,9 +117,7 @@ md_slurp()
  * cause certain command characters to be unavailable.
  */
 
-md_control_keybord(mode)
-short mode;
-{
+void md_control_keybord(short mode) {
 	static boolean called_before = 0;
 #ifdef _POSIX_SOURCE
         static struct termios tc_orig ;
@@ -186,8 +184,7 @@ short mode;
  * input, this is not usually critical.
  */
 
-md_heed_signals()
-{
+void md_heed_signals() {
 	signal(SIGINT, onintr);
 	signal(SIGQUIT, byebye);
 	signal(SIGHUP, error_save);
@@ -205,8 +202,7 @@ md_heed_signals()
  * file, corruption.
  */
 
-md_ignore_signals()
-{
+void md_ignore_signals() {
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGHUP, SIG_IGN);
@@ -224,10 +220,7 @@ md_ignore_signals()
  * modifying saved-game files.  This is probably no big deal.
  */
 
-int
-md_get_file_id(fname)
-char *fname;
-{
+int md_get_file_id(char *fname) {
 	struct stat sbuf;
 
 	if (stat(fname, &sbuf)) {
@@ -244,10 +237,7 @@ char *fname;
  * this routine can be stubbed by just returning 1.
  */
 
-int
-md_link_count(fname)
-char *fname;
-{
+int md_link_count(char *fname) {
 	struct stat sbuf;
 
 	stat(fname, &sbuf);
@@ -268,9 +258,7 @@ char *fname;
  * saved-game files and play them.  
  */
 
-md_gct(rt_buf)
-struct rogue_time *rt_buf;
-{
+void md_gct(struct rogue_time *rt_buf) {
 	struct timeval tv;
 	struct timezone tzp;
 	struct tm *t;
@@ -304,10 +292,7 @@ struct rogue_time *rt_buf;
  * saved-games that have been modified.
  */
 
-md_gfmt(fname, rt_buf)
-char *fname;
-struct rogue_time *rt_buf;
-{
+void md_gfmt(char *fname, struct rogue_time *rt_buf) {
 	struct stat sbuf;
 	long seconds;
 	struct tm *t;
@@ -335,10 +320,7 @@ struct rogue_time *rt_buf;
  * deleted and can be replayed.
  */
 
-boolean
-md_df(fname)
-char *fname;
-{
+boolean md_df(char *fname) {
 	if (unlink(fname)) {
 		return(0);
 	}
@@ -354,9 +336,7 @@ char *fname;
  * function, but then the score file would only have one name in it.
  */
 
-char *
-md_gln()
-{
+char *md_gln() {
 	char *t = malloc(sizeof(char)*30);
 	getlogin_r(t, 30);
 	return t;
@@ -371,9 +351,7 @@ md_gln()
  * effects.
  */
 
-md_sleep(nsecs)
-int nsecs;
-{
+void md_sleep(int nsecs) {
 	(void) sleep(nsecs);
 }
 
@@ -424,24 +402,6 @@ char *name;
 	return(value);
 }
 
-/* md_malloc()
- *
- * This routine allocates, and returns a pointer to, the specified number
- * of bytes.  This routines absolutely MUST be implemented for your
- * particular system or the program will not run at all.  Return zero
- * when no more memory can be allocated.
- */
-
-char *
-md_malloc(n)
-int n;
-{
-	char *malloc();
-	char *t;
-
-	t = malloc(n);
-	return(t);
-}
 
 /* md_gseed() (Get Seed)
  *

@@ -16,9 +16,7 @@ static int rand_deg = 31;
 static int rand_sep = 3;
 static long *end_ptr = &rntb[32];
 
-srrandom(x)
-int x;
-{
+void srrandom(int x) {
 	register int i;
 	long rrandom();
 
@@ -35,9 +33,7 @@ int x;
 	}
 }
 
-long
-rrandom()
-{
+long rrandom() {
 	long i;
 	
 	if (rand_type == 0) {
@@ -57,26 +53,8 @@ rrandom()
 	return(i);
 }
 
-#ifdef BROKEN
-get_rand(x, y)
-register int x, y;
-{
-	register int r, t;
-
-	if (x > y) {
-		t = y;
-		y = x;
-		x = t;
-	}
-	r = (int) rrandom();
-	r = (r % ((y-x)+1)) + x;
-	return(r);
-}
-#else
-get_rand(x, y)
-register int x, y;
-{
-    register int r, t;
+int get_rand(int x, int y) {
+    int r, t;
     long lr;
 
     if (x > y) {
@@ -90,16 +68,11 @@ register int x, y;
     r = (r % ((y - x) + 1)) + x;
     return(r);
 }
-#endif
 
-rand_percent(percentage)
-register int percentage;
-{
+int rand_percent(int percentage) {
 	return(get_rand(1, 100) <= percentage);
 }
 
-coin_toss()
-{
-
+int coin_toss() {
 	return(((rrandom() & 01) ? 1 : 0));
 }

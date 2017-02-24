@@ -13,8 +13,8 @@
 #ifndef BUILTIN_CURSES
 #include <curses.h>
 #endif
-#include <stdio.h>
 #include "rogue.h"
+#include "extern.h"
 
 char *score_file = "/usr/games/rogue.scores";
 
@@ -24,10 +24,7 @@ extern short max_level;
 extern boolean score_only, show_skull, msg_cleared;
 extern char *byebye_string, *nick_name;
 
-killed_by(monster, other)
-object *monster;
-short other;
-{
+void killed_by(object *monster, short other) {
 	char buf[80];
 
 	md_ignore_signals();
@@ -89,8 +86,7 @@ short other;
 	put_scores(monster, other);
 }
 
-win()
-{
+void win() {
 	unwield(rogue.weapon);		/* disarm and relax */
 	unwear(rogue.armor);
 	un_put_on(rogue.left_ring);
@@ -112,9 +108,7 @@ win()
 	put_scores((object *) 0, WIN);
 }
 
-quit(from_intrpt)
-boolean from_intrpt;
-{
+void quit(boolean from_intrpt) {
 	char buf[128];
 	short i, orow, ocol;
 	boolean mc;
@@ -153,10 +147,7 @@ boolean from_intrpt;
 	killed_by((object *) 0, QUIT);
 }
 
-put_scores(monster, other)
-object *monster;
-short other;
-{
+void put_scores(object *monster, short other) {
 	short i, n, rank = 10, x, ne = 0, found_player = -1;
 	char scores[10][82];
 	char n_names[10][30];
@@ -278,13 +269,7 @@ short other;
 	clean_up("");
 }
 
-insert_score(scores, n_names, n_name, rank, n, monster, other)
-char scores[][82];
-char n_names[][30];
-char *n_name;
-short rank, n;
-object *monster;
-{
+void insert_score(char scores[][82], char n_names[][30], char *n_name, short rank, short n, object *monster, boolean other) {
 	short i;
 	char buf[82];
 
@@ -337,9 +322,7 @@ object *monster;
 	(void) strcpy(n_names[rank], n_name);
 }
 
-is_vowel(ch)
-short ch;
-{
+boolean is_vowel(char ch) {
 	return( (ch == 'a') ||
 		(ch == 'e') ||
 		(ch == 'i') ||
@@ -347,8 +330,7 @@ short ch;
 		(ch == 'u') );
 }
 
-sell_pack()
-{
+void sell_pack() {
 	object *obj;
 	short row = 2, val;
 	char buf[80];
@@ -379,9 +361,7 @@ sell_pack()
 	message("", 0);
 }
 
-get_value(obj)
-object *obj;
-{
+int get_value(object *obj) {
 	short wc;
 	int val;
 
@@ -426,8 +406,7 @@ object *obj;
 	return(val);
 }
 
-id_all()
-{
+void id_all() {
 	short i;
 
 	for (i = 0; i < SCROLLS; i++) {
@@ -447,9 +426,7 @@ id_all()
 	}
 }
 
-name_cmp(s1, s2)
-char *s1, *s2;
-{
+int name_cmp(char *s1, char *s2) {
 	short i = 0;
 	int r;
 
@@ -462,10 +439,7 @@ char *s1, *s2;
 	return(r);
 }
 
-xxxx(buf, n)
-char *buf;
-short n;
-{
+void xxxx(char *buf, short n) {
 	short i;
 	unsigned char c;
 
@@ -478,10 +452,7 @@ short n;
 	}
 }
 
-long
-xxx(st)
-boolean st;
-{
+long xxx(boolean st) {
 	static long f, s;
 	long r;
 
@@ -496,9 +467,7 @@ boolean st;
 	return(r);
 }
 
-nickize(buf, score, n_name)
-char *buf, *score, *n_name;
-{
+void nickize(char *buf, char *score, char *n_name) {
 	short i = 15, j;
 
 	if (!n_name[0]) {
@@ -521,18 +490,14 @@ char *buf, *score, *n_name;
 	buf[79] = 0;
 }
 
-center(row, buf)
-short row;
-char *buf;
-{
+void center(short row, char *buf) {
 	short margin;
 
 	margin = ((DCOLS - strlen(buf)) / 2);
 	mvaddstr(row, margin, buf);
 }
 
-sf_error()
-{
+void sf_error() {
 	message("", 1);
 	clean_up("sorry, score file is out of order");
 }

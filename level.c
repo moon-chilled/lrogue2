@@ -14,6 +14,7 @@
 #include <curses.h>
 #endif
 #include "rogue.h"
+#include "extern.h"
 
 #define swap(x,y) {t = x; x = y; y = t;}
 
@@ -53,8 +54,7 @@ extern boolean see_invisible;
 extern short bear_trap, levitate, extra_hp, less_hp, cur_room;
 extern short party_counter;
 
-make_level()
-{
+void make_level() {
 	short i, j;
 	short must_exist1, must_exist2, must_exist3;
 	boolean big_room;
@@ -147,9 +147,7 @@ make_level()
 	}
 }
 
-make_room(rn, r1, r2, r3)
-short rn, r1, r2, r3;
-{
+void make_room(short rn, short r1, short r2, short r3) {
 	short left_col, right_col, top_row, bottom_row;
 	short width, height;
 	short row_offset, col_offset;
@@ -257,9 +255,7 @@ END:
 	rooms[rn].right_col = right_col;
 }
 
-connect_rooms(room1, room2)
-short room1, room2;
-{
+boolean connect_rooms(short room1, short room2) {
 	short row1, col1, row2, col2, dir;
 
 	if ((!(rooms[room1].is_room & (R_ROOM | R_MAZE))) ||
@@ -304,8 +300,7 @@ short room1, room2;
 	return(1);
 }
 
-clear_level()
-{
+void clear_level() {
 	short i, j;
 
 	for (i = 0; i < MAXROOMS; i++) {
@@ -330,11 +325,7 @@ clear_level()
 	clear();
 }
 
-put_door(rm, dir, row, col)
-room *rm;
-short dir;
-short *row, *col;
-{
+void put_door(room *rm, short dir, short *row, short *col) {
 	short wall_width;
 
 	wall_width = (rm->is_room & R_MAZE) ? 0 : 1;
@@ -367,9 +358,7 @@ short *row, *col;
 	rm->doors[dir/2].door_col = *col;
 }
 
-draw_simple_passage(row1, col1, row2, col2, dir)
-short row1, col1, row2, col2, dir;
-{
+void draw_simple_passage(short row1, short col1, short row2, short col2, short dir) {
 	short i, middle, t;
 
 	if ((dir == LEFT) || (dir == RIGHT)) {
@@ -408,18 +397,15 @@ short row1, col1, row2, col2, dir;
 	}
 }
 
-same_row(room1, room2)
-{
+boolean same_row(short room1, short room2) {
 	return((room1 / 3) == (room2 / 3));
 }
 
-same_col(room1, room2)
-{
+boolean same_col(short room1, short room2) {
 	return((room1 % 3) == (room2 % 3));
 }
 
-add_mazes()
-{
+void add_mazes() {
 	short i, j;
 	short start;
 	short maze_percent;
@@ -449,8 +435,7 @@ add_mazes()
 	}
 }
 
-fill_out_level()
-{
+void fill_out_level() {
 	short i, rn;
 
 	mix_random_rooms();
@@ -469,10 +454,7 @@ fill_out_level()
 	}
 }
 
-fill_it(rn, do_rec_de)
-int rn;
-boolean do_rec_de;
-{
+void fill_it(int rn, boolean do_rec_de) {
 	short i, tunnel_dir, door_dir, drow, dcol;
 	short target_room, rooms_found = 0;
 	short srow, scol, t;
@@ -530,11 +512,7 @@ boolean do_rec_de;
 	}
 }
 
-recursive_deadend(rn, offsets, srow, scol)
-short rn;
-short *offsets;
-short srow, scol;
-{
+void recursive_deadend(short rn, short *offsets, short srow, short scol) {
 	short i, de;
 	short drow, dcol, tunnel_dir;
 
@@ -565,12 +543,7 @@ short srow, scol;
 	}
 }
 
-boolean
-mask_room(rn, row, col, mask)
-short rn;
-short *row, *col;
-unsigned short mask;
-{
+boolean mask_room(short rn, short *row, short *col, unsigned short mask) {
 	short i, j;
 
 	for (i = rooms[rn].top_row; i <= rooms[rn].bottom_row; i++) {
@@ -585,9 +558,7 @@ unsigned short mask;
 	return(0);
 }
 
-make_maze(r, c, tr, br, lc, rc)
-short r, c, tr, br, lc, rc;
-{
+void make_maze(short r, short c, short tr, short br, short lc, short rc) {
 	char dirs[4];
 	short i, t;
 
@@ -650,9 +621,7 @@ short r, c, tr, br, lc, rc;
 	}
 }
 
-hide_boxed_passage(row1, col1, row2, col2, n)
-short row1, col1, row2, col2, n;
-{
+void hide_boxed_passage(short row1, short col1, short row2, short col2, short n) {
 	short i, j, t;
 	short row, col, row_cut, col_cut;
 	short h, w;
@@ -685,9 +654,8 @@ short row1, col1, row2, col2, n;
 	}
 }
 
-put_player(nr)
-short nr;		/* try not to put in this room */
-{
+/* try not to put in this room */
+void put_player(short nr) {
 	short rn = nr, misses;
 	short row, col;
 
@@ -716,8 +684,7 @@ short nr;		/* try not to put in this room */
 	mvaddch(rogue.row, rogue.col, rogue.fchar);
 }
 
-drop_check()
-{
+boolean drop_check() {
 	if (wizard) {
 		return(1);
 	}
@@ -732,8 +699,7 @@ drop_check()
 	return(0);
 }
 
-check_up()
-{
+boolean check_up() {
 	if (!wizard) {
 		if (!(dungeon[rogue.row][rogue.col] & STAIRS)) {
 			message("I see no way up", 0);
@@ -754,10 +720,7 @@ check_up()
 	return(0);
 }
 
-add_exp(e, promotion)
-int e;
-boolean promotion;
-{
+void add_exp(int e, boolean promotion) {
 	char mbuf[40];
 	short new_exp;
 	short i, hp;
@@ -785,9 +748,7 @@ boolean promotion;
 	}
 }
 
-get_exp_level(e)
-long e;
-{
+short get_exp_level(long e) {
 	short i;
 
 	for (i = 0; i < (MAX_EXP_LEVEL - 1); i++) {
@@ -798,16 +759,14 @@ long e;
 	return(i+1);
 }
 
-hp_raise()
-{
+int hp_raise() {
 	int hp;
 
 	hp = (wizard ? 10 : get_rand(3, 10));
 	return(hp);
 }
 
-show_average_hp()
-{
+void show_average_hp() {
 	char mbuf[80];
 	int real_average;
 	int effective_average;
@@ -825,8 +784,7 @@ show_average_hp()
 	message(mbuf, 0);
 }
 
-mix_random_rooms()
-{
+void mix_random_rooms() {
 	short i, t;
 	short x, y;
 

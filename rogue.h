@@ -10,6 +10,13 @@
  *
  */
 
+#ifndef ROGUE_H
+#define ROGUE_H
+
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 #define boolean char
 
 #define NOTHING		((unsigned short)     0)
@@ -376,7 +383,7 @@ extern object level_monsters;
 
 /* external routine declarations.
  */
-char *strcpy();
+/*char *strcpy();
 char *strncpy();
 char *strcat();
 
@@ -410,7 +417,7 @@ unsigned short gr_what_is();
 long rrandom();
 long lget_number();
 long xxx();
-int byebye(), onintr(), error_save();
+int byebye(), onintr(), error_save();*/
 
 struct rogue_time {
 	short year;		/* >= 1987 */
@@ -434,5 +441,6 @@ extern WINDOW *curscr;
 extern char *CL;
 
 char *md_gdtcf();
-
 #endif
+
+#endif /* ROGUE_H */

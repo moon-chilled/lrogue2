@@ -14,6 +14,7 @@
 #include <curses.h>
 #endif
 #include "rogue.h"
+#include "extern.h"
 
 short m_moves = 0;
 boolean jump = 1;
@@ -26,9 +27,7 @@ extern short e_rings, regeneration, auto_search;
 extern char hunger_str[];
 extern boolean being_held, interrupted, r_teleport;
 
-one_move_rogue(dirch, pickup)
-short dirch, pickup;
-{
+int one_move_rogue(short dirch, short pickup) {
 	short row, col;
 	object *obj;
 	char desc[DCOLS];
@@ -138,8 +137,7 @@ MVED:	if (reg_move()) {			/* fainted from hunger */
 	return((confused ? STOPPED_ON_SOMETHING : MOVED));
 }
 
-multiple_move_rogue(dirch)
-{
+void multiple_move_rogue(int dirch) {
 	short row, col;
 	short m;
 
@@ -176,9 +174,7 @@ multiple_move_rogue(dirch)
 	}
 }
 
-is_passable(row, col)
-register row, col;
-{
+boolean is_passable(int row, int col) {
 	if ((row < MIN_ROW) || (row > (DROWS - 2)) || (col < 0) ||
 		(col > (DCOLS-1))) {
 		return(0);
@@ -189,9 +185,7 @@ register row, col;
 	return(dungeon[row][col] & (FLOOR | TUNNEL | DOOR | STAIRS | TRAP));
 }
 
-next_to_something(drow, dcol)
-register drow, dcol;
-{
+boolean next_to_something(int drow, int dcol) {
 	short i, j, i_end, j_end, row, col;
 	short pass_count = 0;
 	unsigned short s;
@@ -250,8 +244,7 @@ register drow, dcol;
 	return(0);
 }
 
-can_move(row1, col1, row2, col2) 
-{
+boolean can_move(int row1, int col1, int row2, int col2) {
 	if (!is_passable(row2, col2)) {
 		return(0);
 	}
@@ -266,8 +259,7 @@ can_move(row1, col1, row2, col2)
 	return(1);
 }
 
-move_onto()
-{
+void move_onto() {
 	short ch;
 	boolean first_miss = 1;
 
@@ -284,9 +276,7 @@ move_onto()
 	}
 }
 
-boolean
-is_direction(c)
-{
+boolean is_direction(char c) {
 	return(
 		(c == 'h') ||
 		(c == 'j') ||
@@ -300,10 +290,7 @@ is_direction(c)
 		);
 }
 
-boolean
-check_hunger(messages_only)
-boolean messages_only;
-{
+boolean check_hunger(boolean messages_only) {
 	register short i, n;
 	boolean fainted = 0;
 
@@ -369,9 +356,7 @@ boolean messages_only;
 	return(fainted);
 }
 
-boolean
-reg_move()
-{
+boolean reg_move() {
 	boolean fainted;
 
 	if ((rogue.moves_left <= HUNGRY) || (cur_level >= max_level)) {
@@ -426,8 +411,7 @@ reg_move()
 	return(fainted);
 }
 
-rest(count)
-{
+void rest(int count) {
 	int i;
 
 	interrupted = 0;
@@ -440,8 +424,7 @@ rest(count)
 	}
 }
 
-gr_dir()
-{
+short gr_dir() {
 	short d;
 
 	d = get_rand(1, 8);
@@ -475,8 +458,7 @@ gr_dir()
 	return(d);
 }
 
-heal()
-{
+void heal() {
 	static short heal_exp = -1, n, c = 0;
 	static boolean alt;
 

@@ -13,8 +13,8 @@
 #ifndef BUILTIN_CURSES
 #include <curses.h>
 #endif
-#include <stdio.h>
 #include "rogue.h"
+#include "extern.h"
 
 short write_failed = 0;
 char *save_file = "";
@@ -43,8 +43,7 @@ extern short m_moves;
 
 extern boolean msg_cleared;
 
-save_game()
-{
+void save_game() {
 	char fname[64];
 
 	if (!get_input_line("file name?", save_file, fname, "game not saved",
@@ -56,9 +55,7 @@ save_game()
 	save_into_file(fname);
 }
 
-save_into_file(sfile)
-char *sfile;
-{
+void save_into_file(char *sfile) {
 	FILE *fp;
 	int file_id;
 	char name_buffer[80];
@@ -126,9 +123,7 @@ char *sfile;
 	}
 }
 
-restore(fname)
-char *fname;
-{
+void restore(char *fname) {
 	FILE *fp;
 	struct rogue_time saved_time, mod_time;
 	char buf[4];
@@ -207,10 +202,7 @@ char *fname;
 	fclose(fp);
 }
 
-write_pack(pack, fp)
-object *pack;
-FILE *fp;
-{
+void write_pack(object *pack, FILE *fp) {
 	object t;
 
 	while (pack = pack->next_object) {
@@ -220,11 +212,7 @@ FILE *fp;
 	r_write(fp, (char *) &t, sizeof(object));
 }
 
-read_pack(pack, fp, is_rogue)
-object *pack;
-FILE *fp;
-boolean is_rogue;
-{
+void read_pack(object *pack, FILE *fp, boolean is_rogue) {
 	object read_obj, *new_obj;
 
 	for (;;) {
@@ -250,10 +238,7 @@ boolean is_rogue;
 	}
 }
 
-rw_dungeon(fp, rw)
-FILE *fp;
-boolean rw;
-{
+void rw_dungeon(FILE *fp, boolean rw) {
 	short i, j;
 	char buf[DCOLS];
 
@@ -274,12 +259,7 @@ boolean rw;
 	}
 }
 
-rw_id(id_table, fp, n, wr)
-struct id id_table[];
-FILE *fp;
-int n;
-boolean wr;
-{
+void rw_id(struct id id_table[], FILE *fp, int n, boolean wr) {
 	short i;
 
 	for (i = 0; i < n; i++) {
@@ -297,12 +277,7 @@ boolean wr;
 	}
 }
 
-rw_id_alloc(id_table, fp, n, wr)
-struct id id_table[];
-FILE *fp;
-int n;
-boolean wr;
-{
+void rw_id_alloc(struct id id_table[], FILE *fp, int n, boolean wr) {
 	short i;
 
 	for (i = 0; i < n; i++) {
@@ -321,10 +296,7 @@ boolean wr;
 	}
 }
 
-write_string(s, fp)
-char *s;
-FILE *fp;
-{
+void write_string(char *s, FILE *fp) {
 	short n;
 
 	n = strlen(s) + 1;
@@ -333,10 +305,7 @@ FILE *fp;
 	r_write(fp, s, n);
 }
 
-read_string(s, fp)
-char *s;
-FILE *fp;
-{
+void read_string(char *s, FILE *fp) {
 	short n;
 
 	r_read(fp, (char *) &n, sizeof(short));
@@ -344,10 +313,7 @@ FILE *fp;
 	xxxx(s, n);
 }
 
-rw_rooms(fp, rw)
-FILE *fp;
-boolean rw;
-{
+void rw_rooms(FILE *fp, boolean rw) {
 	short i;
 
 	for (i = 0; i < MAXROOMS; i++) {
@@ -356,21 +322,13 @@ boolean rw;
 	}
 }
 
-r_read(fp, buf, n)
-FILE *fp;
-char *buf;
-int n;
-{
+void r_read(FILE *fp, char *buf, int n) {
 	if (fread(buf, sizeof(char), n, fp) != n) {
 		clean_up("read() failed, don't know why");
 	}
 }
 
-r_write(fp, buf, n)
-FILE *fp;
-char *buf;
-int n;
-{
+void r_write(FILE *fp, char *buf, int n) {
 	if (!write_failed) {
 		if (fwrite(buf, sizeof(char), n, fp) != n) {
 			message("write() failed, don't know why", 0);
@@ -380,10 +338,7 @@ int n;
 	}
 }
 
-boolean
-has_been_touched(saved_time, mod_time)
-struct rogue_time *saved_time, *mod_time;
-{
+boolean has_been_touched(struct rogue_time *saved_time, struct rogue_time *mod_time) {
 	if (saved_time->year < mod_time->year) {
 		return(1);
 	} else if (saved_time->year > mod_time->year) {

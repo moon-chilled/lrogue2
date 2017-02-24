@@ -14,6 +14,7 @@
 #include <curses.h>
 #endif
 #include "rogue.h"
+#include "extern.h"
 
 short halluc = 0;
 short blind = 0;
@@ -33,8 +34,7 @@ extern boolean being_held;
 extern char *fruit, *you_can_move_again;
 extern boolean sustain_strength;
 
-quaff()
-{
+void quaff() {
 	short ch;
 	char buf[80];
 	object *obj;
@@ -145,8 +145,7 @@ quaff()
 	vanish(obj, 1, &rogue.pack);
 }
 
-read_scroll()
-{
+void read_scroll() {
 	short ch;
 	object *obj;
 	char msg[DCOLS];
@@ -258,11 +257,7 @@ read_scroll()
    arrow (or whatever) in the quiver.  It will only decrement the count.
 */
 
-vanish(obj, rm, pack)
-object *obj;
-short rm;
-object *pack;
-{
+void vanish(object *obj, short rm, object *pack) {
 	if (obj->quantity > 1) {
 		obj->quantity--;
 	} else {
@@ -281,8 +276,7 @@ object *pack;
 	}
 }
 
-potion_heal(extra)
-{
+void potion_heal(boolean extra) {
 	int ratio;
 	short add;
 
@@ -326,8 +320,7 @@ potion_heal(extra)
 	}
 }
 
-idntfy()
-{
+void idntfy() {
 	short ch;
 	object *obj;
 	struct id *id_table;
@@ -353,8 +346,7 @@ AGAIN:
 	message(desc, 0);
 }
 
-eat()
-{
+void eat() {
 	short ch;
 	short moves;
 	object *obj;
@@ -394,8 +386,7 @@ eat()
 	vanish(obj, 1, &rogue.pack);
 }
 
-hold_monster()
-{
+void hold_monster() {
 	short i, j;
 	short mcount = 0;
 	object *monster;
@@ -426,8 +417,7 @@ hold_monster()
 	}
 }
 
-tele()
-{
+void tele() {
 	mvaddch(rogue.row, rogue.col, get_dungeon_char(rogue.row, rogue.col));
 
 	if (cur_room >= 0) {
@@ -438,8 +428,7 @@ tele()
 	bear_trap = 0;
 }
 
-hallucinate()
-{
+void hallucinate() {
 	object *obj, *monster;
 	short ch;
 
@@ -467,15 +456,13 @@ hallucinate()
 	}
 }
 
-unhallucinate()
-{
+void unhallucinate() {
 	halluc = 0;
 	relight();
 	message("everything looks SO boring now", 1);
 }
 
-unblind()
-{
+void unblind() {
 	blind = 0;
 	message("the veil of darkness lifts", 1);
 	relight();
@@ -487,8 +474,7 @@ unblind()
 	}
 }
 
-relight()
-{
+void relight() {
 	if (cur_room == PASSAGE) {
 		light_passage(rogue.row, rogue.col);
 	} else {
@@ -497,8 +483,7 @@ relight()
 	mvaddch(rogue.row, rogue.col, rogue.fchar);
 }
 
-take_a_nap()
-{
+void take_a_nap() {
 	short i;
 
 	i = get_rand(2, 5);
@@ -511,8 +496,7 @@ take_a_nap()
 	message(you_can_move_again, 0);
 }
 
-go_blind()
-{
+void go_blind() {
 	short i, j;
 
 	if (!blind) {
@@ -542,22 +526,18 @@ go_blind()
 	mvaddch(rogue.row, rogue.col, rogue.fchar);
 }
 
-char *
-get_ench_color()
-{
+char *get_ench_color() {
 	if (halluc) {
 		return(id_potions[get_rand(0, POTIONS-1)].title);
 	}
 	return("blue ");
 }
 
-confuse()
-{
+void confuse() {
 	confused += get_rand(12, 22);
 }
 
-unconfuse()
-{
+void unconfuse() {
 	char msg[80];
 
 	confused = 0;
@@ -565,8 +545,7 @@ unconfuse()
 	message(msg, 1);
 }
 
-uncurse_all()
-{
+void uncurse_all() {
 	object *obj;
 
 	obj = rogue.pack.next_object;

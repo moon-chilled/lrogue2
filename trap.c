@@ -14,6 +14,7 @@
 #include <curses.h>
 #endif
 #include "rogue.h"
+#include "extern.h"
 
 trap traps[MAX_TRAPS];
 boolean trap_door = 0;
@@ -41,9 +42,7 @@ extern short ring_exp;
 extern boolean sustain_strength;
 extern short blind;
 
-trap_at(row, col)
-register row, col;
-{
+int trap_at(int row, int col) {
 	short i;
 
 	for (i = 0; ((i < MAX_TRAPS) && (traps[i].trap_type != NO_TRAP)); i++) {
@@ -54,9 +53,7 @@ register row, col;
 	return(NO_TRAP);
 }
 
-trap_player(row, col)
-short row, col;
-{
+void trap_player(short row, short col) {
 	short t;
 
 	if ((t = trap_at(row, col)) == NO_TRAP) {
@@ -106,8 +103,7 @@ short row, col;
 	}
 }
 
-add_traps()
-{
+void add_traps() {
 	short i, n, tries = 0;
 	short row, col;
 
@@ -150,8 +146,7 @@ add_traps()
 	}
 }
 
-id_trap()
-{
+void id_trap() {
 	short dir, row, col;
 	short t;
 
@@ -178,8 +173,7 @@ id_trap()
 	}
 }
 
-show_traps()
-{
+void show_traps() {
 	short i, j;
 
 	for (i = 0; i < DROWS; i++) {
@@ -191,10 +185,7 @@ show_traps()
 	}
 }
 
-search(n, is_auto)
-short n;
-boolean is_auto;
-{
+void search(short n, boolean is_auto) {
 	short s, i, j, row, col, t;
 	short shown = 0, found = 0;
 	static boolean reg_search;

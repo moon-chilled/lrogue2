@@ -14,6 +14,7 @@
 #include <curses.h>
 #endif
 #include "rogue.h"
+#include "extern.h"
 
 room rooms[MAXROOMS];
 boolean rooms_visited[MAXROOMS];
@@ -21,9 +22,7 @@ boolean rooms_visited[MAXROOMS];
 extern short blind;
 extern boolean detect_monster;
 
-light_up_room(rn)
-int rn;
-{
+void light_up_room(int rn) {
 	short i, j;
 
 	if (!blind) {
@@ -48,8 +47,7 @@ int rn;
 	}
 }
 
-light_passage(row, col)
-{
+void light_passage(int row, int col) {
 	short i, j, i_end, j_end;
 
 	if (blind) {
@@ -67,9 +65,7 @@ light_passage(row, col)
 	}
 }
 
-darken_room(rn)
-short rn;
-{
+void darken_room(short rn) {
 	short i, j;
 
 	for (i = rooms[rn].top_row + 1; i < rooms[rn].bottom_row; i++) {
@@ -91,9 +87,7 @@ short rn;
 	}
 }
 
-get_dungeon_char(row, col)
-register row, col;
-{
+char get_dungeon_char(int row, int col) {
 	register unsigned short mask = dungeon[row][col];
 
 	if (mask & MONSTER) {
@@ -139,9 +133,7 @@ register row, col;
 	return(' ');
 }
 
-get_mask_char(mask)
-register unsigned short mask;
-{
+char get_mask_char(unsigned short mask) {
 		switch(mask) {
 		case SCROLL:
 			return('?');
@@ -166,10 +158,7 @@ register unsigned short mask;
 		}
 }
 
-gr_row_col(row, col, mask)
-short *row, *col;
-unsigned short mask;
-{
+void gr_row_col(short *row, short *col, unsigned short mask) {
 	short rn;
 	short r, c;
 
@@ -187,8 +176,7 @@ unsigned short mask;
 	*col = c;
 }
 
-gr_room()
-{
+short gr_room() {
 	short i;
 
 	do {
@@ -198,8 +186,7 @@ gr_room()
 	return(i);
 }
 
-party_objects(rn)
-{
+short party_objects(short rn) {
 	short i, j, nf = 0;
 	object *obj;
 	short n, N, row, col;
@@ -230,9 +217,7 @@ party_objects(rn)
 	return(nf);
 }
 
-get_room_number(row, col)
-register row, col;
-{
+int get_room_number(int row, int col) {
 	short i;
 
 	for (i = 0; i < MAXROOMS; i++) {
@@ -244,8 +229,7 @@ register row, col;
 	return(NO_ROOM);
 }
 
-is_all_connected()
-{
+boolean is_all_connected() {
 	short i, starting_room;
 
 	for (i = 0; i < MAXROOMS; i++) {
@@ -265,9 +249,7 @@ is_all_connected()
 	return(1);
 }
 
-visit_rooms(rn)
-int rn;
-{
+void visit_rooms(int rn) {
 	short i;
 	short oth_rn;
 
@@ -281,8 +263,7 @@ int rn;
 	}
 }
 
-draw_magic_map()
-{
+void draw_magic_map() {
 	short i, j, ch, och;
 	unsigned short mask = (HORWALL | VERTWALL | DOOR | TUNNEL | TRAP | STAIRS |
 			MONSTER);
@@ -327,11 +308,7 @@ draw_magic_map()
 	}
 }
 
-dr_course(monster, entering, row, col)
-object *monster;
-boolean entering;
-short row, col;
-{
+void dr_course(object *monster, boolean entering, short row, short col) {
 	short i, j, k, rn;
 	short r, rr;
 
@@ -401,9 +378,7 @@ short row, col;
 	}
 }
 
-get_oth_room(rn, row, col)
-short rn, *row, *col;
-{
+boolean get_oth_room(short rn, short *row, short *col) {
 	short d = -1;
 
 	if (*row == rooms[rn].top_row) {

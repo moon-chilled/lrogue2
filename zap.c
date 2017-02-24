@@ -14,13 +14,13 @@
 #include <curses.h>
 #endif
 #include "rogue.h"
+#include "extern.h"
 
 boolean wizard = 0;
 
 extern boolean being_held, score_only, detect_monster;
 
-zapp()
-{
+void zapp() {
 	short wch;
 	boolean first_miss = 1;
 	object *wand;
@@ -66,11 +66,7 @@ zapp()
 	(void) reg_move();
 }
 
-object *
-get_zapped_monster(dir, row, col)
-short dir;
-short *row, *col;
-{
+object *get_zapped_monster(short dir, short *row, short *col) {
 	short orow, ocol;
 
 	for (;;) {
@@ -89,10 +85,7 @@ short *row, *col;
 	}
 }
 
-zap_monster(monster, kind)
-object *monster;
-unsigned short kind;
-{
+void zap_monster(object *monster, unsigned short kind) {
 	short row, col;
 	object *nm;
 	short tc;
@@ -165,9 +158,7 @@ unsigned short kind;
 }
 
 #ifdef BROKEN
-tele_away(monster)
-object *monster;
-{
+void tele_away(object *monster) {
 	short row, col;
 
 	if (monster->m_flags & HOLDS) {
@@ -181,9 +172,7 @@ object *monster;
 	monster->trail_char = mvinch(row, col);
 }
 #else
-tele_away(monster)
-object *monster;
-{
+void tele_away(object *monster) {
     short row, col;
 
     if (monster->m_flags & HOLDS) {
@@ -201,8 +190,7 @@ object *monster;
 }
 #endif
 
-wizardize()
-{
+void wizardize() {
 	char buf[100];
 
 	if (wizard) {

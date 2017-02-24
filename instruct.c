@@ -6,13 +6,11 @@
 #include <curses.h>
 #endif
 #include "rogue.h"
-#include <string.h>
-#include <stdio.h>
+#include "extern.h"
 
 static char *instructions="/usr/games/rogue.instr";
 
-void Instructions()
-{
+void Instructions() {
 	char buffer[DROWS+1][DCOLS+1];
 	char buf[256];
 	FILE *f;

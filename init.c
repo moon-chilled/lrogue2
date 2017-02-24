@@ -13,8 +13,9 @@
 #ifndef BUILTIN_CURSES
 #include <curses.h>
 #endif
-#include <stdio.h>
+#include <string.h>
 #include "rogue.h"
+#include "extern.h"
 
 char login_name[30];
 char *nick_name = "";
@@ -30,10 +31,7 @@ extern char *save_file;
 extern short party_room, party_counter;
 extern boolean jump;
 
-init(argc, argv)
-int argc;
-char *argv[];
-{
+int init(int argc, char *argv[]) {
 	char *pn;
 	int seed;
 
@@ -83,8 +81,7 @@ char *argv[];
 	return(0);
 }
 
-player_init()
-{
+void player_init() {
 	object *obj;
 
 	rogue.pack.next_object = 0;
@@ -131,9 +128,7 @@ player_init()
 	(void) add_to_pack(obj, &rogue.pack, 1);
 }
 
-clean_up(estr)
-char *estr;
-{
+void clean_up(char *estr) {
 	if (save_is_interactive) {
 		if (init_curses) {
 			move(DROWS-1, 0);
@@ -146,8 +141,7 @@ char *estr;
 	md_exit(0);
 }
 
-start_window()
-{
+void start_window() {
 	crmode();
 	noecho();
 #ifndef BAD_NONL
@@ -156,14 +150,12 @@ start_window()
 	md_control_keybord(0);
 }
 
-stop_window()
-{
+void stop_window() {
 	endwin();
 	md_control_keybord(1);
 }
 
-byebye()
-{
+void byebye() {
 	md_ignore_signals();
 	if (ask_quit) {
 		quit(1);
@@ -173,8 +165,7 @@ byebye()
 	md_heed_signals();
 }
 
-onintr()
-{
+void onintr() {
 	md_ignore_signals();
 	if (cant_int) {
 		did_int = 1;
@@ -185,17 +176,13 @@ onintr()
 	md_heed_signals();
 }
 
-error_save()
-{
+void error_save() {
 	save_is_interactive = 0;
 	save_into_file(error_file);
 	clean_up("");
 }
 
-do_args(argc, argv)
-int argc;
-char *argv[];
-{
+void do_args(int argc, char *argv[]) {
 	short i, j;
 
 	for (i = 1; i < argc; i++) {
@@ -213,8 +200,7 @@ char *argv[];
 	}
 }
 
-do_opts()
-{
+void do_opts() {
 	char *eptr;
 
 	if (eptr = md_getenv("ROGUEOPTS")) {
@@ -252,10 +238,7 @@ do_opts()
 	}
 }
 
-env_get_value(s, e, add_blank)
-char **s, *e;
-boolean add_blank;
-{
+void env_get_value(char **s, char *e, boolean add_blank) {
 	short i = 0;
 	char *t;
 
@@ -270,7 +253,7 @@ boolean add_blank;
 			break;
 		}
 	}
-	if (!(*s = md_malloc(i + (add_blank ? 2 : 1)))) {
+	if (!(*s = malloc(i + (add_blank ? 2 : 1)))) {
 		clean_up("cannot alloc() memory");
 	}
 	(void) strncpy(*s, t, i);

@@ -14,6 +14,7 @@
 #include <curses.h>
 #endif
 #include "rogue.h"
+#include "extern.h"
 
 boolean interrupted = 0;
 char *unknown_command = "unknown command";
@@ -22,8 +23,7 @@ extern short party_room, bear_trap;
 extern char hit_message[];
 extern boolean wizard, trap_door;
 
-play_level()
-{
+void play_level() {
 	short ch;
 	int count;
 

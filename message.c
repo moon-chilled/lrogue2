@@ -13,8 +13,8 @@
 #ifndef BUILTIN_CURSES
 #include <curses.h>
 #endif
-#include <stdio.h>
 #include "rogue.h"
+#include "extern.h"
 
 char msg_line[DCOLS] = "";
 short msg_col = 0;
@@ -25,10 +25,7 @@ extern boolean cant_int, did_int, interrupted, save_is_interactive;
 extern short add_strength;
 extern short cur_level;
 
-message(msg, intrpt)
-char *msg;
-boolean intrpt;
-{
+void message(char *msg, boolean intrpt) {
 	if (!save_is_interactive) {
 		return;
 	}
@@ -58,15 +55,13 @@ boolean intrpt;
 	}
 }
 
-remessage()
-{
+void remessage() {
 	if (msg_line[0]) {
 		message(msg_line, 0);
 	}
 }
 
-check_message()
-{
+void check_message() {
 	if (msg_cleared) {
 		return;
 	}
@@ -76,12 +71,7 @@ check_message()
 	msg_cleared = 1;
 }
 
-get_input_line(prompt, insert, buf, if_cancelled, add_blank, do_echo)
-char *prompt, *buf, *insert;
-char *if_cancelled;
-boolean add_blank;
-boolean do_echo;
-{
+short get_input_line(char *prompt, char *insert, char *buf, char *if_cancelled, boolean add_blank, boolean do_echo) {
 	short ch;
 	short i = 0, n;
 
@@ -134,9 +124,8 @@ boolean do_echo;
 	return(i);
 }
 
-rgetchar()
-{
-	register ch;
+int rgetchar() {
+	int ch;
 
 	for(;;) {
 		ch = getchar();
@@ -165,9 +154,7 @@ Level: 99 Gold: 999999 Hp: 999(999) Str: 99(99) Arm: 99 Exp: 21/10000000 Hungry
 0    5    1    5    2    5    3    5    4    5    5    5    6    5    7    5
 */
 
-print_stats(stat_mask)
-register stat_mask;
-{
+void print_stats(int stat_mask) {
 	char buf[16];
 	boolean label;
 	int row = DROWS - 1;
@@ -246,10 +233,7 @@ register stat_mask;
 	refresh();
 }
 
-pad(s, n)
-char *s;
-short n;
-{
+void pad(char *s, short n) {
 	short i;
 
 	for (i = strlen(s); i < n; i++) {
@@ -257,8 +241,7 @@ short n;
 	}
 }
 
-save_screen()
-{
+void save_screen() {
 	FILE *fp;
 	short i, j, row, col;
 	char buf[DCOLS+2];
@@ -286,24 +269,16 @@ save_screen()
 	}
 }
 
-sound_bell()
-{
+void sound_bell() {
 	putchar(7);
 	fflush(stdout);
 }
 
-boolean
-is_digit(ch)
-short ch;
-{
+boolean is_digit(short ch) {
 	return((ch >= '0') && (ch <= '9'));
 }
 
-r_index(str, ch, last)
-char *str;
-int ch;
-boolean last;
-{
+int r_index(char *str, int ch, boolean last) {
 	int i = 0;
 
 	if (last) {

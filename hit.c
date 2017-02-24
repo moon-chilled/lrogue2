@@ -13,7 +13,9 @@
 #ifndef BUILTIN_CURSES
 #include <curses.h>
 #endif
+#include <string.h>
 #include "rogue.h"
+#include "extern.h"
 
 object *fight_monster = 0;
 boolean detect_monster;
@@ -23,11 +25,7 @@ extern short halluc, blind, cur_level;
 extern short add_strength, ring_exp, r_rings;
 extern boolean being_held, interrupted, wizard;
 
-mon_hit(monster, other, flame)
-register object *monster;
-char *other;
-boolean flame;
-{
+void mon_hit(object *monster, char *other, boolean flame) {
 	short damage, hit_chance;
 	char *mn;
 	int minus;
@@ -99,10 +97,7 @@ boolean flame;
 	}
 }
 
-rogue_hit(monster, force_hit)
-register object *monster;
-boolean force_hit;
-{
+void rogue_hit(object *monster, boolean force_hit) {
 	short damage, hit_chance;
 
 	if (monster) {
@@ -134,10 +129,7 @@ RET:	check_gold_seeker(monster);
 	}
 }
 
-rogue_damage(d, monster)
-short d;
-object *monster;
-{
+void rogue_damage(short d, object *monster) {
 	if (d >= rogue.hp_current) {
 		rogue.hp_current = 0;
 		print_stats(STAT_HP);
@@ -147,11 +139,8 @@ object *monster;
 	print_stats(STAT_HP);
 }
 
-get_damage(ds, r)
-char *ds;
-boolean r;
-{
-	register i = 0, j, n, d, total = 0;
+int get_damage(char *ds, boolean r) {
+	int i = 0, j, n, d, total = 0;
 
 	while (ds[i]) {
 		n = get_number(ds+i);
@@ -173,12 +162,9 @@ boolean r;
 	return(total);
 }
 
-get_w_damage(obj)
-object *obj;
-{
+int get_w_damage(object *obj) {
 	char new_damage[12];
-	register to_hit, damage;
-	register i = 0;
+	int to_hit, damage, i = 0;
 
 	if ((!obj) || (obj->what_is != WEAPON)) {
 		return(-1);
@@ -192,11 +178,8 @@ object *obj;
 	return(get_damage(new_damage, 1));
 }
 
-get_number(s)
-register char *s;
-{
-	register i = 0;
-	register total = 0;
+int get_number(char *s) {
+	int i = 0, total = 0;
 
 	while ((s[i] >= '0') && (s[i] <= '9')) {
 		total = (10 * total) + (s[i] - '0');
@@ -205,12 +188,8 @@ register char *s;
 	return(total);
 }
 
-long
-lget_number(s)
-register char *s;
-{
-	register long i = 0;
-	register long total = 0;
+long lget_number(char *s) {
+	long i = 0, total = 0;
 
 	while ((s[i] >= '0') && (s[i] <= '9')) {
 		total = (10 * total) + (s[i] - '0');
@@ -219,17 +198,14 @@ register char *s;
 	return(total);
 }
 
-to_hit(obj)
-object *obj;
-{
+int to_hit(object *obj) {
 	if (!obj) {
 		return(1);
 	}
 	return(get_number(obj->damage) + obj->hit_enchant);
 }
 
-damage_for_strength()
-{
+int damage_for_strength() {
 	short strength;
 
 	strength = rogue.str_current + add_strength;
@@ -258,9 +234,7 @@ damage_for_strength()
 	return(8);
 }
 
-mon_damage(monster, damage)
-object *monster;
-{
+boolean mon_damage(object *monster, int damage) {
 	char *mn;
 	short row, col;
 
@@ -290,9 +264,7 @@ object *monster;
 	return(1);
 }
 
-fight(to_the_death)
-boolean to_the_death;
-{
+void fight(boolean to_the_death) {
 	short ch, c;
 	short row, col;
 	boolean first_miss = 1;
@@ -341,11 +313,7 @@ boolean to_the_death;
 	}
 }
 
-get_dir_rc(dir, row, col, allow_off_screen)
-short dir;
-short *row, *col;
-short allow_off_screen;
-{
+void get_dir_rc(short dir, short *row, short *col, boolean allow_off_screen) {
 	switch(dir) {
 	case 'h':
 		if (allow_off_screen || (*col > 0)) {
@@ -394,9 +362,7 @@ short allow_off_screen;
 	}
 }
 
-get_hit_chance(weapon)
-object *weapon;
-{
+short get_hit_chance(object *weapon) {
 	short hit_chance;
 
 	hit_chance = 40;
@@ -405,9 +371,7 @@ object *weapon;
 	return(hit_chance);
 }
 
-get_weapon_damage(weapon)
-object *weapon;
-{
+short get_weapon_damage(object *weapon) {
 	short damage;
 
 	damage = get_w_damage(weapon);

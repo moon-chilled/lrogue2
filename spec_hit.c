@@ -14,6 +14,7 @@
 #include <curses.h>
 #endif
 #include "rogue.h"
+#include "extern.h"
 
 short less_hp = 0;
 char *flame_name = "flame";
@@ -25,9 +26,7 @@ extern boolean detect_monster, mon_disappeared;
 extern boolean sustain_strength, maintain_armor;
 extern char *you_can_move_again;
 
-special_hit(monster)
-object *monster;
-{
+void special_hit(object *monster) {
 	if ((monster->m_flags & CONFUSED) && rand_percent(66)) {
 		return;
 	}
@@ -56,9 +55,7 @@ object *monster;
 	}
 }
 
-rust(monster)
-object *monster;
-{
+void rust(object *monster) {
 	if ((!rogue.armor) || (get_armor_class(rogue.armor) <= 1) ||
 		(rogue.armor->which_kind == LEATHER)) {
 		return;
@@ -75,9 +72,7 @@ object *monster;
 	}
 }
 
-freeze(monster)
-object *monster;
-{
+void freeze(object *monster) {
 	short freeze_percent = 99;
 	short i, n;
 
@@ -108,9 +103,7 @@ object *monster;
 	}
 }
 
-steal_gold(monster)
-object *monster;
-{
+void steal_gold(object *monster) {
 	int amount;
 
 	if ((rogue.gold <= 0) || rand_percent(10)) {
@@ -128,9 +121,7 @@ object *monster;
 	disappear(monster);
 }
 
-steal_item(monster)
-object *monster;
-{
+void steal_item(object *monster) {
 	object *obj;
 	short i, n, t;
 	char desc[80];
@@ -182,9 +173,7 @@ DSPR:
 	disappear(monster);
 }
 
-disappear(monster)
-object *monster;
-{
+void disappear(object *monster) {
 	short row, col;
 
 	row = monster->row;
@@ -199,9 +188,7 @@ object *monster;
 	mon_disappeared = 1;
 }
 
-cough_up(monster)
-object *monster;
-{
+void cough_up(object *monster) {
 	object *obj;
 	short row, col, i, n;
 
@@ -243,10 +230,7 @@ object *monster;
 	free_object(obj);
 }
 
-try_to_cough(row, col, obj)
-short row, col;
-object *obj;
-{
+boolean try_to_cough(short row, short col, object *obj) {
 	if ((row < MIN_ROW) || (row > (DROWS-2)) || (col < 0) || (col>(DCOLS-1))) {
 		return(0);
 	}
@@ -262,9 +246,7 @@ object *obj;
 	return(0);
 }
 
-seek_gold(monster)
-object *monster;
-{
+boolean seek_gold(object *monster) {
 	short i, j, rn, s;
 
 	if ((rn = get_room_number(monster->row, monster->col)) < 0) {
@@ -294,9 +276,7 @@ object *monster;
 	return(0);
 }
 
-gold_at(row, col)
-short row, col;
-{
+boolean gold_at(short row, short col) {
 	if (dungeon[row][col] & OBJECT) {
 		object *obj;
 
@@ -308,15 +288,11 @@ short row, col;
 	return(0);
 }
 
-check_gold_seeker(monster)
-object *monster;
-{
+void check_gold_seeker(object *monster) {
 	monster->m_flags &= (~SEEKS_GOLD);
 }
 
-check_imitator(monster)
-object *monster;
-{
+boolean check_imitator(object *monster) {
 	char msg[80];
 
 	if (monster->m_flags & IMITATES) {
@@ -333,11 +309,9 @@ object *monster;
 	return(0);
 }
 
-imitating(row, col)
-register short row, col;
-{
+boolean imitating(short row, short col) {
 	if (dungeon[row][col] & MONSTER) {
-		object *object_at(), *monster;
+		object *monster;
 
 		if (monster = object_at(&level_monsters, row, col)) {
 			if (monster->m_flags & IMITATES) {
@@ -348,9 +322,7 @@ register short row, col;
 	return(0);
 }
 
-sting(monster)
-object *monster;
-{
+void sting(object *monster) {
 	short sting_chance = 35;
 	char msg[80];
 
@@ -371,8 +343,7 @@ object *monster;
 	}
 }
 
-drop_level()
-{
+void drop_level() {
 	int hp;
 
 	if (rand_percent(80) || (rogue.exp <= 5)) {
@@ -390,8 +361,7 @@ drop_level()
 	add_exp(1, 0);
 }
 
-drain_life()
-{
+void drain_life() {
 	short n;
 
 	if (rand_percent(60) || (rogue.hp_max <= 30) || (rogue.hp_current < 10)) {
@@ -418,9 +388,7 @@ drain_life()
 	print_stats((STAT_STRENGTH | STAT_HP));
 }
 
-m_confuse(monster)
-object *monster;
-{
+boolean m_confuse(object *monster) {
 	char msg[80];
 
 	if (!rogue_can_see(monster->row, monster->col)) {
@@ -440,9 +408,7 @@ object *monster;
 	return(0);
 }
 
-flame_broil(monster)
-object *monster;
-{
+boolean flame_broil(object *monster) {
 	short row, col;
 
 	if ((!mon_sees(monster, rogue.row, rogue.col)) || coin_toss()) {
@@ -483,10 +449,7 @@ object *monster;
 	return(1);
 }
 
-get_closer(row, col, trow, tcol)
-short *row, *col;
-short trow, tcol;
-{
+void get_closer(short *row, short *col, short trow, short tcol) {
 	if (*row < trow) {
 		(*row)++;
 	} else if (*row > trow) {

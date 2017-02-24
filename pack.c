@@ -14,13 +14,11 @@
 #include <curses.h>
 #endif
 #include "rogue.h"
+#include "extern.h"
 
 char *curse_message = "you can't, it appears to be cursed";
 
-object *
-add_to_pack(obj, pack, condense)
-object *obj, *pack;
-{
+object *add_to_pack(object *obj, object *pack, boolean condense) {
 	object *op;
 
 	if (condense) {
@@ -45,19 +43,14 @@ object *obj, *pack;
 	return(obj);
 }
 
-take_from_pack(obj, pack)
-object *obj, *pack;
-{
+void take_from_pack(object *obj, object *pack) {
 	while (pack->next_object != obj) {
 		pack = pack->next_object;
 	}
 	pack->next_object = pack->next_object->next_object;
 }
 
-object *
-pick_up(row, col, status)
-short *status;
-{
+object *pick_up(int row, int col, short *status) {
 	object *obj;
 
 	obj = object_at(&level_objects, row, col);
@@ -92,8 +85,7 @@ short *status;
 	return(obj);
 }
 
-drop()
-{
+void drop() {
 	object *obj, *new;
 	short ch;
 	char desc[DCOLS];
@@ -154,10 +146,7 @@ drop()
 	(void) reg_move();
 }
 
-object *
-check_duplicate(obj, pack)
-object *obj, *pack;
-{
+object *check_duplicate(object *obj, object *pack) {
 	object *op;
 
 	if (!(obj->what_is & (WEAPON | FOOD | SCROLL | POTION))) {
@@ -188,10 +177,9 @@ object *obj, *pack;
 	return(0);
 }
 
-next_avail_ichar()
-{
-	register object *obj;
-	register i;
+char next_avail_ichar() {
+	object *obj;
+	int i;
 	boolean ichars[26];
 
 	for (i = 0; i < 26; i++) {
@@ -210,16 +198,12 @@ next_avail_ichar()
 	return('?');
 }
 
-wait_for_ack()
-{
+void wait_for_ack() {
 	while (rgetchar() != ' ') ;
 }
 
-pack_letter(prompt, mask)
-char *prompt;
-unsigned short mask;
-{
-	short ch;
+int pack_letter(char *prompt, unsigned short mask) {
+	int ch;
 	unsigned short tmask = mask;
 
 	if (!mask_pack(&rogue.pack, mask)) {
@@ -251,8 +235,7 @@ unsigned short mask;
 	return(ch);
 }
 
-take_off()
-{
+void take_off() {
 	char desc[DCOLS];
 	object *obj;
 
@@ -274,8 +257,7 @@ take_off()
 	}
 }
 
-wear()
-{
+void wear() {
 	short ch;
 	register object *obj;
 	char desc[DCOLS];
@@ -306,25 +288,20 @@ wear()
 	(void) reg_move();
 }
 
-unwear(obj)
-object *obj;
-{
+void unwear(object *obj) {
 	if (obj) {
 		obj->in_use_flags &= (~BEING_WORN);
 	}
 	rogue.armor = (object *) 0;
 }
 
-do_wear(obj)
-object *obj;
-{
+void do_wear(object *obj) {
 	rogue.armor = obj;
 	obj->in_use_flags |= BEING_WORN;
 	obj->identified = 1;
 }
 
-wield()
-{
+void wield() {
 	short ch;
 	register object *obj;
 	char desc[DCOLS];
@@ -360,24 +337,19 @@ wield()
 	}
 }
 
-do_wield(obj)
-object *obj;
-{
+void do_wield(object *obj) {
 	rogue.weapon = obj;
 	obj->in_use_flags |= BEING_WIELDED;
 }
 
-unwield(obj)
-object *obj;
-{
+void unwield(object *obj) {
 	if (obj) {
 		obj->in_use_flags &= (~BEING_WIELDED);
 	}
 	rogue.weapon = (object *) 0;
 }
 
-call_it()
-{
+void call_it() {
 	short ch;
 	register object *obj;
 	struct id *id_table;
@@ -404,9 +376,7 @@ call_it()
 	}
 }
 
-pack_count(new_obj)
-object *new_obj;
-{
+int pack_count(object *new_obj) {
 	object *obj;
 	short count = 0;
 
@@ -431,11 +401,7 @@ object *new_obj;
 	return(count);
 }
 
-boolean
-mask_pack(pack, mask)
-object *pack;
-unsigned short mask;
-{
+boolean mask_pack(object *pack, unsigned short mask) {
 	while (pack->next_object) {
 		pack = pack->next_object;
 		if (pack->what_is & mask) {
@@ -445,10 +411,7 @@ unsigned short mask;
 	return(0);
 }
 
-is_pack_letter(c, mask)
-short *c;
-unsigned short *mask;
-{
+boolean is_pack_letter(short *c, unsigned short *mask) {
 	if (((*c == '?') || (*c == '!') || (*c == ':') || (*c == '=') ||
 		(*c == ')') || (*c == ']') || (*c == '/') || (*c == ','))) {
 		switch(*c) {
@@ -483,13 +446,11 @@ unsigned short *mask;
 	return(((*c >= 'a') && (*c <= 'z')) || (*c == CANCEL) || (*c == LIST));
 }
 
-has_amulet()
-{
+boolean has_amulet() {
 	return(mask_pack(&rogue.pack, AMULET));
 }
 
-kick_into_pack()
-{
+void kick_into_pack() {
     object *obj;
     char desc[DCOLS];
     short n, stat;
@@ -516,4 +477,3 @@ kick_into_pack()
         }
     }
 }
-

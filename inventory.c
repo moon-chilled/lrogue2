@@ -14,6 +14,7 @@
 #include <curses.h>
 #endif
 #include "rogue.h"
+#include "extern.h"
 
 #define swap_string(x,y) {t = x; x = y; y = t;}
 
@@ -115,10 +116,7 @@ char *syllables[MAXSYLLABLES] = {
 
 extern boolean wizard;
 
-inventory(pack, mask)
-object *pack;
-unsigned short mask;
-{
+void inventory(object *pack, unsigned short mask) {
 	object *obj;
 	short i = 0, j, maxlen = 0, n;
 	char descs[MAX_PACK_COUNT+1][DCOLS];
@@ -170,8 +168,7 @@ unsigned short mask;
 	}
 }
 
-mix_colors()
-{
+void mix_colors() {
 	short i, j, k;
 	char *t;
 
@@ -182,8 +179,7 @@ mix_colors()
 	}
 }
 
-make_scroll_titles()
-{
+void make_scroll_titles() {
 	short i, j, n;
 	short sylls, s;
 
@@ -191,7 +187,7 @@ make_scroll_titles()
 		sylls = get_rand(2, 5);
 		id_scrolls[i].title=(char *)malloc(128);
 		if(id_scrolls[i].title==(char *)0)
-			clean_up("Panic: no memory.",0);
+			clean_up("Panic: no memory.");
 		(void) strcpy(id_scrolls[i].title, "'");
 
 		for (j = 0; j < sylls; j++) {
@@ -203,10 +199,7 @@ make_scroll_titles()
 	}
 }
 
-get_desc(obj, desc)
-object *obj;
-char *desc;
-{
+void get_desc(object *obj, char *desc) {
 	char *item_name;
 	struct id *id_table;
 	char more_info[32];
@@ -368,8 +361,7 @@ ANA:
 	}
 }
 
-get_wand_and_ring_materials()
-{
+void get_wand_and_ring_materials() {
 	short i, j;
 	boolean used[WAND_MATERIALS];
 
@@ -398,9 +390,7 @@ get_wand_and_ring_materials()
 	}
 }
 
-single_inv(ichar)
-short ichar;
-{
+void single_inv(short ichar) {
 	short ch;
 	char desc[DCOLS];
 	object *obj;
@@ -422,10 +412,7 @@ short ichar;
 	message(desc, 0);
 }
 
-struct id *
-get_id_table(obj)
-object *obj;
-{
+struct id *get_id_table(object *obj) {
 	switch(obj->what_is) {
 	case SCROLL:
 		return(id_scrolls);
@@ -443,9 +430,7 @@ object *obj;
 	return((struct id *) 0);
 }
 
-inv_armor_weapon(is_weapon)
-boolean is_weapon;
-{
+void inv_armor_weapon(boolean is_weapon) {
 	if (is_weapon) {
 		if (rogue.weapon) {
 			single_inv(rogue.weapon->ichar);
