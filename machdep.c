@@ -278,48 +278,6 @@ char *md_gln() {
 	return t;
 }
 
-/* md_sleep:
- *
- * This routine causes the game to pause for the specified number of
- * seconds.
- *
- * This routine is not necessary at all, and can be stubbed with no ill
- * effects.
- */
-
-void md_sleep(int nsecs) {
-	(void) sleep(nsecs);
-}
-
-/* md_getenv()
- *
- * This routine gets certain values from the user's environment.  These
- * values are strings, and each string is identified by a name.  The names
- * of the values needed, and their use, is as follows:
- *
- *   ROGUEOPTS
- *     A string containing the various game options.  This need not be
- *     defined.
- *   HOME
- *     The user's home directory.  This is only used when the user specifies
- *     '~' as the first character of a saved-game file.  This string need
- *     not be defined.
- *
- * If your system does not provide a means of searching for these values,
- * you will have to do it yourself.  None of the values above really need
- * to be defined, however.
- */
-
-char *md_getenv(char *name) {
-	char *value;
-	char *getenv();
-
-	value = getenv(name);
-
-	return(value);
-}
-
-
 /* md_gseed() (Get Seed)
  *
  * This function returns a seed for the random number generator (RNG).  This

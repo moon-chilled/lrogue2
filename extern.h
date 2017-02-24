@@ -88,8 +88,6 @@ void md_gct(rogue_time*);
 void md_gfmt(char*, rogue_time*);
 boolean md_df(char*);
 char *md_gln();
-void md_sleep(int);
-char *md_getenv(char*);
 int md_gseed();
 
 

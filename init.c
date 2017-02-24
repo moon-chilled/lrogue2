@@ -140,9 +140,7 @@ void clean_up(char *estr) {
 void start_window() {
 	crmode();
 	noecho();
-#ifndef BAD_NONL
 	nonl();
-#endif
 	md_control_keyboard(0);
 }
 
@@ -199,7 +197,7 @@ void do_args(int argc, char *argv[]) {
 void do_opts() {
 	char *eptr;
 
-	if ((eptr = md_getenv("ROGUEOPTS"))) {
+	if ((eptr = getenv("ROGUEOPTS"))) {
 		for (;;) {
 			while ((*eptr) == ' ') {
 				eptr++;

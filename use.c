@@ -484,12 +484,12 @@ void take_a_nap() {
 	int i;
 
 	i = get_rand(2, 5);
-	md_sleep(1);
+	sleep(1);
 
 	while (i--) {
 		mv_mons();
 	}
-	md_sleep(1);
+	sleep(1);
 	message(you_can_move_again, 0);
 }
 

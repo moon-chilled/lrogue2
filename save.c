@@ -60,7 +60,7 @@ void save_into_file(char *sfile) {
 	rogue_time rt_buf;
 
 	if (sfile[0] == '~') {
-		if ((hptr = md_getenv("HOME"))) {
+		if ((hptr = getenv("HOME"))) {
 			(void) strcpy(name_buffer, hptr);
 			(void) strcat(name_buffer, sfile+1);
 			sfile = name_buffer;
