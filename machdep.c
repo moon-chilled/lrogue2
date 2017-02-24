@@ -1,5 +1,4 @@
 #define _POSIX_SOURCE
-#define LINUX
 /*
  * machdep.c
  *
