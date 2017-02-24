@@ -1,25 +1,16 @@
-ROGUE_OBJS = curses.o hit.o init.o instruct.o inventory.o level.o machdep.o main.o \
+ROGUE_OBJS = hit.o init.o instruct.o inventory.o level.o machdep.o main.o \
     message.o monster.o move.o object.o pack.o play.o random.o ring.o \
     room.o save.o score.o spec_hit.o throw.o trap.o use.o zap.o
 
 CC = clang
 
-# Remember to remove the "-lcurses -ltermlib" if compiling with -DCURSES.
-# Put into CFLAGS those UNIX "defines" which apply to your system.  Their
-# should be at least two.
-# -DCURSES enables a self-contained curses emulation package.  See notes
-# in curses.c for more info.
 
 CFLAGS = -c -DUNIX -DUNIX_SYS5 -std=c99 -g -fwritable-strings
-LDFLAGS = -lncurses
-
+LDFLAGS = -lncurses -g
 
 
 rogue: $(ROGUE_OBJS)
 	$(CC) $(LDFLAGS) $(ROGUE_OBJS) -o rogue
-
-curses.o: curses.c rogue.h
-	$(CC) $(CFLAGS) curses.c
 
 hit.o: hit.c rogue.h
 	$(CC) $(CFLAGS) hit.c
@@ -91,4 +82,4 @@ zap.o: zap.c rogue.h
 	$(CC) $(CFLAGS) zap.c
 
 clean:
-	rm *.o rogue
+	-rm -f *.o rogue

@@ -381,44 +381,6 @@ extern object level_monsters;
 
 #define MIN_ROW 1
 
-/* external routine declarations.
- */
-/*char *strcpy();
-char *strncpy();
-char *strcat();
-
-char *mon_name();
-char *get_ench_color();
-char *name_of();
-char *md_gln();
-char *md_getenv();
-char *md_malloc();
-boolean is_direction();
-boolean mon_sees();
-boolean mask_pack();
-boolean mask_room();
-boolean is_digit();
-boolean check_hunger();
-boolean reg_move();
-boolean md_df();
-boolean has_been_touched();
-object *add_to_pack();
-object *alloc_object();
-object *get_letter_object();
-object *gr_monster();
-object *get_thrown_at_monster();
-object *get_zapped_monster();
-object *check_duplicate();
-object *gr_object();
-object *object_at();
-object *pick_up();
-struct id *get_id_table();
-unsigned short gr_what_is();
-long rrandom();
-long lget_number();
-long xxx();
-int byebye(), onintr(), error_save();*/
-
 struct rogue_time {
 	short year;		/* >= 1987 */
 	short month;	/* 1 - 12 */
@@ -427,20 +389,4 @@ struct rogue_time {
 	short minute;	/* 0 - 59 */
 	short second;	/* 0 - 59 */
 };
-
-#ifdef BUILTIN_CURSES
-struct _win_st {
-	short _cury, _curx;
-	short _maxy, _maxx;
-};
-
-typedef struct _win_st WINDOW;
-
-extern int LINES, COLS;
-extern WINDOW *curscr;
-extern char *CL;
-
-char *md_gdtcf();
-#endif
-
 #endif /* ROGUE_H */

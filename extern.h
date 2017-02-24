@@ -3,39 +3,6 @@
 
 #define boolean char
 
-/* curses.c */
-#ifdef BUILTIN_CURSES
-void initscr();
-void endwin();
-void move(short, short);
-void mvaddstr(short, short, char*);
-void addstr(char*);
-void addch(int);
-void mvaddch(short, short, int);
-void refresh();
-void wrefresh(WINDOW*);
-int mvinch(short, short);
-void clear();
-void clrtoeol();
-void standout();
-void standend();
-void crmode();
-void noecho();
-void nonl();
-void clear_buffers();
-void put_char_at(int, int, int);
-void put_cursor(int, int);
-void put_st_char(int);
-void get_term_info();
-boolean tc_tname(FILE*, char*, char*);
-void tc_gtdata(FILE*, char*);
-void tc_gets(char*, char**);
-void tc_gnum(char*, int*);
-void tstp();
-void tc_cmget();
-#endif /* BUILTIN_CURSES */
-
-
 /* hit.c */
 void mon_hit(object*, char*, boolean);
 void rogue_hit(object*, boolean);
