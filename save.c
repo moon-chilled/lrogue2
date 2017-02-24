@@ -60,7 +60,7 @@ void save_into_file(char *sfile) {
 	rogue_time rt_buf;
 
 	if (sfile[0] == '~') {
-		if (hptr = md_getenv("HOME")) {
+		if ((hptr = md_getenv("HOME"))) {
 			(void) strcpy(name_buffer, hptr);
 			(void) strcat(name_buffer, sfile+1);
 			sfile = name_buffer;
@@ -202,7 +202,7 @@ void restore(char *fname) {
 void write_pack(object *pack, FILE *fp) {
 	object t;
 
-	while (pack = pack->next_object) {
+	while ((pack = pack->next_object)) {
 		r_write(fp, (char *) pack, sizeof(object));
 	}
 	t.ichar = t.what_is = 0;

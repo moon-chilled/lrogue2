@@ -199,7 +199,7 @@ void do_args(int argc, char *argv[]) {
 void do_opts() {
 	char *eptr;
 
-	if (eptr = md_getenv("ROGUEOPTS")) {
+	if ((eptr = md_getenv("ROGUEOPTS"))) {
 		for (;;) {
 			while ((*eptr) == ' ') {
 				eptr++;

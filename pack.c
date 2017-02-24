@@ -19,7 +19,7 @@ object *add_to_pack(object *obj, object *pack, boolean condense) {
 	object *op;
 
 	if (condense) {
-		if (op = check_duplicate(obj, pack)) {
+		if ((op = check_duplicate(obj, pack))) {
 			free_object(obj);
 			return(op);
 		} else {
@@ -455,7 +455,7 @@ void kick_into_pack() {
     if (!(dungeon[rogue.row][rogue.col] & OBJECT)) {
         message("nothing here", 0);
     } else {
-        if (obj = pick_up(rogue.row, rogue.col, &stat)) {
+        if ((obj = pick_up(rogue.row, rogue.col, &stat))) {
             get_desc(obj, desc);
             if (obj->what_is == GOLD) {
                 message(desc, 0);

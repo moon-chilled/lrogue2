@@ -207,7 +207,7 @@ int gmc_row_col(int row, int col) {
 	register object *monster;
 	int retval;
 
-	if (monster = object_at(&level_monsters, row, col)) {
+	if ((monster = object_at(&level_monsters, row, col))) {
 		if ((!(detect_monster || see_invisible || r_see_invisible) &&
 			(monster->m_flags & INVISIBLE)) || blind) {
 			retval = monster->trail_char;

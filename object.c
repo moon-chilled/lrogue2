@@ -582,7 +582,7 @@ void show_objects() {
 		rc = get_mask_char(obj->what_is);
 
 		if (dungeon[row][col] & MONSTER) {
-			if (monster = object_at(&level_monsters, row, col)) {
+			if ((monster = object_at(&level_monsters, row, col))) {
 				monster->trail_char = rc;
 			}
 		}

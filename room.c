@@ -30,7 +30,7 @@ void light_up_room(int rn) {
 				if (dungeon[i][j] & MONSTER) {
 					object *monster;
 
-					if (monster = object_at(&level_monsters, i, j)) {
+					if ((monster = object_at(&level_monsters, i, j))) {
 						dungeon[monster->row][monster->col] &= (~MONSTER);
 						monster->trail_char =
 							get_dungeon_char(monster->row, monster->col);
@@ -295,7 +295,7 @@ void draw_magic_map() {
 					if (s & MONSTER) {
 						object *monster;
 
-						if (monster = object_at(&level_monsters, i, j)) {
+						if ((monster = object_at(&level_monsters, i, j))) {
 							monster->trail_char = ch;
 						}
 					}

@@ -278,7 +278,7 @@ void insert_score(char scores[][82], char n_names[][30], char *n_name, int rank,
 			}
 		}
 	}
-	sprintf(buf, "%2d    %6d   %s: ", rank+1, rogue.gold, login_name);
+	sprintf(buf, "%2d    %6ld   %s: ", rank+1, rogue.gold, login_name);
 
 	if (other) {
 		switch(other) {

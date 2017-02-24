@@ -765,8 +765,7 @@ int hp_raise() {
 
 void show_average_hp() {
 	char mbuf[80];
-	int real_average;
-	int effective_average;
+	double real_average, effective_average;
 
 	if (rogue.exp == 1) {
 		real_average = effective_average = 0.00;

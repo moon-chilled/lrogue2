@@ -93,7 +93,7 @@ int one_move_rogue(int dirch, int pickup) {
 			return(STOPPED_ON_SOMETHING);
 		}
 		if (pickup && !levitate) {
-			if (obj = pick_up(row, col, &status)) {
+			if ((obj = pick_up(row, col, &status))) {
 				get_desc(obj, desc);
 				if (obj->what_is == GOLD) {
 					free_object(obj);
@@ -508,7 +508,10 @@ void heal() {
 	if (++c >= n) {
 		c = 0;
 		rogue.hp_current++;
-		if (alt = !alt) {
+
+		
+		/* It's glorious, and if you don't like it, fuck you. */
+		if ((alt = !alt)) {
 			rogue.hp_current++;
 		}
 		if ((rogue.hp_current += regeneration) > rogue.hp_max) {

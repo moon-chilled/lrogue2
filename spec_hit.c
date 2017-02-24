@@ -310,7 +310,7 @@ boolean imitating(int row, int col) {
 	if (dungeon[row][col] & MONSTER) {
 		object *monster;
 
-		if (monster = object_at(&level_monsters, row, col)) {
+		if ((monster = object_at(&level_monsters, row, col))) {
 			if (monster->m_flags & IMITATES) {
 				return(1);
 			}

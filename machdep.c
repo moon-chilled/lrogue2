@@ -63,7 +63,11 @@
 
 #include <signal.h>
 #include <time.h>
+
+/* getlogin_r() */
+#define __USE_REENTRANT
 #include <unistd.h>
+#undef __USE_REENTRANT
 
 #include "rogue.h"
 #include "extern.h"

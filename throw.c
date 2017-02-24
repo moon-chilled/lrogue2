@@ -187,7 +187,7 @@ void flop_weapon(object *weapon, int row, int col) {
 			dch = get_dungeon_char(row, col);
 			if (mon) {
 				mch = mvinch(row, col);
-				if (monster = object_at(&level_monsters, row, col)) {
+				if ((monster = object_at(&level_monsters, row, col))) {
 					monster->trail_char = dch;
 				}
 				if ((mch < 'A') || (mch > 'Z')) {
