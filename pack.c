@@ -137,10 +137,10 @@ void drop() {
 		take_from_pack(obj, &rogue.pack);
 	}
 	place_at(obj, rogue.row, rogue.col);
-	(void) strcpy(desc, "dropped ");
+	strcpy(desc, "dropped ");
 	get_desc(obj, desc+8);
 	message(desc, 0);
-	(void) reg_move();
+	reg_move();
 }
 
 object *check_duplicate(object *obj, object *pack) {
@@ -243,11 +243,11 @@ void take_off() {
 			mv_aquatars();
 			obj = rogue.armor;
 			unwear(rogue.armor);
-			(void) strcpy(desc, "was wearing ");
+			strcpy(desc, "was wearing ");
 			get_desc(obj, desc+12);
 			message(desc, 0);
 			print_stats(STAT_ARMOR);
-			(void) reg_move();
+			reg_move();
 		}
 	} else {
 		message("not wearing any", 0);
@@ -277,12 +277,12 @@ void wear() {
 		return;
 	}
 	obj->identified = 1;
-	(void) strcpy(desc, "wearing ");
+	strcpy(desc, "wearing ");
 	get_desc(obj, desc + 8);
 	message(desc, 0);
 	do_wear(obj);
 	print_stats(STAT_ARMOR);
-	(void) reg_move();
+	reg_move();
 }
 
 void unwear(object *obj) {
@@ -326,11 +326,11 @@ void wield() {
 		message("in use", 0);
 	} else {
 		unwield(rogue.weapon);
-		(void) strcpy(desc, "wielding ");
+		strcpy(desc, "wielding ");
 		get_desc(obj, desc + 9);
 		message(desc, 0);
 		do_wield(obj);
-		(void) reg_move();
+		reg_move();
 	}
 }
 
@@ -369,7 +369,7 @@ void call_it() {
 
 	if (get_input_line("call it:","",buf,id_table[obj->which_kind].title,1,1)) {
 		id_table[obj->which_kind].id_status = CALLED;
-		(void) strcpy(id_table[obj->which_kind].title, buf);
+		strcpy(id_table[obj->which_kind].title, buf);
 	}
 }
 
@@ -470,7 +470,7 @@ void kick_into_pack() {
             }
         }
         if (obj || (!stat)) {
-            (void) reg_move();
+            reg_move();
         }
     }
 }

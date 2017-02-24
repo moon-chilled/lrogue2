@@ -140,7 +140,7 @@ void inventory(object *pack, unsigned int mask) {
 		}
 		obj = obj->next_object;
 	}
-	(void) strcpy(descs[i++], " --press space to continue--");
+	strcpy(descs[i++], " --press space to continue--");
 	if (maxlen < 27) maxlen = 27;
 	col = DCOLS - (maxlen + 2);
 
@@ -185,14 +185,14 @@ void make_scroll_titles() {
 		id_scrolls[i].title=(char *)malloc(128);
 		if(id_scrolls[i].title==(char *)0)
 			clean_up("Panic: no memory.");
-		(void) strcpy(id_scrolls[i].title, "'");
+		strcpy(id_scrolls[i].title, "'");
 
 		for (j = 0; j < sylls; j++) {
 			s = get_rand(1, (MAXSYLLABLES-1));
-			(void) strcat(id_scrolls[i].title, syllables[s]);
+			strcat(id_scrolls[i].title, syllables[s]);
 		}
 		n = strlen(id_scrolls[i].title);
-		(void) strcpy(id_scrolls[i].title+(n-1), "' ");
+		strcpy(id_scrolls[i].title+(n-1), "' ");
 	}
 }
 
@@ -203,7 +203,7 @@ void get_desc(object *obj, char *desc) {
 	int i;
 
 	if (obj->what_is == AMULET) {
-		(void) strcpy(desc, "the amulet of Yendor ");
+		strcpy(desc, "the amulet of Yendor ");
 		return;
 	}
 	item_name = name_of(obj);
@@ -215,7 +215,7 @@ void get_desc(object *obj, char *desc) {
 
 	if (obj->what_is != ARMOR) {
 		if (obj->quantity == 1) {
-			(void) strcpy(desc, "a ");
+			strcpy(desc, "a ");
 		} else {
 			sprintf(desc, "%d ", obj->quantity);
 		}
@@ -225,12 +225,12 @@ void get_desc(object *obj, char *desc) {
 			if (obj->quantity > 1) {
 				sprintf(desc, "%d rations of ", obj->quantity);
 			} else {
-				(void) strcpy(desc, "some ");
+				strcpy(desc, "some ");
 			}
 		} else {
-			(void) strcpy(desc, "a ");
+			strcpy(desc, "a ");
 		}
-		(void) strcat(desc, item_name);
+		strcat(desc, item_name);
 		goto ANA;
 	}
 	id_table = get_id_table(obj);
@@ -247,13 +247,13 @@ void get_desc(object *obj, char *desc) {
 CHECK:
 		switch(obj->what_is) {
 		case SCROLL:
-			(void) strcat(desc, item_name);
-			(void) strcat(desc, "entitled: ");
-			(void) strcat(desc, id_table[obj->which_kind].title);
+			strcat(desc, item_name);
+			strcat(desc, "entitled: ");
+			strcat(desc, id_table[obj->which_kind].title);
 			break;
 		case POTION:
-			(void) strcat(desc, id_table[obj->which_kind].title);
-			(void) strcat(desc, item_name);
+			strcat(desc, id_table[obj->which_kind].title);
+			strcat(desc, item_name);
 			break;
 		case WAND:
 		case RING:
@@ -264,20 +264,20 @@ CHECK:
 			if (id_table[obj->which_kind].id_status == CALLED) {
 				goto CALL;
 			}
-			(void) strcat(desc, id_table[obj->which_kind].title);
-			(void) strcat(desc, item_name);
+			strcat(desc, id_table[obj->which_kind].title);
+			strcat(desc, item_name);
 			break;
 		case ARMOR:
 			if (obj->identified) {
 				goto ID;
 			}
-			(void) strcpy(desc, id_table[obj->which_kind].title);
+			strcpy(desc, id_table[obj->which_kind].title);
 			break;
 		case WEAPON:
 			if (obj->identified) {
 				goto ID;
 			}
-			(void) strcat(desc, name_of(obj));
+			strcat(desc, name_of(obj));
 			break;
 		}
 		break;
@@ -287,9 +287,9 @@ CALL:	switch(obj->what_is) {
 		case POTION:
 		case WAND:
 		case RING:
-			(void) strcat(desc, item_name);
-			(void) strcat(desc, "called ");
-			(void) strcat(desc, id_table[obj->which_kind].title);
+			strcat(desc, item_name);
+			strcat(desc, "called ");
+			strcat(desc, id_table[obj->which_kind].title);
 			break;
 		}
 		break;
@@ -297,8 +297,8 @@ CALL:	switch(obj->what_is) {
 ID:		switch(obj->what_is) {
 		case SCROLL:
 		case POTION:
-			(void) strcat(desc, item_name);
-			(void) strcat(desc, id_table[obj->which_kind].real);
+			strcat(desc, item_name);
+			strcat(desc, id_table[obj->which_kind].real);
 			break;
 		case RING:
 			if (wizard || obj->identified) {
@@ -306,26 +306,26 @@ ID:		switch(obj->what_is) {
 					(obj->which_kind == ADD_STRENGTH)) {
 					sprintf(more_info, "%s%d ", ((obj->class > 0) ? "+" : ""),
 						obj->class);
-					(void) strcat(desc, more_info);
+					strcat(desc, more_info);
 				}
 			}
-			(void) strcat(desc, item_name);
-			(void) strcat(desc, id_table[obj->which_kind].real);
+			strcat(desc, item_name);
+			strcat(desc, id_table[obj->which_kind].real);
 			break;
 		case WAND:
-			(void) strcat(desc, item_name);
-			(void) strcat(desc, id_table[obj->which_kind].real);
+			strcat(desc, item_name);
+			strcat(desc, id_table[obj->which_kind].real);
 			if (wizard || obj->identified) {
 				sprintf(more_info, "[%d]", obj->class);
-				(void) strcat(desc, more_info);
+				strcat(desc, more_info);
 			}
 			break;
 		case ARMOR:
 			sprintf(desc, "%s%d ", ((obj->d_enchant >= 0) ? "+" : ""),
 			obj->d_enchant);
-			(void) strcat(desc, id_table[obj->which_kind].title);
+			strcat(desc, id_table[obj->which_kind].title);
 			sprintf(more_info, "[%d] ", get_armor_class(obj));
-			(void) strcat(desc, more_info);
+			strcat(desc, more_info);
 			break;
 		case WEAPON:
 			sprintf(desc+strlen(desc), "%s%d,%s%d ",
@@ -333,7 +333,7 @@ ID:		switch(obj->what_is) {
 			obj->hit_enchant,
 			((obj->d_enchant >= 0) ? "+" : ""),
 			obj->d_enchant);
-			(void) strcat(desc, name_of(obj));
+			strcat(desc, name_of(obj));
 			break;
 		}
 		break;
@@ -348,13 +348,13 @@ ANA:
 		}
 	}
 	if (obj->in_use_flags & BEING_WIELDED) {
-		(void) strcat(desc, "in hand");
+		strcat(desc, "in hand");
 	} else if (obj->in_use_flags & BEING_WORN) {
-		(void) strcat(desc, "being worn");
+		strcat(desc, "being worn");
 	} else if (obj->in_use_flags & ON_LEFT_HAND) {
-		(void) strcat(desc, "on left hand");
+		strcat(desc, "on left hand");
 	} else if (obj->in_use_flags & ON_RIGHT_HAND) {
-		(void) strcat(desc, "on right hand");
+		strcat(desc, "on right hand");
 	}
 }
 
@@ -371,7 +371,7 @@ void get_wand_and_ring_materials() {
 		} while (used[j]);
 		used[j] = 1;
 		id_wands[i].title=(char *)malloc(128);
-		(void) strcpy(id_wands[i].title, wand_materials[j]);
+		strcpy(id_wands[i].title, wand_materials[j]);
 		is_wood[i] = (j > MAX_METAL);
 	}
 	for (i = 0; i < GEMS; i++) {
@@ -383,7 +383,7 @@ void get_wand_and_ring_materials() {
 		} while (used[j]);
 		used[j] = 1;
 		id_rings[i].title=(char *)malloc(128);
-		(void) strcpy(id_rings[i].title, gems[j]);
+		strcpy(id_rings[i].title, gems[j]);
 	}
 }
 

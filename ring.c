@@ -73,7 +73,7 @@ void  put_on_ring() {
 	check_message();
 	get_desc(ring, desc);
 	message(desc, 0);
-	(void) reg_move();
+	reg_move();
 }
 
 /*
@@ -131,10 +131,10 @@ void remove_ring() {
 			message(curse_message, 0);
 		} else {
 			un_put_on(ring);
-			(void) strcpy(buf, "removed ");
+			strcpy(buf, "removed ");
 			get_desc(ring, buf + 8);
 			message(buf, 0);
-			(void) reg_move();
+			reg_move();
 		}
 	}
 }

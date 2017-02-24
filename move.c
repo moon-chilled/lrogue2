@@ -47,7 +47,7 @@ int one_move_rogue(int dirch, int pickup) {
 				message("you are being held", 1);
 			} else {
 				message("you are still stuck in the bear trap", 0);
-				(void) reg_move();
+				reg_move();
 			}
 			return(MOVE_FAILED);
 		}
@@ -60,7 +60,7 @@ int one_move_rogue(int dirch, int pickup) {
 	}
 	if (dungeon[row][col] & MONSTER) {
 		rogue_hit(object_at(&level_monsters, row, col), 0);
-		(void) reg_move();
+		reg_move();
 		return(MOVE_FAILED);
 	}
 	if (dungeon[row][col] & DOOR) {
@@ -107,7 +107,7 @@ int one_move_rogue(int dirch, int pickup) {
 		} else {
 MOVE_ON:
 			obj = object_at(&level_objects, row, col);
-			(void) strcpy(desc, "moved onto ");
+			strcpy(desc, "moved onto ");
 			get_desc(obj, desc+11);
 			goto NOT_IN_PACK;
 		}
@@ -118,14 +118,14 @@ MOVE_ON:
 		desc[n+3] = 0;
 NOT_IN_PACK:
 		message(desc, 1);
-		(void) reg_move();
+		reg_move();
 		return(STOPPED_ON_SOMETHING);
 	}
 	if (dungeon[row][col] & (DOOR | STAIRS | TRAP)) {
 		if ((!levitate) && (dungeon[row][col] & TRAP)) {
 			trap_player(row, col);
 		}
-		(void) reg_move();
+		reg_move();
 		return(STOPPED_ON_SOMETHING);
 	}
 MVED:	if (reg_move()) {			/* fainted from hunger */
@@ -269,7 +269,7 @@ void move_onto() {
 	}
 	check_message();
 	if (ch != CANCEL) {
-		(void) one_move_rogue(ch, 0);
+		one_move_rogue(ch, 0);
 	}
 }
 
@@ -292,18 +292,18 @@ boolean check_hunger(boolean messages_only) {
 	boolean fainted = 0;
 
 	if (rogue.moves_left == HUNGRY) {
-		(void) strcpy(hunger_str, "hungry");
+		strcpy(hunger_str, "hungry");
 		message(hunger_str, 0);
 		print_stats(STAT_HUNGER);
 	}
 	if (rogue.moves_left == WEAK) {
-		(void) strcpy(hunger_str, "weak");
+		strcpy(hunger_str, "weak");
 		message(hunger_str, 1);
 		print_stats(STAT_HUNGER);
 	}
 	if (rogue.moves_left <= FAINT) {
 		if (rogue.moves_left == FAINT) {
-			(void) strcpy(hunger_str, "faint");
+			strcpy(hunger_str, "faint");
 			message(hunger_str, 1);
 			print_stats(STAT_HUNGER);
 		}
@@ -341,12 +341,12 @@ boolean check_hunger(boolean messages_only) {
 		break;
 	case 1:
 		rogue.moves_left--;
-		(void) check_hunger(1);
+		check_hunger(1);
 		rogue.moves_left -= (rogue.moves_left % 2);
 		break;
 	case 2:
 		rogue.moves_left--;
-		(void) check_hunger(1);
+		check_hunger(1);
 		rogue.moves_left--;
 		break;
 	}
@@ -417,7 +417,7 @@ void rest(int count) {
 		if (interrupted) {
 			break;
 		}
-		(void) reg_move();
+		reg_move();
 	}
 }
 

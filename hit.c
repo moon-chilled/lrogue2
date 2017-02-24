@@ -107,7 +107,7 @@ void rogue_hit(object *monster, boolean force_hit) {
 		}
 		if (!rand_percent(hit_chance)) {
 			if (!fight_monster) {
-				(void) strcpy(hit_message, "you miss  ");
+				strcpy(hit_message, "you miss  ");
 			}
 			goto RET;
 		}
@@ -117,7 +117,7 @@ void rogue_hit(object *monster, boolean force_hit) {
 		}
 		if (mon_damage(monster, damage)) {	/* still alive? */
 			if (!fight_monster) {
-				(void) strcpy(hit_message, "you hit  ");
+				strcpy(hit_message, "you hit  ");
 			}
 		}
 RET:	check_gold_seeker(monster);
@@ -296,7 +296,7 @@ void fight(boolean to_the_death) {
 		possible_damage = fight_monster->stationary_damage - 1;
 	}
 	while (fight_monster) {
-		(void) one_move_rogue(ch, 0);
+		one_move_rogue(ch, 0);
 		if (((!to_the_death) && (rogue.hp_current <= possible_damage)) ||
 			interrupted || (!(dungeon[row][col] & MONSTER))) {
 			fight_monster = 0;

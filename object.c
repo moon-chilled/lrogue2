@@ -180,14 +180,14 @@ void plant_gold(int row, int col, boolean is_maze) {
 		obj->quantity += obj->quantity / 2;
 	}
 	dungeon[row][col] |= OBJECT;
-	(void) add_to_pack(obj, &level_objects, 0);
+	add_to_pack(obj, &level_objects, 0);
 }
 
 void place_at(object *obj, int row, int col) {
 	obj->row = row;
 	obj->col = col;
 	dungeon[row][col] |= OBJECT;
-	(void) add_to_pack(obj, &level_objects, 0);
+	add_to_pack(obj, &level_objects, 0);
 }
 
 object *object_at(object *pack, int row, int col) {
@@ -693,7 +693,7 @@ GIL:
 	}
 	get_desc(obj, buf);
 	message(buf, 0);
-	(void) add_to_pack(obj, &rogue.pack, 1);
+	add_to_pack(obj, &rogue.pack, 1);
 }
 
 int next_party() {

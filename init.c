@@ -38,7 +38,7 @@ int init(int argc, char *argv[]) {
 		clean_up("Hey!  Who are you?");
 	}
 
-	(void) strcpy(login_name, pn);
+	strcpy(login_name, pn);
 
 	if (!score_only && !rest_file) {
 		printf("Hello %s, just a moment while I dig the dungeon...",
@@ -58,7 +58,7 @@ int init(int argc, char *argv[]) {
 	if (score_only) {
 		put_scores((object *) 0, 0);
 	}
-	(void) srrandom(getseed());
+	srrandom(getseed());
 	if (rest_file) {
 		restore(rest_file);
 		return(1);
@@ -82,7 +82,7 @@ void player_init() {
 
 	obj = alloc_object();
 	get_food(obj, 1);
-	(void) add_to_pack(obj, &rogue.pack, 1);
+	add_to_pack(obj, &rogue.pack, 1);
 
 	obj = alloc_object();		/* initial armor */
 	obj->what_is = ARMOR;
@@ -90,7 +90,7 @@ void player_init() {
 	obj->class = RINGMAIL+2;
 	obj->is_protected = 0;
 	obj->d_enchant = 1;
-	(void) add_to_pack(obj, &rogue.pack, 1);
+	add_to_pack(obj, &rogue.pack, 1);
 	do_wear(obj);
 
 	obj = alloc_object();		/* initial weapons */
@@ -99,7 +99,7 @@ void player_init() {
 	obj->damage = "2d3";
 	obj->hit_enchant = obj->d_enchant = 1;
 	obj->identified = 1;
-	(void) add_to_pack(obj, &rogue.pack, 1);
+	add_to_pack(obj, &rogue.pack, 1);
 	do_wield(obj);
 
 	obj = alloc_object();
@@ -109,7 +109,7 @@ void player_init() {
 	obj->hit_enchant = 1;
 	obj->d_enchant = 0;
 	obj->identified = 1;
-	(void) add_to_pack(obj, &rogue.pack, 1);
+	add_to_pack(obj, &rogue.pack, 1);
 
 	obj = alloc_object();
 	obj->what_is = WEAPON;
@@ -119,7 +119,7 @@ void player_init() {
 	obj->hit_enchant = 0;
 	obj->d_enchant = 0;
 	obj->identified = 1;
-	(void) add_to_pack(obj, &rogue.pack, 1);
+	add_to_pack(obj, &rogue.pack, 1);
 }
 
 void clean_up(char *estr) {
@@ -248,7 +248,7 @@ void env_get_value(char **s, char *e, boolean add_blank) {
 	if (!(*s = malloc(i + (add_blank ? 2 : 1)))) {
 		clean_up("cannot alloc() memory");
 	}
-	(void) strncpy(*s, t, i);
+	strncpy(*s, t, i);
 	if (add_blank) {
 		(*s)[i++] = ' ';
 	}

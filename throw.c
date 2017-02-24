@@ -103,14 +103,14 @@ boolean throw_at_monster(object *monster, object *weapon) {
 	weapon->quantity = t;
 
 	if (!rand_percent(hit_chance)) {
-		(void) strcat(hit_message, "misses  ");
+		strcat(hit_message, "misses  ");
 		return(0);
 	}
-	(void) strcat(hit_message, "hit  ");
+	strcat(hit_message, "hit  ");
 	if ((weapon->what_is == WAND) && rand_percent(75)) {
 		zap_monster(monster, weapon->which_kind);
 	} else {
-		(void) mon_damage(monster, damage);
+		mon_damage(monster, damage);
 	}
 	return(1);
 }

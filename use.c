@@ -269,7 +269,7 @@ void vanish(object *obj, int rm, object *pack) {
 		free_object(obj);
 	}
 	if (rm) {
-		(void) reg_move();
+		reg_move();
 	}
 }
 

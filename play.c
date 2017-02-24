@@ -68,7 +68,7 @@ CH:
 		case 'u':
 		case 'n':
 		case 'b':
-			(void) one_move_rogue(ch, 1);
+			one_move_rogue(ch, 1);
 			break;
 		case 'H':
 		case 'J':

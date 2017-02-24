@@ -229,7 +229,7 @@ void search(int n, boolean is_auto) {
 			}
 		}
 		if ((!is_auto) && (reg_search = !reg_search)) {
-			(void) reg_move();
+			reg_move();
 		}
 	}
 }

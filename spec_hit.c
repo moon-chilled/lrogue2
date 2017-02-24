@@ -155,7 +155,7 @@ void steal_item(object *monster) {
 			}
 		}
 	}
-	(void) strcpy(desc, "she stole ");
+	strcpy(desc, "she stole ");
 	if (obj->what_is != WEAPON) {
 		t = obj->quantity;
 		obj->quantity = 1;

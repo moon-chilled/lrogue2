@@ -615,7 +615,7 @@ void put_m_at(int row, int col, object *monster) {
 	monster->col = col;
 	dungeon[row][col] |= MONSTER;
 	monster->trail_char = mvinch(row, col);
-	(void) add_to_pack(monster, &level_monsters, 0);
+	add_to_pack(monster, &level_monsters, 0);
 	aim_monster(monster);
 }
 

@@ -61,8 +61,8 @@ void save_into_file(char *sfile) {
 
 	if (sfile[0] == '~') {
 		if ((hptr = getenv("HOME"))) {
-			(void) strcpy(name_buffer, hptr);
-			(void) strcat(name_buffer, sfile+1);
+			strcpy(name_buffer, hptr);
+			strcat(name_buffer, sfile+1);
 			sfile = name_buffer;
 		}
 	}
@@ -73,7 +73,7 @@ void save_into_file(char *sfile) {
 	}
 	md_ignore_signals();
 	write_failed = 0;
-	(void) xxx(1);
+	xxx(1);
 	r_write(fp, (char *) &detect_monster, sizeof(detect_monster));
 	r_write(fp, (char *) &cur_level, sizeof(cur_level));
 	r_write(fp, (char *) &max_level, sizeof(max_level));
@@ -114,7 +114,7 @@ void save_into_file(char *sfile) {
 	fclose(fp);
 
 	if (write_failed) {
-		(void) md_df(sfile);	/* delete file */
+		md_df(sfile);	/* delete file */
 	} else {
 		clean_up("");
 	}
@@ -134,13 +134,13 @@ void restore(char *fname) {
 	if (md_link_count(fname) > 1) {
 		clean_up("file has link");
 	}
-	(void) xxx(1);
+	xxx(1);
 	r_read(fp, (char *) &detect_monster, sizeof(detect_monster));
 	r_read(fp, (char *) &cur_level, sizeof(cur_level));
 	r_read(fp, (char *) &max_level, sizeof(max_level));
 	read_string(hunger_str, fp);
 
-	(void) strcpy(tbuf, login_name);
+	strcpy(tbuf, login_name);
 	read_string(login_name, fp);
 	if (strcmp(tbuf, login_name)) {
 		clean_up("you're not the original player");

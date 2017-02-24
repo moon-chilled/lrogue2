@@ -33,28 +33,28 @@ void killed_by(object *monster, int other) {
 	if (other) {
 		switch(other) {
 		case HYPOTHERMIA:
-			(void) strcpy(buf, "died of hypothermia");
+			strcpy(buf, "died of hypothermia");
 			break;
 		case STARVATION:
-			(void) strcpy(buf, "died of starvation");
+			strcpy(buf, "died of starvation");
 			break;
 		case POISON_DART:
-			(void) strcpy(buf, "killed by a dart");
+			strcpy(buf, "killed by a dart");
 			break;
 		case QUIT:
-			(void) strcpy(buf, "quit");
+			strcpy(buf, "quit");
 			break;
 		}
 	} else {
-		(void) strcpy(buf, "Killed by ");
+		strcpy(buf, "Killed by ");
 		if (is_vowel(m_names[monster->m_char - 'A'][0])) {
-			(void) strcat(buf, "an ");
+			strcat(buf, "an ");
 		} else {
-			(void) strcat(buf, "a ");
+			strcat(buf, "a ");
 		}
-		(void) strcat(buf, m_names[monster->m_char - 'A']);
+		strcat(buf, m_names[monster->m_char - 'A']);
 	}
-	(void) strcat(buf, " with ");
+	strcat(buf, " with ");
 	sprintf(buf+strlen(buf), "%ld gold", rogue.gold);
 	if ((!other) && show_skull) {
 		clear();
@@ -164,7 +164,7 @@ void put_scores(object *monster, int other) {
 		failed = 1;
 	}
 	turn_into_user();
-	(void) xxx(1);
+	xxx(1);
 
 	for (i = 0; i < 10; i++) {
 		if (((n = fread(scores[i], sizeof(char), 80, fp)) < 80) && (n != 0)) {
@@ -197,8 +197,8 @@ void put_scores(object *monster, int other) {
 	if (found_player != -1) {
 		ne--;
 		for (i = found_player; i < ne; i++) {
-			(void) strcpy(scores[i], scores[i+1]);
-			(void) strcpy(n_names[i], n_names[i+1]);
+			strcpy(scores[i], scores[i+1]);
+			strcpy(n_names[i], n_names[i+1]);
 		}
 	}
 	if (!score_only) {
@@ -235,7 +235,7 @@ void put_scores(object *monster, int other) {
 
 	md_ignore_signals();
 
-	(void) xxx(1);
+	xxx(1);
 
 	for (i = 0; i < ne; i++) {
 		if (i == rank) {
@@ -273,8 +273,8 @@ void insert_score(char scores[][82], char n_names[][30], char *n_name, int rank,
 	if (n > 0) {
 		for (i = n; i > rank; i--) {
 			if ((i < 10) && (i > 0)) {
-				(void) strcpy(scores[i], scores[i-1]);
-				(void) strcpy(n_names[i], n_names[i-1]);
+				strcpy(scores[i], scores[i-1]);
+				strcpy(n_names[i], n_names[i-1]);
 			}
 		}
 	}
@@ -283,40 +283,40 @@ void insert_score(char scores[][82], char n_names[][30], char *n_name, int rank,
 	if (other) {
 		switch(other) {
 		case HYPOTHERMIA:
-			(void) strcat(buf, "died of hypothermia");
+			strcat(buf, "died of hypothermia");
 			break;
 		case STARVATION:
-			(void) strcat(buf, "died of starvation");
+			strcat(buf, "died of starvation");
 			break;
 		case POISON_DART:
-			(void) strcat(buf, "killed by a dart");
+			strcat(buf, "killed by a dart");
 			break;
 		case QUIT:
-			(void) strcat(buf, "quit");
+			strcat(buf, "quit");
 			break;
 		case WIN:
-			(void) strcat(buf, "a total winner");
+			strcat(buf, "a total winner");
 			break;
 		}
 	} else {
-		(void) strcat(buf, "killed by ");
+		strcat(buf, "killed by ");
 		if (is_vowel(m_names[monster->m_char - 'A'][0])) {
-			(void) strcat(buf, "an ");
+			strcat(buf, "an ");
 		} else {
-			(void) strcat(buf, "a ");
+			strcat(buf, "a ");
 		}
-		(void) strcat(buf, m_names[monster->m_char - 'A']);
+		strcat(buf, m_names[monster->m_char - 'A']);
 	}
 	sprintf(buf+strlen(buf), " on level %d ",  max_level);
 	if ((other != WIN) && has_amulet()) {
-		(void) strcat(buf, "with amulet");
+		strcat(buf, "with amulet");
 	}
 	for (i = strlen(buf); i < 79; i++) {
 		buf[i] = ' ';
 	}
 	buf[79] = 0;
-	(void) strcpy(scores[rank], buf);
-	(void) strcpy(n_names[rank], n_name);
+	strcpy(scores[rank], buf);
+	strcpy(n_names[rank], n_name);
 }
 
 boolean is_vowel(char ch) {
@@ -468,16 +468,16 @@ void nickize(char *buf, char *score, char *n_name) {
 	int i = 15, j;
 
 	if (!n_name[0]) {
-		(void) strcpy(buf, score);
+		strcpy(buf, score);
 		return;
 	}
-	(void) strncpy(buf, score, 16);
+	strncpy(buf, score, 16);
 
 	while (score[i] != ':') {
 		i++;
 	}
 
-	(void) strcpy(buf+15, n_name);
+	strcpy(buf+15, n_name);
 	j = strlen(buf);
 
 	while (score[i]) {

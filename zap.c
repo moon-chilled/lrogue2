@@ -60,7 +60,7 @@ void zapp() {
 			relight();
 		}
 	}
-	(void) reg_move();
+	reg_move();
 }
 
 object *get_zapped_monster(int dir, int *row, int *col) {
@@ -122,7 +122,7 @@ void zap_monster(object *monster, unsigned int kind) {
 		}
 		nm = monster->next_monster;
 		tc = monster->trail_char;
-		(void) gr_monster(monster, get_rand(0, MONSTERS-1));
+		gr_monster(monster, get_rand(0, MONSTERS-1));
 		monster->row = row;
 		monster->col = col;
 		monster->next_monster = nm;
@@ -195,7 +195,7 @@ void wizardize() {
 		message("not wizard anymore", 0);
 	} else {
 		if (get_input_line("wizard's password:", "", buf, "", 0, 0)) {
-			(void) xxx(1);
+			xxx(1);
 			xxxx(buf, strlen(buf));
 			if (!strncmp(buf, "\247\104\126\272\115\243\027", 7)) {
 				wizard = 1;

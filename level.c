@@ -114,10 +114,10 @@ void make_level() {
 			i = random_rooms[j];
 
 			if (i < (MAXROOMS-1)) {
-				(void) connect_rooms(i, i+1);
+				connect_rooms(i, i+1);
 			}
 			if (i < (MAXROOMS-3)) {
-				(void) connect_rooms(i, i+3);
+				connect_rooms(i, i+3);
 			}
 			if (i < (MAXROOMS-2)) {
 				if (rooms[i+1].is_room & R_NOTHING) {

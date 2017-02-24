@@ -37,7 +37,7 @@ void message(char *msg, boolean intrpt) {
 		wait_for_ack();
 		check_message();
 	}
-	(void) strcpy(msg_line, msg);
+	strcpy(msg_line, msg);
 	mvaddstr(MIN_ROW-1, 0, msg);
 	addch(' ');
 	refresh();
@@ -76,7 +76,7 @@ int get_input_line(char *prompt, char *insert, char *buf, char *if_cancelled, bo
 
 	if (insert[0]) {
 		mvaddstr(0, n + 1, insert);
-		(void) strcpy(buf, insert);
+		strcpy(buf, insert);
 		i = strlen(insert);
 		move(0, (n + i + 1));
 		refresh();

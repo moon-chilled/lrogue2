@@ -29,7 +29,7 @@ void srrandom(unsigned long x) {
 		fptr = &state[rand_sep];
 		rptr = &state[0];
 		for (i = 0; i < 10*rand_deg; i++) {
-			(void) rrandom();
+			rrandom();
 		}
 	}
 }
