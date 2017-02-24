@@ -158,6 +158,7 @@
 
 #define GOLD_PERCENT 46
 
+typedef struct id id;
 struct id {
 	int value;
 	char *title;
@@ -186,34 +187,34 @@ struct id {
 #define disguise what_is
 #define next_monster next_object
 
-struct obj {				/* comment is monster meaning */
+typedef struct object object;
+struct object {			/* comment is monster meaning */
 	unsigned long m_flags;	/* monster flags */
-	char *damage;			/* damage it does */
-	int quantity;			/* hit points to kill */
-	int ichar;			/* 'A' is for aquatar */
-	int kill_exp;			/* exp for killing it */
-	int is_protected;		/* level starts */
+	char *damage;		/* damage it does */
+	int quantity;		/* hit points to kill */
+	int ichar;		/* 'A' is for aquatar */
+	int kill_exp;		/* exp for killing it */
+	int is_protected;	/* level starts */
 	int is_cursed;		/* level ends */
-	int class;			/* chance of hitting you */
+	int class;		/* chance of hitting you */
 	int identified;		/* 'F' damage, 1,2,3... */
 	unsigned int which_kind; /* item carry/drop % */
 	int o_row, o_col, o;	/* o is how many times stuck at o_row, o_col */
-	int row, col;			/* current row, col */
+	int row, col;		/* current row, col */
 	int d_enchant;		/* room char when detect_monster */
-	int quiver;			/* monster slowed toggle */
+	int quiver;		/* monster slowed toggle */
 	int trow, tcol;		/* target row, col */
-	int hit_enchant;		/* how many moves is confused */
+	int hit_enchant;	/* how many moves is confused */
 	unsigned int what_is;	/* imitator's charactor (?!%: */
 	int picked_up;		/* sleep from wand of sleep */
 	unsigned int in_use_flags;
-	struct obj *next_object;	/* next monster */
+	struct object *next_object;	/* next monster */
 };
-
-typedef struct obj object;
 
 #define INIT_HP 12
 
-struct fight {
+typedef struct fighter fighter;
+struct fighter {
 	object *armor;
 	object *weapon;
 	object *left_ring, *right_ring;
@@ -230,25 +231,21 @@ struct fight {
 	int moves_left;
 };
 
-typedef struct fight fighter;
-
-struct dr {
+typedef struct door door;
+struct door {
 	int oth_room;
 	int oth_row,
-	      oth_col;
+	oth_col;
 	int door_row,
-		  door_col;
+	door_col;
 };
 
-typedef struct dr door;
-
-struct rm {
+typedef struct room room;
+struct room {
 	char bottom_row, right_col, left_col, top_row;
 	door doors[4];
 	unsigned int is_room;
 };
-
-typedef struct rm room;
 
 #define MAXROOMS 9
 #define BIG_ROOM 10
@@ -289,12 +286,11 @@ typedef struct rm room;
 
 #define HIDE_PERCENT 12
 
-struct tr {
+typedef struct trap trap;
+struct trap {
 	int trap_type;
 	int trap_row, trap_col;
 };
-
-typedef struct tr trap;
 
 extern fighter rogue;
 extern room rooms[];
@@ -302,12 +298,12 @@ extern trap traps[];
 extern unsigned int dungeon[DROWS][DCOLS];
 extern object level_objects;
 
-extern struct id id_scrolls[];
-extern struct id id_potions[];
-extern struct id id_wands[];
-extern struct id id_rings[];
-extern struct id id_weapons[];
-extern struct id id_armors[];
+extern id id_scrolls[];
+extern id id_potions[];
+extern id id_wands[];
+extern id id_rings[];
+extern id id_weapons[];
+extern id id_armors[];
 
 extern object mon_tab[];
 extern object level_monsters;
@@ -383,6 +379,7 @@ extern object level_monsters;
 
 #define MIN_ROW 1
 
+typedef struct rogue_time rogue_time;
 struct rogue_time {
 	int year;		/* >= 1987 */
 	int month;	/* 1 - 12 */

@@ -45,7 +45,7 @@ void make_scroll_titles();
 void get_desc(object*, char*);
 void get_wand_and_ring_materials();
 void single_inv(int);
-struct id *get_id_table(object*);
+id *get_id_table(object*);
 void inv_armor_weapon(boolean);
 
 
@@ -85,8 +85,8 @@ void md_heed_signals();
 void md_ignore_signals();
 int md_get_file_id(char*);
 int md_link_count(char*);
-void md_gct(struct rogue_time*);
-void md_gfmt(char*, struct rogue_time*);
+void md_gct(rogue_time*);
+void md_gfmt(char*, rogue_time*);
 boolean md_df(char*);
 char *md_gln();
 void md_sleep(int);
@@ -258,14 +258,14 @@ void restore(char*);
 void write_pack(object*, FILE*);
 void read_pack(object*, FILE*, boolean);
 void rw_dungeon(FILE*, boolean);
-void rw_id(struct id[], FILE*, int, boolean);
-void rw_id_alloc(struct id[], FILE*, int, boolean);
+void rw_id(id[], FILE*, int, boolean);
+void rw_id_alloc(id[], FILE*, int, boolean);
 void write_string(char*, FILE*);
 void read_string(char*, FILE*);
 void rw_rooms(FILE*, boolean);
 void r_read(FILE*, char*, int);
 void r_write(FILE*, char*, int);
-boolean has_been_touched(struct rogue_time*, struct rogue_time*);
+boolean has_been_touched(rogue_time*, rogue_time*);
 
 
 /* score.c */
@@ -330,7 +330,7 @@ void quaff();
 void read_scroll();
 void vanish(object*, int, object*);
 void potion_heal(boolean);
-void idntfy();
+void identify();
 void eat();
 void hold_monster();
 void tele();

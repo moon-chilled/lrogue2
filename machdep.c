@@ -257,7 +257,7 @@ int md_link_count(char *fname) {
  * saved-game files and play them.  
  */
 
-void md_gct(struct rogue_time *rt_buf) {
+void md_gct(rogue_time *rt_buf) {
 	struct timeval tv;
 	struct timezone tzp;
 	struct tm *t;
@@ -291,7 +291,7 @@ void md_gct(struct rogue_time *rt_buf) {
  * saved-games that have been modified.
  */
 
-void md_gfmt(char *fname, struct rogue_time *rt_buf) {
+void md_gfmt(char *fname, rogue_time *rt_buf) {
 	struct stat sbuf;
 	long seconds;
 	struct tm *t;

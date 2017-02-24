@@ -198,7 +198,7 @@ void make_scroll_titles() {
 
 void get_desc(object *obj, char *desc) {
 	char *item_name;
-	struct id *id_table;
+	id *id_table;
 	char more_info[32];
 	int i;
 
@@ -409,7 +409,7 @@ void single_inv(int ichar) {
 	message(desc, 0);
 }
 
-struct id *get_id_table(object *obj) {
+id *get_id_table(object *obj) {
 	switch(obj->what_is) {
 	case SCROLL:
 		return(id_scrolls);
@@ -424,7 +424,7 @@ struct id *get_id_table(object *obj) {
 	case ARMOR:
 		return(id_armors);
 	}
-	return((struct id *) 0);
+	return((id*) 0);
 }
 
 void inv_armor_weapon(boolean is_weapon) {

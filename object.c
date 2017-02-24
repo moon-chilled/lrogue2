@@ -34,7 +34,7 @@ fighter rogue = {
 	1250		/* moves */
 };
 
-struct id id_potions[POTIONS] = {
+id id_potions[POTIONS] = {
 {100, "blue \0                           ", "of increase strength ", 0},
 {250, "red \0                            ", "of restore strength ", 0},
 {100, "green \0                          ", "of healing ", 0},
@@ -51,7 +51,7 @@ struct id id_potions[POTIONS] = {
 {145, "beige \0                          ", "of see invisible ", 0}
 };
 
-struct id id_scrolls[SCROLLS] = {
+id id_scrolls[SCROLLS] = {
 {505, "                                   ", "of protect armor ", 0},
 {200, "                                   ", "of hold monster ", 0},
 {235, "                                   ", "of enchant weapon ", 0},
@@ -66,7 +66,7 @@ struct id id_scrolls[SCROLLS] = {
 {180, "                                   ", "of magic mapping ",0}
 };
 
-struct id id_weapons[WEAPONS] = {
+id id_weapons[WEAPONS] = {
 	{150, "short bow ", "", 0},
 	  {8, "darts ", "", 0},
 	 {15, "arrows ", "", 0},
@@ -77,7 +77,7 @@ struct id id_weapons[WEAPONS] = {
 	{580, "two-handed sword ", "", 0}
 };
 
-struct id id_armors[ARMORS] = {
+id id_armors[ARMORS] = {
 	{300, "leather armor ", "", (UNIDENTIFIED)},
 	{300, "ring mail ", "", (UNIDENTIFIED)},
 	{400, "scale mail ", "", (UNIDENTIFIED)},
@@ -87,7 +87,7 @@ struct id id_armors[ARMORS] = {
 	{700, "plate mail ", "", (UNIDENTIFIED)}
 };
 
-struct id id_wands[WANDS] = {
+id id_wands[WANDS] = {
 	 {25, "                                 ", "of teleport away ",0},
 	 {50, "                                 ", "of slow monster ", 0},
 	 {45, "                                 ", "of confuse monster ",0},
@@ -100,7 +100,7 @@ struct id id_wands[WANDS] = {
 	  {0, "                                 ", "of do nothing ",0}
 };
 
-struct id id_rings[RINGS] = {
+id id_rings[RINGS] = {
 	 {250, "                                 ", "of stealth ",0},
 	 {100, "                                 ", "of teleportation ", 0},
 	 {255, "                                 ", "of regeneration ",0},

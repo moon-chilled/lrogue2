@@ -349,7 +349,7 @@ void unwield(object *obj) {
 void call_it() {
 	int ch;
 	register object *obj;
-	struct id *id_table;
+	id *id_table;
 	char buf[MAX_TITLE_LENGTH+2];
 
 	ch = pack_letter("call what?", (SCROLL | POTION | WAND | RING));

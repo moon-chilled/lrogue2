@@ -209,7 +209,7 @@ void read_scroll() {
 			message("this is a scroll of identify", 0);
 			obj->identified = 1;
 			id_scrolls[obj->which_kind].id_status = IDENTIFIED;
-			idntfy();
+			identify();
 			break;
 		case TELEPORT:
 			tele();
@@ -274,12 +274,12 @@ void vanish(object *obj, int rm, object *pack) {
 }
 
 void potion_heal(boolean extra) {
-	int ratio;
+	double ratio;
 	int add;
 
 	rogue.hp_current += rogue.exp;
 
-	ratio = (rogue.hp_current) / rogue.hp_max;
+	ratio = rogue.hp_current / rogue.hp_max;
 
 	if (ratio >= 1.00) {
 		rogue.hp_max += (extra ? 2 : 1);
@@ -317,10 +317,10 @@ void potion_heal(boolean extra) {
 	}
 }
 
-void idntfy() {
+void identify() {
 	int ch;
 	object *obj;
-	struct id *id_table;
+	id *id_table;
 	char desc[DCOLS];
 AGAIN:
 	ch = pack_letter("what would you like to identify?", ALL_OBJECTS);

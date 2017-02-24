@@ -57,7 +57,7 @@ void save_into_file(char *sfile) {
 	int file_id;
 	char name_buffer[80];
 	char *hptr;
-	struct rogue_time rt_buf;
+	rogue_time rt_buf;
 
 	if (sfile[0] == '~') {
 		if (hptr = md_getenv("HOME")) {
@@ -122,7 +122,7 @@ void save_into_file(char *sfile) {
 
 void restore(char *fname) {
 	FILE *fp;
-	struct rogue_time saved_time, mod_time;
+	rogue_time saved_time, mod_time;
 	char buf[4];
 	char tbuf[40];
 	int new_file_id, saved_file_id;
@@ -256,7 +256,7 @@ void rw_dungeon(FILE *fp, boolean rw) {
 	}
 }
 
-void rw_id(struct id id_table[], FILE *fp, int n, boolean wr) {
+void rw_id(id id_table[], FILE *fp, int n, boolean wr) {
 	int i;
 
 	for (i = 0; i < n; i++) {
@@ -274,7 +274,7 @@ void rw_id(struct id id_table[], FILE *fp, int n, boolean wr) {
 	}
 }
 
-void rw_id_alloc(struct id id_table[], FILE *fp, int n, boolean wr) {
+void rw_id_alloc(id id_table[], FILE *fp, int n, boolean wr) {
 	int i;
 
 	for (i = 0; i < n; i++) {
@@ -335,7 +335,7 @@ void r_write(FILE *fp, char *buf, int n) {
 	}
 }
 
-boolean has_been_touched(struct rogue_time *saved_time, struct rogue_time *mod_time) {
+boolean has_been_touched(rogue_time *saved_time, rogue_time *mod_time) {
 	if (saved_time->year < mod_time->year) {
 		return(1);
 	} else if (saved_time->year > mod_time->year) {
