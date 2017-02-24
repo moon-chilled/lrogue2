@@ -194,22 +194,25 @@ int md_link_count(char *fname) {
  * saved-game files and play them.  
  */
 
-void md_gct(rogue_time *rt_buf) {
+rogue_time md_gct() {
 	struct timeval tv;
 	struct timezone tzp;
 	struct tm *t;
 	long seconds;
+	rogue_time tmp;
 
 	gettimeofday(&tv, &tzp);
 	seconds = (long) tv.tv_sec;
 	t = localtime(&seconds);
 
-	rt_buf->year = t->tm_year;
-	rt_buf->month = t->tm_mon + 1;
-	rt_buf->day = t->tm_mday;
-	rt_buf->hour = t->tm_hour;
-	rt_buf->minute = t->tm_min;
-	rt_buf->second = t->tm_sec;
+	tmp.year = t->tm_year;
+	tmp.month = t->tm_mon + 1;
+	tmp.day = t->tm_mday;
+	tmp.hour = t->tm_hour;
+	tmp.minute = t->tm_min;
+	tmp.second = t->tm_sec;
+
+	return(tmp);
 }
 
 /* md_gfmt: (Get File Modification Time)

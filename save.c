@@ -108,7 +108,7 @@ void save_into_file(char *sfile) {
 	r_write(fp, (char *) &wizard, sizeof(wizard));
 	r_write(fp, (char *) &score_only, sizeof(score_only));
 	r_write(fp, (char *) &m_moves, sizeof(m_moves));
-	md_gct(&rt_buf);
+	rt_buf = md_gct();
 	rt_buf.second += 10;		/* allow for some processing time */
 	r_write(fp, (char *) &rt_buf, sizeof(rt_buf));
 	fclose(fp);

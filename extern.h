@@ -84,7 +84,7 @@ void md_heed_signals();
 void md_ignore_signals();
 int md_get_file_id(char*);
 int md_link_count(char*);
-void md_gct(rogue_time*);
+rogue_time md_gct();
 void md_gfmt(char*, rogue_time*);
 boolean md_df(char*);
 char *md_gln();
