@@ -83,7 +83,7 @@ void md_slurp();
 void md_control_keyboard(short);
 void md_heed_signals();
 void md_ignore_signals();
-int md_get_file(char*);
+int md_get_file_id(char*);
 int md_link_count(char*);
 void md_gct(struct rogue_time*);
 void md_gfmt(char*, struct rogue_time*);
@@ -93,6 +93,11 @@ void md_sleep(int);
 char *md_getenv(char*);
 int md_gseed();
 void md_exit(int);
+
+
+/* main.c */
+void turn_into_games();
+void turn_into_user();
 
 
 /* message.c */

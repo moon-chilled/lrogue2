@@ -10,8 +10,6 @@
  *
  */
 
-#include <curses.h>
-#include <string.h>
 #include "rogue.h"
 #include "extern.h"
 

@@ -10,8 +10,6 @@
  *
  */
 
-#include <curses.h>
-#include <string.h>
 #include "rogue.h"
 #include "extern.h"
 
@@ -145,12 +143,12 @@ void start_window() {
 #ifndef BAD_NONL
 	nonl();
 #endif
-	md_control_keybord(0);
+	md_control_keyboard(0);
 }
 
 void stop_window() {
 	endwin();
-	md_control_keybord(1);
+	md_control_keyboard(1);
 }
 
 void byebye() {

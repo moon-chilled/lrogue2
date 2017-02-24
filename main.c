@@ -18,34 +18,27 @@ extern short party_room;
 int saved_uid= -1;
 int true_uid= -1;
 
-void turn_into_games()
-{
-	if(setuid(saved_uid)==-1)
-	{
+void turn_into_games() {
+	if(setuid(saved_uid) == -1) {
 		perror("setuid(restore)");
 		clean_up("");
 	}
 }
 
-void turn_into_user()
-{
-	if(setuid(true_uid)==-1)
-	{
+void turn_into_user() {
+	if(setuid(true_uid) == -1) {
 		perror("setuid(restore)");
 		clean_up("");
 	}
 }
 
-main(argc, argv)
-int argc;
-char *argv[];
-{
+int main(int argc, char *argv[]) {
 	/* Save the setuid we have got, then turn back into the player */
 	saved_uid=geteuid();
 	setuid(true_uid=getuid());
 
 	if (init(argc, argv)) {		/* restored game */
-		goto PL;
+		goto playlevel;
 	}
 
 	for (;;) {
@@ -57,7 +50,7 @@ char *argv[];
 		put_mons();
 		put_player(party_room);
 		print_stats(STAT_ALL);
-PL:		
+playlevel:
 		play_level();
 		free_stuff(&level_objects);
 		free_stuff(&level_monsters);

@@ -10,7 +10,6 @@
  *
  */
 
-#include <curses.h>
 #include "rogue.h"
 #include "extern.h"
 
@@ -381,7 +380,7 @@ boolean mtry(object *monster, short row, short col) {
 
 void move_mon_to(object *monster, short row, short col) {
 	short c;
-	register mrow, mcol;
+	int mrow, mcol;
 
 	mrow = monster->row;
 	mcol = monster->col;

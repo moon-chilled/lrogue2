@@ -2,7 +2,6 @@
  *	Instructions command for rogue clone. Alan Cox 1992
  */
 
-#include <curses.h>
 #include "rogue.h"
 #include "extern.h"
 
