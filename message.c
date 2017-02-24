@@ -138,7 +138,7 @@ int rgetchar() {
 			fflush(stdout);
 			tstp();
 			break;
-#endif UNIX_BSD4_2
+#endif
 		case 'X':
 			save_screen();
 			break;

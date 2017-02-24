@@ -71,7 +71,7 @@
 #ifdef _POSIX_SOURCE
 #include <unistd.h>
 #include <termios.h>
-#endif _POSIX_SOURCE
+#endif
 
 /* md_slurp:
  *
@@ -95,7 +95,7 @@ void md_slurp() {
 	for (i = 0; i < n; i++) {
 		(void) getchar();
 	}
-#endif UNIX_BSD4_2
+#endif
 }
 
 /* md_control_keyboard():
@@ -140,7 +140,7 @@ void md_control_keybord(short mode) {
 	}
 #ifndef _POSIX_SOURCE
 	ltc_temp = ltc_orig;
-#endif _POSIX_SOURCE
+#endif
 	tc_temp = tc_orig;
 
 	if (!mode) {
@@ -149,15 +149,15 @@ void md_control_keybord(short mode) {
 	tc_temp.c_cc[VERASE] = -1;
 	tc_temp.c_cc[VSTART] = -1;
 	tc_temp.c_cc[VSTOP] = -1;
-#endif _POSIX_SOURCE
+#endif
 #ifdef UNIX_BSD4_2
 		ltc_temp.t_suspc = ltc_temp.t_dsuspc = -1;
-#endif UNIX_BSD4_2
+#endif
 #ifndef _POSIX_SOURCE
 		ltc_temp.t_rprntc = ltc_temp.t_flushc = -1;
 		ltc_temp.t_werasc = ltc_temp.t_lnextc = -1;
 		tc_temp.t_startc = tc_temp.t_stopc = -1;
-#endif _POSIX_SOURCE
+#endif
 	}
 #ifdef _POSIX_SOURCE
        tcsetattr(0,TCSANOW,&tc_temp);
@@ -416,4 +416,4 @@ void md_exit(int status) {
 	exit(status);
 }
 
-#endif UNIX
+#endif /* UNIX */
