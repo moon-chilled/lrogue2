@@ -12,6 +12,7 @@
 
 #include "rogue.h"
 #include "extern.h"
+#include <locale.h>
 
 extern int party_room;
 
@@ -33,6 +34,7 @@ void turn_into_user() {
 }
 
 int main(int argc, char *argv[]) {
+	setlocale(LC_ALL, "en_US.UTF-8");
 	/* Save the setuid we have got, then turn back into the player */
 	saved_uid=geteuid();
 	setuid(true_uid=getuid());
