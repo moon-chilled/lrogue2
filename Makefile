@@ -5,7 +5,7 @@ ROGUE_OBJS = hit.o init.o instruct.o inventory.o level.o machdep.o main.o \
 CC = clang
 
 
-CFLAGS = -c -DUNIX -DUNIX_SYS5 -std=c99 -g -fwritable-strings
+CFLAGS = -c -DUNIX -std=c99 -g -fwritable-strings
 LDFLAGS = -lncurses -g
 
 

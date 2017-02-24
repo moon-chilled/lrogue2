@@ -134,7 +134,7 @@ void clean_up(char *estr) {
 		printf("\n%s\n", estr);
 	}
 	endwin();
-	md_exit(0);
+	exit(0);
 }
 
 void start_window() {

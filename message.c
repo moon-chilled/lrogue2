@@ -28,7 +28,6 @@ void message(char *msg, boolean intrpt) {
 	}
 	if (intrpt) {
 		interrupted = 1;
-		md_slurp();
 	}
 	cant_int = 1;
 
@@ -131,13 +130,6 @@ int rgetchar() {
 		case '\022':
 			wrefresh(curscr);
 			break;
-#ifdef UNIX_BSD4_2
-		case '\032':
-			printf(CL);
-			fflush(stdout);
-			tstp();
-			break;
-#endif
 		case 'X':
 			save_screen();
 			break;

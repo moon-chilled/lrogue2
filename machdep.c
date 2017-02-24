@@ -11,45 +11,6 @@
  *
  */
 
-/* Included in this file are all system dependent routines.  Extensive use
- * of #ifdef's will be used to compile the appropriate code on each system:
- *
- *    UNIX:        all UNIX systems.
- *    UNIX_BSD4_2: UNIX BSD 4.2 and later, UTEK, (4.1 BSD too?)
- *    UNIX_SYS5:   UNIX system 5
- *    UNIX_V7:     UNIX version 7
- *
- * All UNIX code should be included between the single "#ifdef UNIX" at the
- * top of this file, and the "#endif UNIX" at the bottom.
- * 
- * To change a routine to include a new UNIX system, simply #ifdef the
- * existing routine, as in the following example:
- *
- *   To make a routine compatible with UNIX system 5, change the first
- *   function to the second:
- *
- *      md_function()
- *      {
- *         code;
- *      }
- *
- *      md_function()
- *      {
- *      #ifdef UNIX_SYS5
- *         sys5code;
- *      #else
- *         code;
- *      #endif
- *      }
- *
- * Appropriate variations of this are of course acceptible.
- * The use of "#elseif" is discouraged because of non-portability.
- * If the correct #define doesn't exist, "UNIX_SYS5" in this case, make it up
- * and insert it in the list at the top of the file.  Alter the CFLAGS
- * in you Makefile appropriately.
- *
- */
-
 #ifdef UNIX
 
 #include <sys/file.h>
@@ -76,31 +37,6 @@
 #include <unistd.h>
 #include <termios.h>
 #endif
-
-/* md_slurp:
- *
- * This routine throws away all keyboard input that has not
- * yet been read.  It is used to get rid of input that the user may have
- * typed-ahead.
- *
- * This function is not necessary, so it may be stubbed.  The might cause
- * message-line output to flash by because the game has continued to read
- * input without waiting for the user to read the message.  Not such a
- * big deal.
- */
-
-void md_slurp() {
-#ifdef UNIX_BSD4_2
-	long ln;
-	int i, n;
-	ioctl(0, FIONREAD, &ln);
-	n = (int) (stdin->_cnt + ln);
-
-	for (i = 0; i < n; i++) {
-		(void) getchar();
-	}
-#endif
-}
 
 /* md_control_keyboard():
  *
@@ -153,9 +89,6 @@ void md_control_keyboard(int mode) {
 	tc_temp.c_cc[VERASE] = -1;
 	tc_temp.c_cc[VSTART] = -1;
 	tc_temp.c_cc[VSTOP] = -1;
-#endif
-#ifdef UNIX_BSD4_2
-		ltc_temp.t_suspc = ltc_temp.t_dsuspc = -1;
 #endif
 #ifndef _POSIX_SOURCE
 		ltc_temp.t_rprntc = ltc_temp.t_flushc = -1;
@@ -407,17 +340,6 @@ char *md_getenv(char *name) {
 
 int md_gseed() {
 	return(getpid());
-}
-
-/* md_exit():
- *
- * This function causes the program to discontinue execution and exit.
- * This function must be implemented or the program will continue to
- * hang when it should quit.
- */
-
-void md_exit(int status) {
-	exit(status);
 }
 
 #endif /* UNIX */

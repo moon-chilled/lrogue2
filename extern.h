@@ -79,7 +79,6 @@ void mix_random_rooms();
 
 
 /* machdep.c */
-void md_slurp();
 void md_control_keyboard(int);
 void md_heed_signals();
 void md_ignore_signals();
@@ -92,7 +91,6 @@ char *md_gln();
 void md_sleep(int);
 char *md_getenv(char*);
 int md_gseed();
-void md_exit(int);
 
 
 /* main.c */
