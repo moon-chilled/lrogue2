@@ -34,11 +34,13 @@ int init(int argc, char *argv[]) {
 	do_opts();
 
 	pn = md_gln();
-	if ((!pn) || (strlen(pn) >= 30)) {
-		clean_up("Hey!  Who are you?");
+	if (!pn) {
+		strcpy(login_name, "Example user");
+	} else {
+		strcpy(login_name, pn);
+		free(pn);
 	}
 
-	strcpy(login_name, pn);
 
 	if (!score_only && !rest_file) {
 		printf("Hello %s, just a moment while I dig the dungeon...",
