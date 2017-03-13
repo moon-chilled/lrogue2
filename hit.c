@@ -155,7 +155,7 @@ int get_damage(char *ds, boolean r) {
 			i++;
 		}
 	}
-	return(total);
+	return total;
 }
 
 int get_w_damage(object *obj) {
@@ -163,7 +163,7 @@ int get_w_damage(object *obj) {
 	int to_hit, damage, i = 0;
 
 	if ((!obj) || (obj->what_is != WEAPON)) {
-		return(-1);
+		return -1;
 	}
 	to_hit = get_number(obj->damage) + obj->hit_enchant;
 	while (obj->damage[i++] != 'd') ;
@@ -171,7 +171,7 @@ int get_w_damage(object *obj) {
 
 	sprintf(new_damage, "%dd%d", to_hit, damage);
 
-	return(get_damage(new_damage, 1));
+	return get_damage(new_damage, 1);
 }
 
 int get_number(char *s) {
@@ -181,7 +181,7 @@ int get_number(char *s) {
 		total = (10 * total) + (s[i] - '0');
 		i++;
 	}
-	return(total);
+	return total;
 }
 
 long lget_number(char *s) {
@@ -191,14 +191,14 @@ long lget_number(char *s) {
 		total = (10 * total) + (s[i] - '0');
 		i++;
 	}
-	return(total);
+	return total;
 }
 
 int to_hit(object *obj) {
 	if (!obj) {
-		return(1);
+		return 1;
 	}
-	return(get_number(obj->damage) + obj->hit_enchant);
+	return get_number(obj->damage) + obj->hit_enchant;
 }
 
 int damage_for_strength() {
@@ -207,27 +207,27 @@ int damage_for_strength() {
 	strength = rogue.str_current + add_strength;
 
 	if (strength <= 6) {
-		return(strength-5);
+		return strength-5;
 	}
 	if (strength <= 14) {
-		return(1);
+		return 1;
 	}
 	if (strength <= 17) {
-		return(3);
+		return 3;
 	}
 	if (strength <= 18) {
-		return(4);
+		return 4;
 	}
 	if (strength <= 20) {
-		return(5);
+		return 5;
 	}
 	if (strength <= 21) {
-		return(6);
+		return 6;
 	}
 	if (strength <= 30) {
-		return(7);
+		return 7;
 	}
-	return(8);
+	return 8;
 }
 
 boolean mon_damage(object *monster, int damage) {
@@ -255,9 +255,9 @@ boolean mon_damage(object *monster, int damage) {
 			being_held = 0;
 		}
 		free_object(monster);
-		return(0);
+		return 0;
 	}
-	return(1);
+	return 1;
 }
 
 void fight(boolean to_the_death) {
@@ -364,7 +364,7 @@ int get_hit_chance(object *weapon) {
 	hit_chance = 40;
 	hit_chance += 3 * to_hit(weapon);
 	hit_chance += (((2 * rogue.exp) + (2 * ring_exp)) - r_rings);
-	return(hit_chance);
+	return hit_chance;
 }
 
 int get_weapon_damage(object *weapon) {
@@ -373,5 +373,5 @@ int get_weapon_damage(object *weapon) {
 	damage = get_w_damage(weapon);
 	damage += damage_for_strength();
 	damage += ((((rogue.exp + ring_exp) - r_rings) + 1) / 2);
-	return(damage);
+	return damage;
 }

@@ -104,7 +104,7 @@ boolean throw_at_monster(object *monster, object *weapon) {
 
 	if (!rand_percent(hit_chance)) {
 		strcat(hit_message, "misses  ");
-		return(0);
+		return 0;
 	}
 	strcat(hit_message, "hit  ");
 	if ((weapon->what_is == WAND) && rand_percent(75)) {
@@ -112,7 +112,7 @@ boolean throw_at_monster(object *monster, object *weapon) {
 	} else {
 		mon_damage(monster, damage);
 	}
-	return(1);
+	return 1;
 }
 
 object *get_thrown_at_monster(object *obj, int dir, int *row, int *col) {
@@ -130,7 +130,7 @@ object *get_thrown_at_monster(object *obj, int dir, int *row, int *col) {
 				(!(dungeon[*row][*col] & TRAP)))) {
 			*row = orow;
 			*col = ocol;
-			return(0);
+			return 0;
 		}
 		if ((i != 0) && rogue_can_see(orow, ocol)) {
 			mvaddch(orow, ocol, get_dungeon_char(orow, ocol));
@@ -144,14 +144,14 @@ object *get_thrown_at_monster(object *obj, int dir, int *row, int *col) {
 		orow = *row; ocol = *col;
 		if (dungeon[*row][*col] & MONSTER) {
 			if (!imitating(*row, *col)) {
-				return(object_at(&level_monsters, *row, *col));
+				return object_at(&level_monsters, *row, *col);
 			}
 		}
 		if (dungeon[*row][*col] & TUNNEL) {
 			i += 2;
 		}
 	}
-	return(0);
+	return 0;
 }
 
 void flop_weapon(object *weapon, int row, int col) {

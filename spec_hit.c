@@ -229,7 +229,7 @@ void cough_up(object *monster) {
 
 boolean try_to_cough(int row, int col, object *obj) {
 	if ((row < MIN_ROW) || (row > (DROWS-2)) || (col < 0) || (col>(DCOLS-1))) {
-		return(0);
+		return 0;
 	}
 	if ((!(dungeon[row][col] & (OBJECT | STAIRS | TRAP))) &&
 		(dungeon[row][col] & (TUNNEL | FLOOR | DOOR))) {
@@ -238,16 +238,16 @@ boolean try_to_cough(int row, int col, object *obj) {
 			(!(dungeon[row][col] & MONSTER))) {
 			mvaddch(row, col, get_dungeon_char(row, col));
 		}
-		return(1);
+		return 1;
 	}
-	return(0);
+	return 0;
 }
 
 boolean seek_gold(object *monster) {
 	int i, j, rn, s;
 
 	if ((rn = get_room_number(monster->row, monster->col)) < 0) {
-		return(0);
+		return 0;
 	}
 	for (i = rooms[rn].top_row+1; i < rooms[rn].bottom_row; i++) {
 		for (j = rooms[rn].left_col+1; j < rooms[rn].right_col; j++) {
@@ -259,18 +259,18 @@ boolean seek_gold(object *monster) {
 					move_mon_to(monster, i, j);
 					monster->m_flags |= ASLEEP;
 					monster->m_flags &= (~(WAKENS | SEEKS_GOLD));
-					return(1);
+					return 1;
 				}
 				monster->m_flags &= (~SEEKS_GOLD);
 				monster->m_flags |= CAN_FLIT;
 				mv_monster(monster, i, j);
 				monster->m_flags &= (~CAN_FLIT);
 				monster->m_flags |= SEEKS_GOLD;
-				return(1);
+				return 1;
 			}
 		}
 	}
-	return(0);
+	return 0;
 }
 
 boolean gold_at(int row, int col) {
@@ -279,10 +279,10 @@ boolean gold_at(int row, int col) {
 
 		if ((obj = object_at(&level_objects, row, col)) &&
 				(obj->what_is == GOLD)) {
-			return(1);
+			return 1;
 		}
 	}
-	return(0);
+	return 0;
 }
 
 void check_gold_seeker(object *monster) {
@@ -301,9 +301,9 @@ boolean check_imitator(object *monster) {
 			sprintf(msg, "wait, that's a %s!", mon_name(monster));
 			message(msg, 1);
 		}
-		return(1);
+		return 1;
 	}
-	return(0);
+	return 0;
 }
 
 boolean imitating(int row, int col) {
@@ -312,11 +312,11 @@ boolean imitating(int row, int col) {
 
 		if ((monster = object_at(&level_monsters, row, col))) {
 			if (monster->m_flags & IMITATES) {
-				return(1);
+				return 1;
 			}
 		}
 	}
-	return(0);
+	return 0;
 }
 
 void sting(object *monster) {
@@ -389,27 +389,27 @@ boolean m_confuse(object *monster) {
 	char msg[80];
 
 	if (!rogue_can_see(monster->row, monster->col)) {
-		return(0);
+		return 0;
 	}
 	if (rand_percent(45)) {
 		monster->m_flags &= (~CONFUSES);	/* will not confuse the rogue */
-		return(0);
+		return 0;
 	}
 	if (rand_percent(55)) {
 		monster->m_flags &= (~CONFUSES);
 		sprintf(msg, "the gaze of the %s has confused you", mon_name(monster));
 		message(msg, 1);
 		confuse();
-		return(1);
+		return 1;
 	}
-	return(0);
+	return 0;
 }
 
 boolean flame_broil(object *monster) {
 	int row, col;
 
 	if ((!mon_sees(monster, rogue.row, rogue.col)) || coin_toss()) {
-		return(0);
+		return 0;
 	}
 	row = rogue.row - monster->row;
 	col = rogue.col - monster->col;
@@ -421,7 +421,7 @@ boolean flame_broil(object *monster) {
 	}
 	if (((row != 0) && (col != 0) && (row != col)) ||
 		((row > 7) || (col > 7))) {
-		return(0);
+		return 0;
 	}
 	if ((!blind) && (!rogue_is_around(monster->row, monster->col))) {
 		row = monster->row;
@@ -443,7 +443,7 @@ boolean flame_broil(object *monster) {
 		} while ((row != rogue.row) || (col != rogue.col));
 	}
 	mon_hit(monster, flame_name, 1);
-	return(1);
+	return 1;
 }
 
 void get_closer(int *row, int *col, int trow, int tcol) {

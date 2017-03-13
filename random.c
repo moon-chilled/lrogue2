@@ -51,7 +51,7 @@ long rrandom() {
 			}
 		}
 	}
-	return(i);
+	return i;
 }
 
 int get_rand(int x, int y) {
@@ -67,13 +67,13 @@ int get_rand(int x, int y) {
     lr &= (long) 0x00007fff;
     r = (int) lr;
     r = (r % ((y - x) + 1)) + x;
-    return(r);
+    return r;
 }
 
 int rand_percent(int percentage) {
-	return(get_rand(1, 100) <= percentage);
+	return get_rand(1, 100) <= percentage;
 }
 
 char coin_toss() {
-	return(((rrandom() & 01) ? 1 : 0));
+	return (rrandom() & 1);
 }

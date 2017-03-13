@@ -21,7 +21,7 @@ object *add_to_pack(object *obj, object *pack, boolean condense) {
 	if (condense) {
 		if ((op = check_duplicate(obj, pack))) {
 			free_object(obj);
-			return(op);
+			return op;
 		} else {
 			obj->ichar = next_avail_ichar();
 		}
@@ -37,7 +37,7 @@ object *add_to_pack(object *obj, object *pack, boolean condense) {
 		op->next_object = obj;
 	}
 	obj->next_object = 0;
-	return(obj);
+	return obj;
 }
 
 void take_from_pack(object *obj, object *pack) {
@@ -62,24 +62,24 @@ object *pick_up(int row, int col, int *status) {
 		if (id_scrolls[SCARE_MONSTER].id_status == UNIDENTIFIED) {
 			id_scrolls[SCARE_MONSTER].id_status = IDENTIFIED;
 		}
-		return(0);
+		return 0;
 	}
 	if (obj->what_is == GOLD) {
 		rogue.gold += obj->quantity;
 		dungeon[row][col] &= ~(OBJECT);
 		take_from_pack(obj, &level_objects);
 		print_stats(STAT_GOLD);
-		return(obj);	/* obj will be free_object()ed in one_move_rogue() */
+		return obj;	/* obj will be free_object()ed in one_move_rogue() */
 	}
 	if (pack_count(obj) >= MAX_PACK_COUNT) {
 		message("pack too full", 1);
-		return(0);
+		return 0;
 	}
 	dungeon[row][col] &= ~(OBJECT);
 	take_from_pack(obj, &level_objects);
 	obj = add_to_pack(obj, &rogue.pack, 1);
 	obj->picked_up = 1;
-	return(obj);
+	return obj;
 }
 
 void drop() {
@@ -147,10 +147,10 @@ object *check_duplicate(object *obj, object *pack) {
 	object *op;
 
 	if (!(obj->what_is & (WEAPON | FOOD | SCROLL | POTION))) {
-		return(0);
+		return 0;
 	}
 	if ((obj->what_is == FOOD) && (obj->which_kind == FRUIT)) {
-		return(0);
+		return 0;
 	}
 	op = pack->next_object;
 
@@ -166,12 +166,12 @@ object *check_duplicate(object *obj, object *pack) {
 			(obj->which_kind == SHURIKEN)) &&
 			(obj->quiver == op->quiver))) {
 				op->quantity += obj->quantity;
-				return(op);
+				return op;
 			}
 		}
 		op = op->next_object;
 	}
-	return(0);
+	return 0;
 }
 
 char next_avail_ichar() {
@@ -189,10 +189,10 @@ char next_avail_ichar() {
 	}
 	for (i = 0; i < 26; i++) {
 		if (!ichars[i]) {
-			return(i + 'a');
+			return i + 'a';
 		}
 	}
-	return('?');
+	return '?';
 }
 
 void wait_for_ack() {
@@ -205,7 +205,7 @@ int pack_letter(char *prompt, unsigned int mask) {
 
 	if (!mask_pack(&rogue.pack, mask)) {
 		message("nothing appropriate", 0);
-		return(CANCEL);
+		return CANCEL;
 	}
 	for (;;) {
 
@@ -229,7 +229,7 @@ int pack_letter(char *prompt, unsigned int mask) {
 		mask = tmask;
 	}
 	check_message();
-	return(ch);
+	return ch;
 }
 
 void take_off() {
@@ -395,17 +395,17 @@ int pack_count(object *new_obj) {
 		}
 		obj = obj->next_object;
 	}
-	return(count);
+	return count;
 }
 
 boolean mask_pack(object *pack, unsigned int mask) {
 	while (pack->next_object) {
 		pack = pack->next_object;
 		if (pack->what_is & mask) {
-			return(1);
+			return 1;
 		}
 	}
-	return(0);
+	return 0;
 }
 
 boolean is_pack_letter(int *c, unsigned int *mask) {
@@ -438,13 +438,13 @@ boolean is_pack_letter(int *c, unsigned int *mask) {
 			break;
 		}
 		*c = LIST;
-		return(1);
+		return 1;
 	}
-	return(((*c >= 'a') && (*c <= 'z')) || (*c == CANCEL) || (*c == LIST));
+	return ((*c >= 'a') && (*c <= 'z')) || (*c == CANCEL) || (*c == LIST);
 }
 
 boolean has_amulet() {
-	return(mask_pack(&rogue.pack, AMULET));
+	return mask_pack(&rogue.pack, AMULET);
 }
 
 void kick_into_pack() {

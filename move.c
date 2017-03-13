@@ -39,7 +39,7 @@ int one_move_rogue(int dirch, int pickup) {
 	get_dir_rc(dirch, &row, &col, 1);
 
 	if (!can_move(rogue.row, rogue.col, row, col)) {
-		return(MOVE_FAILED);
+		return MOVE_FAILED;
 	}
 	if (being_held || bear_trap) {
 		if (!(dungeon[row][col] & MONSTER)) {
@@ -49,19 +49,19 @@ int one_move_rogue(int dirch, int pickup) {
 				message("you are still stuck in the bear trap", 0);
 				reg_move();
 			}
-			return(MOVE_FAILED);
+			return MOVE_FAILED;
 		}
 	}
 	if (r_teleport) {
 		if (rand_percent(R_TELE_PERCENT)) {
 			tele();
-			return(STOPPED_ON_SOMETHING);
+			return STOPPED_ON_SOMETHING;
 		}
 	}
 	if (dungeon[row][col] & MONSTER) {
 		rogue_hit(object_at(&level_monsters, row, col), 0);
 		reg_move();
-		return(MOVE_FAILED);
+		return MOVE_FAILED;
 	}
 	if (dungeon[row][col] & DOOR) {
 		if (cur_room == PASSAGE) {
@@ -90,7 +90,7 @@ int one_move_rogue(int dirch, int pickup) {
 	rogue.col = col;
 	if (dungeon[row][col] & OBJECT) {
 		if (levitate && pickup) {
-			return(STOPPED_ON_SOMETHING);
+			return STOPPED_ON_SOMETHING;
 		}
 		if (pickup && !levitate) {
 			if ((obj = pick_up(row, col, &status))) {
@@ -119,19 +119,19 @@ MOVE_ON:
 NOT_IN_PACK:
 		message(desc, 1);
 		reg_move();
-		return(STOPPED_ON_SOMETHING);
+		return STOPPED_ON_SOMETHING;
 	}
 	if (dungeon[row][col] & (DOOR | STAIRS | TRAP)) {
 		if ((!levitate) && (dungeon[row][col] & TRAP)) {
 			trap_player(row, col);
 		}
 		reg_move();
-		return(STOPPED_ON_SOMETHING);
+		return STOPPED_ON_SOMETHING;
 	}
 MVED:	if (reg_move()) {			/* fainted from hunger */
-			return(STOPPED_ON_SOMETHING);
+			return STOPPED_ON_SOMETHING;
 	}
-	return((confused ? STOPPED_ON_SOMETHING : MOVED));
+	return (confused ? STOPPED_ON_SOMETHING : MOVED);
 }
 
 void multiple_move_rogue(char dirch) {
@@ -174,12 +174,12 @@ void multiple_move_rogue(char dirch) {
 boolean is_passable(int row, int col) {
 	if ((row < MIN_ROW) || (row > (DROWS - 2)) || (col < 0) ||
 		(col > (DCOLS-1))) {
-		return(0);
+		return 0;
 	}
 	if (dungeon[row][col] & HIDDEN) {
-		return((dungeon[row][col] & TRAP) ? 1 : 0);
+		return (dungeon[row][col] & TRAP) ? 1 : 0;
 	}
-	return(dungeon[row][col] & (FLOOR | TUNNEL | DOOR | STAIRS | TRAP));
+	return dungeon[row][col] & (FLOOR | TUNNEL | DOOR | STAIRS | TRAP);
 }
 
 boolean next_to_something(int drow, int dcol) {
@@ -188,10 +188,10 @@ boolean next_to_something(int drow, int dcol) {
 	unsigned int s;
 
 	if (confused) {
-		return(1);
+		return 1;
 	}
 	if (blind) {
-		return(0);
+		return 0;
 	}
 	i_end = (rogue.row < (DROWS-2)) ? 1 : 0;
 	j_end = (rogue.col < (DCOLS-1)) ? 1 : 0;
@@ -217,7 +217,7 @@ boolean next_to_something(int drow, int dcol) {
 					(!((row == rogue.row) || (col == rogue.col)))) {
 					continue;
 				}
-				return(1);
+				return 1;
 			}
 			if (s & TRAP) {
 				if (!(s & HIDDEN)) {
@@ -225,35 +225,35 @@ boolean next_to_something(int drow, int dcol) {
 						(!((row == rogue.row) || (col == rogue.col)))) {
 						continue;
 					}
-					return(1);
+					return 1;
 				}
 			}
 			if ((((i - j) == 1) || ((i - j) == -1)) && (s & TUNNEL)) {
 				if (++pass_count > 1) {
-					return(1);
+					return 1;
 				}
 			}
 			if ((s & DOOR) && ((i == 0) || (j == 0))) {
-					return(1);
+					return 1;
 			}
 		}
 	}
-	return(0);
+	return 0;
 }
 
 boolean can_move(int row1, int col1, int row2, int col2) {
 	if (!is_passable(row2, col2)) {
-		return(0);
+		return 0;
 	}
 	if ((row1 != row2) && (col1 != col2)) {
 		if ((dungeon[row1][col1]&DOOR)||(dungeon[row2][col2]&DOOR)) {
-			return(0);
+			return 0;
 		}
 		if ((!dungeon[row1][col2]) || (!dungeon[row2][col1])) {
-			return(0);
+			return 0;
 		}
 	}
-	return(1);
+	return 1;
 }
 
 void move_onto() {
@@ -274,8 +274,7 @@ void move_onto() {
 }
 
 boolean is_direction(char c) {
-	return(
-		(c == 'h') ||
+	return  (c == 'h') ||
 		(c == 'j') ||
 		(c == 'k') ||
 		(c == 'l') ||
@@ -283,8 +282,7 @@ boolean is_direction(char c) {
 		(c == 'y') ||
 		(c == 'u') ||
 		(c == 'n') ||
-		(c == CANCEL)
-		);
+		(c == CANCEL);
 }
 
 boolean check_hunger(boolean messages_only) {
@@ -323,7 +321,7 @@ boolean check_hunger(boolean messages_only) {
 		}
 	}
 	if (messages_only) {
-		return(fainted);
+		return fainted;
 	}
 	if (rogue.moves_left <= STARVE) {
 		killed_by((object *) 0, STARVATION);
@@ -350,7 +348,7 @@ boolean check_hunger(boolean messages_only) {
 		rogue.moves_left--;
 		break;
 	}
-	return(fainted);
+	return fainted;
 }
 
 boolean reg_move() {
@@ -405,7 +403,7 @@ boolean reg_move() {
 	if (auto_search > 0) {
 		search(auto_search, auto_search);
 	}
-	return(fainted);
+	return fainted;
 }
 
 void rest(int count) {
@@ -452,7 +450,7 @@ int gr_dir() {
 			d = 'n';
 			break;
 	}
-	return(d);
+	return d;
 }
 
 void heal() {

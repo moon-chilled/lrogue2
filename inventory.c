@@ -412,19 +412,19 @@ void single_inv(int ichar) {
 id *get_id_table(object *obj) {
 	switch(obj->what_is) {
 	case SCROLL:
-		return(id_scrolls);
+		return id_scrolls;
 	case POTION:
-		return(id_potions);
+		return id_potions;
 	case WAND:
-		return(id_wands);
+		return id_wands;
 	case RING:
-		return(id_rings);
+		return id_rings;
 	case WEAPON:
-		return(id_weapons);
+		return id_weapons;
 	case ARMOR:
-		return(id_armors);
+		return id_armors;
 	}
-	return((id*) 0);
+	return (id*)NULL;
 }
 
 void inv_armor_weapon(boolean is_weapon) {

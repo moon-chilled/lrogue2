@@ -115,9 +115,9 @@ int get_input_line(char *prompt, char *insert, char *buf, char *if_cancelled, bo
 		if (if_cancelled) {
 			message(if_cancelled, 0);
 		}
-		return(0);
+		return 0;
 	}
-	return(i);
+	return i;
 }
 
 int rgetchar() {
@@ -134,7 +134,7 @@ int rgetchar() {
 			save_screen();
 			break;
 		default:
-			return(ch);
+			return ch;
 		}
 	}
 }
@@ -264,7 +264,7 @@ void sound_bell() {
 }
 
 boolean is_digit(int ch) {
-	return((ch >= '0') && (ch <= '9'));
+	return ((ch >= '0') && (ch <= '9'));
 }
 
 int r_index(char *str, int ch, boolean last) {
@@ -273,15 +273,15 @@ int r_index(char *str, int ch, boolean last) {
 	if (last) {
 		for (i = strlen(str) - 1; i >= 0; i--) {
 			if (str[i] == ch) {
-				return(i);
+				return i;
 			}
 		}
 	} else {
 		for (i = 0; str[i]; i++) {
 			if (str[i] == ch) {
-				return(i);
+				return i;
 			}
 		}
 	}
-	return(-1);
+	return -1;
 }

@@ -320,11 +320,11 @@ void insert_score(char scores[][82], char n_names[][30], char *n_name, int rank,
 }
 
 boolean is_vowel(char ch) {
-	return( (ch == 'a') ||
+	return  (ch == 'a') ||
 		(ch == 'e') ||
 		(ch == 'i') ||
 		(ch == 'o') ||
-		(ch == 'u') );
+		(ch == 'u');
 }
 
 void sell_pack() {
@@ -400,7 +400,7 @@ int get_value(object *obj) {
 	if (val <= 0) {
 		val = 10;
 	}
-	return(val);
+	return val;
 }
 
 void id_all() {
@@ -433,7 +433,7 @@ int name_cmp(char *s1, char *s2) {
 	s1[i] = 0;
 	r = strcmp(s1, s2);
 	s1[i] = ':';
-	return(r);
+	return r;
 }
 
 void xxxx(char *buf, int n) {
@@ -456,12 +456,12 @@ long xxx(boolean st) {
 	if (st) {
 		f = 37;
 		s = 7;
-		return(0L);
+		return 0L;
 	}
 	r = ((f * s) + 9337) % 8887;
 	f = s;
 	s = r;
-	return(r);
+	return r;
 }
 
 void nickize(char *buf, char *score, char *n_name) {

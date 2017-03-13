@@ -63,7 +63,7 @@ int init(int argc, char *argv[]) {
 	srrandom(getseed());
 	if (rest_file) {
 		restore(rest_file);
-		return(1);
+		return 1;
 	}
 	mix_colors();
 	get_wand_and_ring_materials();
@@ -74,7 +74,7 @@ int init(int argc, char *argv[]) {
 	player_init();
 	party_counter = get_rand(1, PARTY_TIME);
 	ring_stats(0);
-	return(0);
+	return 0;
 }
 
 void player_init() {

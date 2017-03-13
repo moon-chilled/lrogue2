@@ -88,70 +88,70 @@ char get_dungeon_char(int row, int col) {
 	unsigned int mask = dungeon[row][col];
 
 	if (mask & MONSTER) {
-		return(gmc_row_col(row, col));
+		return gmc_row_col(row, col);
 	}
 	if (mask & OBJECT) {
 		object *obj;
 
 		obj = object_at(&level_objects, row, col);
-		return(get_mask_char(obj->what_is));
+		return get_mask_char(obj->what_is);
 	}
 	if (mask & (TUNNEL | STAIRS | HORWALL | VERTWALL | FLOOR | DOOR)) {
 		if ((mask & (TUNNEL| STAIRS)) && (!(mask & HIDDEN))) {
-			return(((mask & STAIRS) ? '%' : '#'));
+			return ((mask & STAIRS) ? '%' : '#');
 		}
 		if (mask & HORWALL) {
-			return('-');
+			return '-';
 		}
 		if (mask & VERTWALL) {
-			return('|');
+			return '|';
 		}
 		if (mask & FLOOR) {
 			if (mask & TRAP) {
 				if (!(dungeon[row][col] & HIDDEN)) {
-					return('^');
+					return '^';
 				}
 			}
-			return('.');
+			return '.';
 		}
 		if (mask & DOOR) {
 			if (mask & HIDDEN) {
 				if (((col > 0) && (dungeon[row][col-1] & HORWALL)) ||
 					((col < (DCOLS-1)) && (dungeon[row][col+1] & HORWALL))) {
-					return('-');
+					return '-';
 				} else {
-					return('|');
+					return '|';
 				}
 			} else {
-				return('+');
+				return '+';
 			}
 		}
 	}
-	return(' ');
+	return ' ';
 }
 
 char get_mask_char(unsigned int mask) {
 		switch(mask) {
 		case SCROLL:
-			return('?');
+			return '?';
 		case POTION:
-			return('!');
+			return '!';
 		case GOLD:
-			return('*');
+			return '*';
 		case FOOD:
-			return(':');
+			return ':';
 		case WAND:
-			return('/');
+			return '/';
 		case ARMOR:
-			return(']');
+			return ']';
 		case WEAPON:
-			return(')');
+			return ')';
 		case RING:
-			return('=');
+			return '=';
 		case AMULET:
-			return(',');
+			return ',';
 		default:
-			return('~');	/* unknown, something is wrong */
+			return '~';	/* unknown, something is wrong */
 		}
 }
 
@@ -180,7 +180,7 @@ int gr_room() {
 		i = get_rand(0, MAXROOMS-1);
 	} while (!(rooms[i].is_room & (R_ROOM | R_MAZE)));
 
-	return(i);
+	return i;
 }
 
 int party_objects(int rn) {
@@ -211,7 +211,7 @@ int party_objects(int rn) {
 			nf++;
 		}
 	}
-	return(nf);
+	return nf;
 }
 
 int get_room_number(int row, int col) {
@@ -220,10 +220,10 @@ int get_room_number(int row, int col) {
 	for (i = 0; i < MAXROOMS; i++) {
 		if ((row >= rooms[i].top_row) && (row <= rooms[i].bottom_row) &&
 			(col >= rooms[i].left_col) && (col <= rooms[i].right_col)) {
-			return(i);
+			return i;
 		}
 	}
-	return(NO_ROOM);
+	return NO_ROOM;
 }
 
 boolean is_all_connected() {
@@ -240,10 +240,10 @@ boolean is_all_connected() {
 
 	for (i = 0; i < MAXROOMS; i++) {
 		if ((rooms[i].is_room & (R_ROOM | R_MAZE)) && (!rooms_visited[i])) {
-			return(0);
+			return 0;
 		}
 	}
-	return(1);
+	return 1;
 }
 
 void visit_rooms(int rn) {
@@ -390,7 +390,7 @@ boolean get_oth_room(int rn, int *row, int *col) {
 	if ((d != -1) && (rooms[rn].doors[d].oth_room >= 0)) {
 		*row = rooms[rn].doors[d].oth_row;
 		*col = rooms[rn].doors[d].oth_col;
-		return(1);
+		return 1;
 	}
-	return(0);
+	return 0;
 }

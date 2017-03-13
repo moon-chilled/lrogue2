@@ -257,7 +257,7 @@ boolean connect_rooms(int room1, int room2) {
 
 	if ((!(rooms[room1].is_room & (R_ROOM | R_MAZE))) ||
 		(!(rooms[room2].is_room & (R_ROOM | R_MAZE)))) {
-		return(0);
+		return 0;
 	}
 	if (same_row(room1, room2) &&
 		(rooms[room1].left_col > rooms[room2].right_col)) {
@@ -280,7 +280,7 @@ boolean connect_rooms(int room1, int room2) {
 		put_door(&rooms[room2], UP, &row2, &col2);
 		dir = DOWN;
 	} else {
-		return(0);
+		return 0;
 	}
 
 	do {
@@ -294,7 +294,7 @@ boolean connect_rooms(int room1, int room2) {
 	rooms[room2].doors[(((dir+4)%DIRS)/2)].oth_room = room1;
 	rooms[room2].doors[(((dir+4)%DIRS)/2)].oth_row = row1;
 	rooms[room2].doors[(((dir+4)%DIRS)/2)].oth_col = col1;
-	return(1);
+	return 1;
 }
 
 void clear_level() {
@@ -395,11 +395,11 @@ void draw_simple_passage(int row1, int col1, int row2, int col2, int dir) {
 }
 
 boolean same_row(int room1, int room2) {
-	return((room1 / 3) == (room2 / 3));
+	return (room1 / 3) == (room2 / 3);
 }
 
 boolean same_col(int room1, int room2) {
-	return((room1 % 3) == (room2 % 3));
+	return (room1 % 3) == (room2 % 3);
 }
 
 void add_mazes() {
@@ -548,11 +548,11 @@ boolean mask_room(int rn, int *row, int *col, unsigned int mask) {
 			if (dungeon[i][j] & mask) {
 				*row = i;
 				*col = j;
-				return(1);
+				return 1;
 			}
 		}
 	}
-	return(0);
+	return 0;
 }
 
 void make_maze(int r, int c, int tr, int br, int lc, int rc) {
@@ -683,28 +683,28 @@ void put_player(int nr) {
 
 boolean drop_check() {
 	if (wizard) {
-		return(1);
+		return 1;
 	}
 	if (dungeon[rogue.row][rogue.col] & STAIRS) {
 		if (levitate) {
 			message("you're floating in the air!", 0);
-			return(0);
+			return 0;
 		}
-		return(1);
+		return 1;
 	}
 	message("I see no way down", 0);
-	return(0);
+	return 0;
 }
 
 boolean check_up() {
 	if (!wizard) {
 		if (!(dungeon[rogue.row][rogue.col] & STAIRS)) {
 			message("I see no way up", 0);
-			return(0);
+			return 0;
 		}
 	        if (!has_amulet()) {
                         message("Your way is magically blocked",0);
-                        return(0);
+                        return 0;
                 }
 	}
 	new_level_message = "you feel a wrenching sensation in your gut";
@@ -712,9 +712,9 @@ boolean check_up() {
 		win();
 	} else {
 		cur_level -= 2;
-		return(1);
+		return 1;
 	}
-	return(0);
+	return 0;
 }
 
 void add_exp(int e, boolean promotion) {
@@ -753,14 +753,14 @@ int get_exp_level(long e) {
 			break;
 		}
 	}
-	return(i+1);
+	return i+1;
 }
 
 int hp_raise() {
 	int hp;
 
 	hp = (wizard ? 10 : get_rand(3, 10));
-	return(hp);
+	return hp;
 }
 
 void show_average_hp() {

@@ -337,32 +337,32 @@ void r_write(FILE *fp, char *buf, int n) {
 
 boolean has_been_touched(rogue_time *saved_time, rogue_time *mod_time) {
 	if (saved_time->year < mod_time->year) {
-		return(1);
+		return 1;
 	} else if (saved_time->year > mod_time->year) {
-		return(0);
+		return 0;
 	}
 	if (saved_time->month < mod_time->month) {
-		return(1);
+		return 1;
 	} else if (saved_time->month > mod_time->month) {
-		return(0);
+		return 0;
 	}
 	if (saved_time->day < mod_time->day) {
-		return(1);
+		return 1;
 	} else if (saved_time->day > mod_time->day) {
-		return(0);
+		return 0;
 	}
 	if (saved_time->hour < mod_time->hour) {
-		return(1);
+		return 1;
 	} else if (saved_time->hour > mod_time->hour) {
-		return(0);
+		return 0;
 	}
 	if (saved_time->minute < mod_time->minute) {
-		return(1);
+		return 1;
 	} else if (saved_time->minute > mod_time->minute) {
-		return(0);
+		return 0;
 	}
 	if (saved_time->second < mod_time->second) {
-		return(1);
+		return 1;
 	}
-	return(0);
+	return 0;
 }

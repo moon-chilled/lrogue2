@@ -525,9 +525,9 @@ void go_blind() {
 
 char *get_ench_color() {
 	if (halluc) {
-		return(id_potions[get_rand(0, POTIONS-1)].title);
+		return id_potions[get_rand(0, POTIONS-1)].title;
 	}
-	return("blue ");
+	return "blue ";
 }
 
 void confuse() {

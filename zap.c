@@ -72,11 +72,11 @@ object *get_zapped_monster(int dir, int *row, int *col) {
 		if (((*row == orow) && (*col == ocol)) ||
 		   (dungeon[*row][*col] & (HORWALL | VERTWALL)) ||
 		   (dungeon[*row][*col] == NOTHING)) {
-			return(0);
+			return 0;
 		}
 		if (dungeon[*row][*col] & MONSTER) {
 			if (!imitating(*row, *col)) {
-				return(object_at(&level_monsters, *row, *col));
+				return object_at(&level_monsters, *row, *col);
 			}
 		}
 	}

@@ -44,10 +44,10 @@ int trap_at(int row, int col) {
 
 	for (i = 0; ((i < MAX_TRAPS) && (traps[i].trap_type != NO_TRAP)); i++) {
 		if ((traps[i].trap_row == row) && (traps[i].trap_col == col)) {
-			return(traps[i].trap_type);
+			return traps[i].trap_type;
 		}
 	}
-	return(NO_TRAP);
+	return NO_TRAP;
 }
 
 void trap_player(int row, int col) {

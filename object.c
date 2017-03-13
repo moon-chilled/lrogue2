@@ -198,7 +198,7 @@ object *object_at(object *pack, int row, int col) {
 	while (obj && ((obj->row != row) || (obj->col != col))) {
 		obj = obj->next_object;
 	}
-	return(obj);
+	return obj;
 }
 
 object *get_letter_object(int ch) {
@@ -209,7 +209,7 @@ object *get_letter_object(int ch) {
 	while (obj && (obj->ichar != ch)) {
 		obj = obj->next_object;
 	}
-	return(obj);
+	return obj;
 }
 
 void free_stuff(object *objlist) {
@@ -274,7 +274,7 @@ char *name_of(object *obj) {
 		retstring = "unknown ";
 		break;
 	}
-	return(retstring);
+	return retstring;
 }
 
 object *gr_object() {
@@ -311,7 +311,7 @@ object *gr_object() {
 		gr_ring(obj, 1);
 		break;
 	}
-	return(obj);
+	return obj;
 }
 
 unsigned int gr_what_is() {
@@ -335,7 +335,7 @@ unsigned int gr_what_is() {
 	} else {
 		what_is = RING;
 	}
-	return(what_is);
+	return what_is;
 }
 
 void gr_scroll(object *obj) {
@@ -527,9 +527,9 @@ void put_stairs() {
 
 int get_armor_class(object *obj) {
 	if (obj) {
-		return(obj->class + obj->d_enchant);
+		return obj->class + obj->d_enchant;
 	}
-	return(0);
+	return 0;
 }
 
 object *alloc_object() {
@@ -549,7 +549,7 @@ object *alloc_object() {
 	obj->in_use_flags = NOT_USED;
 	obj->identified = UNIDENTIFIED;
 	obj->damage = "1d1";
-	return(obj);
+	return obj;
 }
 
 void free_object(object *obj) {
@@ -703,5 +703,5 @@ int next_party() {
 	while (n % PARTY_TIME) {
 		n++;
 	}
-	return(get_rand((n + 1), (n + PARTY_TIME)));
+	return get_rand((n + 1), (n + PARTY_TIME));
 }

@@ -160,9 +160,9 @@ int md_get_file_id(char *fname) {
 	struct stat sbuf;
 
 	if (stat(fname, &sbuf)) {
-		return(-1);
+		return -1;
 	}
-	return((int) sbuf.st_ino);
+	return (int)sbuf.st_ino;
 }
 
 /* md_link_count():
@@ -177,7 +177,7 @@ int md_link_count(char *fname) {
 	struct stat sbuf;
 
 	stat(fname, &sbuf);
-	return((int) sbuf.st_nlink);
+	return (int)sbuf.st_nlink;
 }
 
 /* md_gct(): (Get Current Time)
@@ -212,7 +212,7 @@ rogue_time md_gct() {
 	tmp.minute = t->tm_min;
 	tmp.second = t->tm_sec;
 
-	return(tmp);
+	return tmp;
 }
 
 /* md_gfmt: (Get File Modification Time)
@@ -261,9 +261,9 @@ void md_gfmt(char *fname, rogue_time *rt_buf) {
 
 boolean md_df(char *fname) {
 	if (unlink(fname)) {
-		return(0);
+		return 0;
 	}
-	return(1);
+	return 1;
 }
 
 /* md_gln: (Get login name)
@@ -300,7 +300,7 @@ char *md_gln() {
  */
 
 unsigned long getseed() {
-	return((getpid() * 1024) | md_gct().second*md_gct().second);
+	return (getpid() * 1024) | md_gct().second*md_gct().second;
 }
 
 #endif /* UNIX */
