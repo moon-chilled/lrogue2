@@ -112,7 +112,7 @@ CH:
 		case '\020':
 			remessage();
 			break;
-		case '\027':
+		case '!':
 			wizardize();
 			break;
 		case '>':

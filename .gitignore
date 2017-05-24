@@ -1,4 +1,5 @@
 rogue
+rogue.scores
 *.o
 *.sav
 .*.swp

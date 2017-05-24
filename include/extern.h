@@ -261,7 +261,6 @@ void read_string(char*, FILE*);
 void rw_rooms(FILE*, boolean);
 void r_read(FILE*, char*, int);
 void r_write(FILE*, char*, int);
-boolean has_been_touched(rogue_time*, rogue_time*);
 
 
 /* score.c */
@@ -275,8 +274,6 @@ void sell_pack();
 int get_value(object*);
 void id_all();
 int name_cmp(char*, char*);
-void xxxx(char*, int);
-long xxx(boolean);
 void nickize(char*, char*, char*);
 void center(int, char*);
 void sf_error();

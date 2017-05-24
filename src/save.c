@@ -73,7 +73,6 @@ void save_into_file(char *sfile) {
 	}
 	md_ignore_signals();
 	write_failed = 0;
-	xxx(1);
 	r_write(fp, (char *) &detect_monster, sizeof(detect_monster));
 	r_write(fp, (char *) &cur_level, sizeof(cur_level));
 	r_write(fp, (char *) &max_level, sizeof(max_level));
@@ -134,7 +133,6 @@ void restore(char *fname) {
 	if (md_link_count(fname) > 1) {
 		clean_up("file has link");
 	}
-	xxx(1);
 	r_read(fp, (char *) &detect_monster, sizeof(detect_monster));
 	r_read(fp, (char *) &cur_level, sizeof(cur_level));
 	r_read(fp, (char *) &max_level, sizeof(max_level));
@@ -185,12 +183,6 @@ void restore(char *fname) {
 		clean_up("extra characters in file");
 	}
 
-	md_gfmt(fname, &mod_time);	/* get file modification time */
-
-	if (has_been_touched(&saved_time, &mod_time)) {
-		clear();
-		clean_up("sorry, file has been touched");
-	}
 	if ((!wizard) && !md_df(fname)) {
 		clean_up("cannot delete file");
 	}
@@ -297,7 +289,6 @@ void write_string(char *s, FILE *fp) {
 	int n;
 
 	n = strlen(s) + 1;
-	xxxx(s, n);
 	r_write(fp, (char *) &n, sizeof(int));
 	r_write(fp, s, n);
 }
@@ -307,7 +298,6 @@ void read_string(char *s, FILE *fp) {
 
 	r_read(fp, (char *) &n, sizeof(int));
 	r_read(fp, s, n);
-	xxxx(s, n);
 }
 
 void rw_rooms(FILE *fp, boolean rw) {
@@ -333,36 +323,4 @@ void r_write(FILE *fp, char *buf, int n) {
 			write_failed = 1;
 		}
 	}
-}
-
-boolean has_been_touched(rogue_time *saved_time, rogue_time *mod_time) {
-	if (saved_time->year < mod_time->year) {
-		return 1;
-	} else if (saved_time->year > mod_time->year) {
-		return 0;
-	}
-	if (saved_time->month < mod_time->month) {
-		return 1;
-	} else if (saved_time->month > mod_time->month) {
-		return 0;
-	}
-	if (saved_time->day < mod_time->day) {
-		return 1;
-	} else if (saved_time->day > mod_time->day) {
-		return 0;
-	}
-	if (saved_time->hour < mod_time->hour) {
-		return 1;
-	} else if (saved_time->hour > mod_time->hour) {
-		return 0;
-	}
-	if (saved_time->minute < mod_time->minute) {
-		return 1;
-	} else if (saved_time->minute > mod_time->minute) {
-		return 0;
-	}
-	if (saved_time->second < mod_time->second) {
-		return 1;
-	}
-	return 0;
 }

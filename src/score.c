@@ -164,17 +164,14 @@ void put_scores(object *monster, int other) {
 		failed = 1;
 	}
 	turn_into_user();
-	xxx(1);
 
 	for (i = 0; i < 10; i++) {
 		if (((n = fread(scores[i], sizeof(char), 80, fp)) < 80) && (n != 0)) {
 			sf_error();
 		} else if (n != 0) {
-			xxxx(scores[i], 80);
 			if ((n = fread(n_names[i], sizeof(char), 30, fp)) < 30) {
 				sf_error();
 			}
-			xxxx(n_names[i], 30);
 		} else {
 			break;
 		}
@@ -235,8 +232,6 @@ void put_scores(object *monster, int other) {
 
 	md_ignore_signals();
 
-	xxx(1);
-
 	for (i = 0; i < ne; i++) {
 		if (i == rank) {
 			standout();
@@ -251,9 +246,7 @@ void put_scores(object *monster, int other) {
 		nickize(buf, scores[i], n_names[i]);
 		mvaddstr(i+10, 0, buf);
 		if (rank < 10) {
-			xxxx(scores[i], 80);
 			fwrite(scores[i], sizeof(char), 80, fp);
-			xxxx(n_names[i], 30);
 			fwrite(n_names[i], sizeof(char), 30, fp);
 		}
 		if (i == rank) {
@@ -433,34 +426,6 @@ int name_cmp(char *s1, char *s2) {
 	s1[i] = 0;
 	r = strcmp(s1, s2);
 	s1[i] = ':';
-	return r;
-}
-
-void xxxx(char *buf, int n) {
-	int i;
-	unsigned char c;
-
-	for (i = 0; i < n; i++) {
-
-		/* It does not matter if accuracy is lost during this assignment */
-		c = (unsigned char) xxx(0);
-
-		buf[i] ^= c;
-	}
-}
-
-long xxx(boolean st) {
-	static long f, s;
-	long r;
-
-	if (st) {
-		f = 37;
-		s = 7;
-		return 0L;
-	}
-	r = ((f * s) + 9337) % 8887;
-	f = s;
-	s = r;
 	return r;
 }
 
