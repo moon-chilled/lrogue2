@@ -112,9 +112,6 @@ CH:
 		case '\020':
 			remessage();
 			break;
-		case '!':
-			wizardize();
-			break;
 		case '>':
 			if (drop_check()) {
 				return;

@@ -25,7 +25,7 @@ char *byebye_string = "Okay, bye bye!";
 extern char *fruit;
 extern char *save_file;
 extern int party_room, party_counter;
-extern boolean jump;
+extern boolean jump, wizard;
 
 int init(int argc, char *argv[]) {
 	char *pn;
@@ -180,14 +180,10 @@ void do_args(int argc, char *argv[]) {
 	int i, j;
 
 	for (i = 1; i < argc; i++) {
-		if (argv[i][0] == '-') {
-			for (j = 1; argv[i][j]; j++) {
-				switch(argv[i][j]) {
-				case 's':
-					score_only = 1;
-					break;
-				}
-			}
+		if (!strcmp(argv[i], "-s")) {
+			score_only = 1;
+		} else if (!strcmp(argv[i], "-w")) {
+			wizard = 1;
 		} else {
 			rest_file = argv[i];
 		}
