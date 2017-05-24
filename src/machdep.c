@@ -13,6 +13,9 @@
 
 #ifdef UNIX
 
+#define __BSD_VISIBLE 1
+#include <sys/types.h>
+#undef __BSD_VISIBLE
 #include <sys/file.h>
 #include <sys/types.h>
 #include <sys/stat.h>
