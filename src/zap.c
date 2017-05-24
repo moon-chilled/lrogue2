@@ -186,22 +186,3 @@ void tele_away(object *monster) {
     }
 }
 #endif
-
-void wizardize() {
-	char buf[100];
-
-	if (wizard) {
-		wizard = 0;
-		message("not wizard anymore", 0);
-	} else {
-		if (get_input_line("wizard's password:", "", buf, "", 0, 0)) {
-			if (!strncmp(buf, "password", 8)) {
-				wizard = 1;
-				score_only = 1;
-				message("Welcome, mighty wizard!", 0);
-			} else {
-				message("sorry", 0);
-			}
-		}
-	}
-}

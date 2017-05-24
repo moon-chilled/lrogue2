@@ -344,9 +344,6 @@ void zapp();
 object *get_zapped_monster(int, int*, int*);
 void zap_monster(object*, unsigned int);
 void tele_away(object*);
-void wizardize();
-
-
 
 
 #endif /* EXTERN_H */
