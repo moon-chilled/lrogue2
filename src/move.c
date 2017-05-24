@@ -17,13 +17,6 @@ int m_moves = 0;
 boolean jump = 1;
 char *you_can_move_again = "you can move again";
 
-extern int cur_room, halluc, blind, levitate;
-extern int cur_level, max_level;
-extern int bear_trap, haste_self, confused;
-extern int e_rings, regeneration, auto_search;
-extern char hunger_str[];
-extern boolean being_held, interrupted, r_teleport;
-
 int one_move_rogue(int dirch, int pickup) {
 	int row, col;
 	object *obj;

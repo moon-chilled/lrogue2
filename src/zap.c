@@ -15,8 +15,6 @@
 
 boolean wizard = 0;
 
-extern boolean being_held, score_only, detect_monster;
-
 void zapp() {
 	int wch;
 	boolean first_miss = 1;

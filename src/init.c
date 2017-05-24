@@ -22,11 +22,6 @@ boolean ask_quit = 1, show_skull = 1;
 char *error_file = "rogue.esave";
 char *byebye_string = "Okay, bye bye!";
 
-extern char *fruit;
-extern char *save_file;
-extern int party_room, party_counter;
-extern boolean jump, wizard;
-
 int init(int argc, char *argv[]) {
 	char *pn;
 

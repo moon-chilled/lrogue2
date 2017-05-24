@@ -19,9 +19,6 @@ int stealthy, r_rings, add_strength, e_rings, regeneration, ring_exp;
 int auto_search;
 boolean r_teleport, r_see_invisible, sustain_strength, maintain_armor;
 
-extern char *curse_message;
-extern boolean wizard;
-
 void  put_on_ring() {
 	int ch;
 	char desc[DCOLS];

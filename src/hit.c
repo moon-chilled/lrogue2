@@ -17,10 +17,6 @@ object *fight_monster = 0;
 boolean detect_monster;
 char hit_message[80] = "";
 
-extern int halluc, blind, cur_level;
-extern int add_strength, ring_exp, r_rings;
-extern boolean being_held, interrupted, wizard;
-
 void mon_hit(object *monster, char *other, boolean flame) {
 	int damage, hit_chance;
 	char *mn;

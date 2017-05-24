@@ -16,9 +16,6 @@
 room rooms[MAXROOMS];
 boolean rooms_visited[MAXROOMS];
 
-extern int blind;
-extern boolean detect_monster;
-
 void light_up_room(int rn) {
 	int i, j;
 

@@ -46,11 +46,6 @@ long level_points[MAX_EXP_LEVEL] = {
 
 char random_rooms[MAXROOMS+1] = { 3,7,5,2,0,6,1,4,8 };
 
-extern boolean being_held, wizard, detect_monster;
-extern boolean see_invisible;
-extern int bear_trap, levitate, extra_hp, less_hp, cur_room;
-extern int party_counter;
-
 void make_level() {
 	int i, j;
 	int must_exist1, must_exist2, must_exist3;

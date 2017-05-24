@@ -13,10 +13,6 @@
 #include "rogue.h"
 #include "extern.h"
 
-extern int cur_room;
-extern char *curse_message;
-extern char hit_message[];
-
 void throw() {
 	int wch;
 	boolean first_miss = 1;

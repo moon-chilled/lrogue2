@@ -15,12 +15,6 @@
 
 char *score_file = "rogue.scores";
 
-extern char login_name[];
-extern char *m_names[];
-extern int max_level;
-extern boolean score_only, show_skull, msg_cleared;
-extern char *byebye_string, *nick_name;
-
 void killed_by(object *monster, int other) {
 	char buf[80];
 

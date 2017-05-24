@@ -111,8 +111,6 @@ char *syllables[MAXSYLLABLES] = {
 	"poxi "
 };
 
-extern boolean wizard;
-
 void inventory(object *pack, unsigned int mask) {
 	object *obj;
 	int i = 0, j, maxlen = 0, n;

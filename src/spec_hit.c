@@ -17,12 +17,6 @@ int less_hp = 0;
 char *flame_name = "flame";
 boolean being_held;
 
-extern int cur_level, max_level, blind, levitate, ring_exp;
-extern long level_points[];
-extern boolean detect_monster, mon_disappeared;
-extern boolean sustain_strength, maintain_armor;
-extern char *you_can_move_again;
-
 void special_hit(object *monster) {
 	if ((monster->m_flags & CONFUSED) && rand_percent(66)) {
 		return;

@@ -14,8 +14,6 @@
 #include "extern.h"
 #include <locale.h>
 
-extern int party_room;
-
 int saved_uid= -1;
 int true_uid= -1;
 

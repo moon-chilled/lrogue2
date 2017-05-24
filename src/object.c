@@ -101,23 +101,18 @@ id id_wands[WANDS] = {
 };
 
 id id_rings[RINGS] = {
-	 {250, "                                 ", "of stealth ",0},
-	 {100, "                                 ", "of teleportation ", 0},
-	 {255, "                                 ", "of regeneration ",0},
-	 {295, "                                 ", "of slow digestion ",0},
-	 {200, "                                 ", "of add strength ",0},
-	 {250, "                                 ", "of sustain strength ",0},
-	 {250, "                                 ", "of dexterity ",0},
-	  {25, "                                 ", "of adornment ",0},
-	 {300, "                                 ", "of see invisible ",0},
-	 {290, "                                 ", "of maintain armor ",0},
-	 {270, "                                 ", "of searching ",0},
+	{250, "                                 ", "of stealth ",0},
+	{100, "                                 ", "of teleportation ", 0},
+	{255, "                                 ", "of regeneration ",0},
+	{295, "                                 ", "of slow digestion ",0},
+	{200, "                                 ", "of add strength ",0},
+	{250, "                                 ", "of sustain strength ",0},
+	{250, "                                 ", "of dexterity ",0},
+	{25, "                                 ", "of adornment ",0},
+	{300, "                                 ", "of see invisible ",0},
+	{290, "                                 ", "of maintain armor ",0},
+	{270, "                                 ", "of searching ",0},
 };
-
-extern int cur_level, max_level;
-extern int party_room;
-extern char *error_file;
-extern boolean is_wood[];
 
 void put_objects() {
 	int i, n;

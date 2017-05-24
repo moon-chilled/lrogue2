@@ -78,12 +78,6 @@ object mon_tab[MONSTERS] = {
 	{(ASLEEP|WAKENS|WANDERS),"1d7",21,'Z',8,5,14,69,0,0,0,0,0}
 };
 
-extern int cur_level;
-extern int cur_room, party_room;
-extern int blind, halluc, haste_self;
-extern boolean detect_monster, see_invisible, r_see_invisible;
-extern int stealthy;
-
 void put_mons() {
 	int i;
 	int n;

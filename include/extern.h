@@ -346,4 +346,13 @@ void zap_monster(object*, unsigned int);
 void tele_away(object*);
 
 
+extern boolean being_held, cant_int, detect_monster, did_int, interrupted, is_wood[], jump, maintain_armor, mon_disappeared, msg_cleared, r_see_invisible, r_teleport, save_is_interactive, score_only, see_invisible, show_skull, sustain_strength, trap_door, wizard;
+
+extern char *byebye_string, *curse_message, *error_file, *fruit, hit_message[], hunger_str[], login_name[], *m_names[], *new_level_message, *nick_name, *save_file, *you_can_move_again;
+
+extern int add_strength, auto_search, bear_trap, blind, confused, cur_level, cur_room, e_rings, extra_hp, foods, halluc, haste_self, less_hp, levitate, max_level, m_moves, party_counter, party_room, regeneration, ring_exp, r_rings, stealthy;
+
+extern long level_points[];
+
+
 #endif /* EXTERN_H */

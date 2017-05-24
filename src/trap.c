@@ -32,13 +32,6 @@ char *trap_strings[TRAPS * 2] = {
 			"a gush of water hits you on the head"
 };
 
-extern int cur_level, party_room;
-extern char *new_level_message;
-extern boolean interrupted;
-extern int ring_exp;
-extern boolean sustain_strength;
-extern int blind;
-
 int trap_at(int row, int col) {
 	int i;
 

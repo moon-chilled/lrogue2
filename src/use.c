@@ -23,14 +23,6 @@ int extra_hp = 0;
 boolean detect_monster = 0;
 char *strange_feeling = "you have a strange feeling for a moment, then it passes";
 
-extern int bear_trap;
-extern char hunger_str[];
-extern int cur_room;
-extern long level_points[];
-extern boolean being_held;
-extern char *fruit, *you_can_move_again;
-extern boolean sustain_strength;
-
 void quaff() {
 	int ch;
 	char buf[80];

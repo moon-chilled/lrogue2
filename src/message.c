@@ -18,10 +18,6 @@ int msg_col = 0;
 boolean msg_cleared = 1;
 char hunger_str[8] = "";
 
-extern boolean cant_int, did_int, interrupted, save_is_interactive;
-extern int add_strength;
-extern int cur_level;
-
 void message(char *msg, boolean intrpt) {
 	if (!save_is_interactive) {
 		return;

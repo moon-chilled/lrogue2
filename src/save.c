@@ -16,30 +16,6 @@
 int write_failed = 0;
 char *save_file = "";
 
-extern boolean detect_monster;
-extern int cur_level, max_level;
-extern char hunger_str[];
-extern char login_name[];
-extern int party_room;
-extern int party_counter;
-extern int foods;
-extern boolean is_wood[];
-extern int cur_room;
-extern boolean being_held;
-extern int bear_trap;
-extern int halluc;
-extern int blind;
-extern int confused;
-extern int levitate;
-extern int haste_self;
-extern boolean see_invisible;
-extern boolean detect_monster;
-extern boolean wizard;
-extern boolean score_only;
-extern int m_moves;
-
-extern boolean msg_cleared;
-
 void save_game() {
 	char fname[64];
 
