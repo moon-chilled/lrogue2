@@ -9,8 +9,8 @@ CFLAGS = -c -DUNIX -std=c89 -g3 -ggdb -fwritable-strings -Iinclude
 LDFLAGS = -lncurses -g
 
 
-rogue: $(ROGUE_OBJ)
-	$(CC) $(LDFLAGS) src/*.o -o rogue
+lrogue2: $(ROGUE_OBJ)
+	$(CC) $(LDFLAGS) src/*.o -o lrogue2
 
 clean:
-	-rm -f src/*.o rogue
+	-rm -f src/*.o lrogue2

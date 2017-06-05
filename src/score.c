@@ -13,7 +13,7 @@
 #include "rogue.h"
 #include "extern.h"
 
-char *score_file = "rogue.scores";
+const char *score_file = "lrogue2.scores";
 
 void killed_by(object *monster, int other) {
 	char buf[80];
@@ -21,7 +21,7 @@ void killed_by(object *monster, int other) {
 	md_ignore_signals();
 
 	if (other != QUIT) {
-		rogue.gold = ((rogue.gold * 9) / 10);
+		rogue.gold *= 9.0 / 10.0;
 	}
 
 	if (other) {

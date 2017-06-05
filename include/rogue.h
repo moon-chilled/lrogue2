@@ -1,5 +1,5 @@
 /*
- * object.h
+ * rogue.h
  *
  * This source herein may be modified and/or distributed by anybody who
  * so desires, with the following restrictions:
@@ -21,28 +21,28 @@
 
 #define boolean char
 
-#define NOTHING		((unsigned int)     0)
-#define OBJECT		((unsigned int)    01)
-#define MONSTER		((unsigned int)    02)
-#define STAIRS		((unsigned int)    04)
-#define HORWALL		((unsigned int)   010)
-#define VERTWALL	((unsigned int)   020)
-#define DOOR		((unsigned int)   040)
-#define FLOOR		((unsigned int)  0100)
-#define TUNNEL		((unsigned int)  0200)
-#define TRAP		((unsigned int)  0400)
-#define HIDDEN		((unsigned int) 01000)
+#define NOTHING		((unsigned int) 0x0)
+#define OBJECT		((unsigned int) 0x1)
+#define MONSTER		((unsigned int) 0x2)
+#define STAIRS		((unsigned int) 0x4)
+#define HORWALL		((unsigned int) 0x8)
+#define VERTWALL	((unsigned int) 0x10)
+#define DOOR		((unsigned int) 0x20)
+#define FLOOR		((unsigned int) 0x40)
+#define TUNNEL		((unsigned int) 0x80)
+#define TRAP		((unsigned int) 0x100)
+#define HIDDEN		((unsigned int) 0x200)
 
-#define ARMOR		((unsigned int)   01)
-#define WEAPON		((unsigned int)   02)
-#define SCROLL		((unsigned int)   04)
-#define POTION		((unsigned int)  010)
-#define GOLD		((unsigned int)  020)
-#define FOOD		((unsigned int)  040)
-#define WAND		((unsigned int) 0100)
-#define RING		((unsigned int) 0200)
-#define AMULET		((unsigned int) 0400)
-#define ALL_OBJECTS	((unsigned int) 0777)
+#define ARMOR		((unsigned int) 0x1)
+#define WEAPON		((unsigned int) 0x2)
+#define SCROLL		((unsigned int) 0x4)
+#define POTION		((unsigned int) 0x8)
+#define GOLD		((unsigned int) 0x10)
+#define FOOD		((unsigned int) 0x20)
+#define WAND		((unsigned int) 0x40)
+#define RING		((unsigned int) 0x80)
+#define AMULET		((unsigned int) 0x100)
+#define ALL_OBJECTS	((unsigned int) (ARMOR | WEAPON | SCROLL | POTION | GOLD | FOOD | WAND | RING | AMULET))
 
 #define LEATHER 0
 #define RINGMAIL 1
@@ -123,13 +123,13 @@
 #define RATION 0
 #define FRUIT 1
 
-#define NOT_USED	((unsigned int)   0)
-#define BEING_WIELDED	((unsigned int)  01)
-#define BEING_WORN	((unsigned int)  02)
-#define ON_LEFT_HAND	((unsigned int)  04)
-#define ON_RIGHT_HAND	((unsigned int) 010)
-#define ON_EITHER_HAND	((unsigned int) 014)
-#define BEING_USED	((unsigned int) 017)
+#define NOT_USED	((unsigned int) 0x0)
+#define BEING_WIELDED	((unsigned int) 0x1)
+#define BEING_WORN	((unsigned int) 0x2)
+#define ON_LEFT_HAND	((unsigned int) 0x4)
+#define ON_RIGHT_HAND	((unsigned int) 0x8)
+#define ON_EITHER_HAND	((unsigned int) (ON_LEFT_HAND | ON_RIGHT_HAND))
+#define BEING_USED	((unsigned int) (NOT_USED | BEING_WIELDED | BEING_WORN | ON_LEFT_HAND | ON_RIGHT_HAND))
 
 #define NO_TRAP -1
 #define TRAP_DOOR 0
@@ -143,9 +143,9 @@
 #define STEALTH_FACTOR 3
 #define R_TELE_PERCENT 8
 
-#define UNIDENTIFIED	((unsigned int) 00)	/* MUST BE ZERO! */
-#define IDENTIFIED	((unsigned int) 01)
-#define CALLED		((unsigned int) 02)
+#define UNIDENTIFIED	((unsigned int) 0x0)	/* MUST BE ZERO! */
+#define IDENTIFIED	((unsigned int) 0x1)
+#define CALLED		((unsigned int) 0x2)
 
 #define DROWS 24
 #define DCOLS 80
@@ -256,11 +256,11 @@ struct room {
 
 #define AMULET_LEVEL 26
 
-#define R_NOTHING	((unsigned int) 01)
-#define R_ROOM		((unsigned int) 02)
-#define R_MAZE		((unsigned int) 04)
-#define R_DEADEND	((unsigned int) 010)
-#define R_CROSS		((unsigned int) 020)
+#define R_NOTHING	((unsigned int) 0x1)
+#define R_ROOM		((unsigned int) 0x2)
+#define R_MAZE		((unsigned int) 0x4)
+#define R_DEADEND	((unsigned int) 0x8)
+#define R_CROSS		((unsigned int) 0x10)
 
 #define MAX_EXP_LEVEL 21
 #define MAX_EXP 10000000L
@@ -270,15 +270,15 @@ struct room {
 #define MAX_STRENGTH 99
 #define LAST_DUNGEON 99
 
-#define STAT_LEVEL 01
-#define STAT_GOLD 02
-#define STAT_HP 04
-#define STAT_STRENGTH 010
-#define STAT_ARMOR 020
-#define STAT_EXP 040
-#define STAT_HUNGER 0100
-#define STAT_LABEL 0200
-#define STAT_ALL 0377
+#define STAT_LEVEL	0x1
+#define STAT_GOLD	0x2
+#define STAT_HP		0x4
+#define STAT_STRENGTH	0x8
+#define STAT_ARMOR	0x10
+#define STAT_EXP	0x20
+#define STAT_HUNGER	0x40
+#define STAT_LABEL	0x80
+#define STAT_ALL	(STAT_LEVEL | STAT_GOLD | STAT_HP | STAT_STRENGTH | STAT_ARMOR | STAT_EXP | STAT_HUNGER | STAT_LABEL)
 
 #define PARTY_TIME 10	/* one party somewhere in each 10 level span */
 
@@ -310,33 +310,33 @@ extern object level_monsters;
 
 #define MONSTERS 26
 
-#define HASTED					01L
-#define SLOWED					02L
-#define INVISIBLE				04L
-#define ASLEEP				   010L
-#define WAKENS				   020L
-#define WANDERS				   040L
-#define FLIES				  0100L
-#define FLITS				  0200L
-#define CAN_FLIT			  0400L		/* can, but usually doesn't, flit */
-#define CONFUSED	 		 01000L
-#define RUSTS				 02000L
-#define HOLDS				 04000L
-#define FREEZES				010000L
-#define STEALS_GOLD			020000L
-#define STEALS_ITEM			040000L
-#define STINGS			   0100000L
-#define DRAINS_LIFE		   0200000L
-#define DROPS_LEVEL		   0400000L
-#define SEEKS_GOLD		  01000000L
-#define FREEZING_ROGUE	  02000000L
-#define RUST_VANISHED	  04000000L
-#define CONFUSES		 010000000L
-#define IMITATES		 020000000L
-#define FLAMES			 040000000L
-#define STATIONARY		0100000000L		/* damage will be 1,2,3,... */
-#define NAPPING			0200000000L		/* can't wake up for a while */
-#define ALREADY_MOVED	0400000000L
+#define HASTED				0x1L
+#define SLOWED				0x2L
+#define INVISIBLE			0x4L
+#define ASLEEP				0x8L
+#define WAKENS				0x10L
+#define WANDERS				0x20L
+#define FLIES				0x40L
+#define FLITS				0x80L
+#define CAN_FLIT			0x100L		/* can, but usually doesn't, flit */
+#define CONFUSED	 		0x200L
+#define RUSTS				0x400L
+#define HOLDS				0x800L
+#define FREEZES				0x1000L
+#define STEALS_GOLD			0x2000L
+#define STEALS_ITEM			0x4000L
+#define STINGS			   	0x8000L
+#define DRAINS_LIFE		   	0x10000L
+#define DROPS_LEVEL		   	0x20000L
+#define SEEKS_GOLD		  	0x40000L
+#define FREEZING_ROGUE	 	 	0x80000L
+#define RUST_VANISHED	  		0x100000L
+#define CONFUSES			0x200000L
+#define IMITATES			0x400000L
+#define FLAMES				0x800000L
+#define STATIONARY			0x1000000L	/* damage will be 1,2,3,... */
+#define NAPPING				0x2000000L	/* can't wake up for a while */
+#define ALREADY_MOVED			0x4000000L
 
 #define SPECIAL_HIT		(RUSTS|HOLDS|FREEZES|STEALS_GOLD|STEALS_ITEM|STINGS|DRAINS_LIFE|DROPS_LEVEL)
 
