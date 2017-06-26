@@ -35,43 +35,43 @@ fighter rogue = {
 };
 
 id id_potions[POTIONS] = {
-{100, "blue \0                           ", "of increase strength ", 0},
-{250, "red \0                            ", "of restore strength ", 0},
-{100, "green \0                          ", "of healing ", 0},
-{200, "grey \0                           ", "of extra healing ", 0},
- {10, "brown \0                          ", "of poison ", 0},
-{300, "clear \0                          ", "of raise level ", 0},
- {10, "pink \0                           ", "of blindness ", 0},
- {25, "white \0                          ", "of hallucination ", 0},
-{100, "purple \0                         ", "of detect monster ", 0},
-{100, "black \0                          ", "of detect things ", 0},
- {10, "yellow \0                         ", "of confusion ", 0},
- {80, "plaid \0                          ", "of levitation ", 0},
-{150, "burgundy \0                       ", "of haste self ", 0},
-{145, "beige \0                          ", "of see invisible ", 0}
+	{100, "blue \0                           ", "of increase strength ", 0},
+	{250, "red \0                            ", "of restore strength ", 0},
+	{100, "green \0                          ", "of healing ", 0},
+	{200, "grey \0                           ", "of extra healing ", 0},
+	{10, "brown \0                          ", "of poison ", 0},
+	{300, "clear \0                          ", "of raise level ", 0},
+	{10, "pink \0                           ", "of blindness ", 0},
+	{25, "white \0                          ", "of hallucination ", 0},
+	{100, "purple \0                         ", "of detect monster ", 0},
+	{100, "black \0                          ", "of detect things ", 0},
+	{10, "yellow \0                         ", "of confusion ", 0},
+	{80, "plaid \0                          ", "of levitation ", 0},
+	{150, "burgundy \0                       ", "of haste self ", 0},
+	{145, "beige \0                          ", "of see invisible ", 0}
 };
 
 id id_scrolls[SCROLLS] = {
-{505, "                                   ", "of protect armor ", 0},
-{200, "                                   ", "of hold monster ", 0},
-{235, "                                   ", "of enchant weapon ", 0},
-{235, "                                   ", "of enchant armor ", 0},
-{175, "                                   ", "of identify ", 0},
-{190, "                                   ", "of teleportation ", 0},
- {25, "                                   ", "of sleep ", 0},
-{610, "                                   ", "of scare monster ", 0},
-{210, "                                   ", "of remove curse ", 0},
-{100, "                                   ", "of create monster ",0},
- {25, "                                   ", "of aggravate monster ",0},
-{180, "                                   ", "of magic mapping ",0}
+	{505, "                                   ", "of protect armor ", 0},
+	{200, "                                   ", "of hold monster ", 0},
+	{235, "                                   ", "of enchant weapon ", 0},
+	{235, "                                   ", "of enchant armor ", 0},
+	{175, "                                   ", "of identify ", 0},
+	{190, "                                   ", "of teleportation ", 0},
+	{25, "                                   ", "of sleep ", 0},
+	{610, "                                   ", "of scare monster ", 0},
+	{210, "                                   ", "of remove curse ", 0},
+	{100, "                                   ", "of create monster ",0},
+	{25, "                                   ", "of aggravate monster ",0},
+	{180, "                                   ", "of magic mapping ",0}
 };
 
 id id_weapons[WEAPONS] = {
 	{150, "short bow ", "", 0},
-	  {8, "darts ", "", 0},
-	 {15, "arrows ", "", 0},
-	 {27, "daggers ", "", 0},
-	 {35, "shurikens ", "", 0},
+	{8, "darts ", "", 0},
+	{15, "arrows ", "", 0},
+	{27, "daggers ", "", 0},
+	{35, "shurikens ", "", 0},
 	{360, "mace ", "", 0},
 	{470, "long sword ", "", 0},
 	{580, "two-handed sword ", "", 0}
@@ -88,16 +88,16 @@ id id_armors[ARMORS] = {
 };
 
 id id_wands[WANDS] = {
-	 {25, "                                 ", "of teleport away ",0},
-	 {50, "                                 ", "of slow monster ", 0},
-	 {45, "                                 ", "of confuse monster ",0},
-	  {8, "                                 ", "of invisibility ",0},
-	 {55, "                                 ", "of polymorph ",0},
-	  {2, "                                 ", "of haste monster ",0},
-	 {25, "                                 ", "of sleep ",0},
-	 {20, "                                 ", "of magic missile ",0},
-	 {20, "                                 ", "of cancellation ",0},
-	  {0, "                                 ", "of do nothing ",0}
+	{25, "                                 ", "of teleport away ",0},
+	{50, "                                 ", "of slow monster ", 0},
+	{45, "                                 ", "of confuse monster ",0},
+	{8, "                                 ", "of invisibility ",0},
+	{55, "                                 ", "of polymorph ",0},
+	{2, "                                 ", "of haste monster ",0},
+	{25, "                                 ", "of sleep ",0},
+	{20, "                                 ", "of magic missile ",0},
+	{20, "                                 ", "of cancellation ",0},
+	{0, "                                 ", "of do nothing ",0}
 };
 
 id id_rings[RINGS] = {
@@ -151,11 +151,11 @@ void put_gold() {
 		if (is_maze || rand_percent(GOLD_PERCENT)) {
 			for (j = 0; j < 50; j++) {
 				row = get_rand(rooms[i].top_row+1,
-				rooms[i].bottom_row-1);
+						rooms[i].bottom_row-1);
 				col = get_rand(rooms[i].left_col+1,
-				rooms[i].right_col-1);
+						rooms[i].right_col-1);
 				if ((dungeon[row][col] == FLOOR) ||
-					(dungeon[row][col] == TUNNEL)) {
+						(dungeon[row][col] == TUNNEL)) {
 					plant_gold(row, col, is_maze);
 					break;
 				}
@@ -222,52 +222,52 @@ char *name_of(object *obj) {
 	char *retstring;
 
 	switch(obj->what_is) {
-	case SCROLL:
-		retstring = obj->quantity > 1 ? "scrolls " : "scroll ";
-		break;
-	case POTION:
-		retstring = obj->quantity > 1 ? "potions " : "potion ";
-		break;
-	case FOOD:
-		if (obj->which_kind == RATION) {
-			retstring = "food ";
-		} else {
-			retstring = fruit;
-		}
-		break;
-	case WAND:
-		retstring = is_wood[obj->which_kind] ? "staff " : "wand ";
-		break;
-	case WEAPON:
-		switch(obj->which_kind) {
-		case DART:
-			retstring=obj->quantity > 1 ? "darts " : "dart ";
+		case SCROLL:
+			retstring = obj->quantity > 1 ? "scrolls " : "scroll ";
 			break;
-		case ARROW:
-			retstring=obj->quantity > 1 ? "arrows " : "arrow ";
+		case POTION:
+			retstring = obj->quantity > 1 ? "potions " : "potion ";
 			break;
-		case DAGGER:
-			retstring=obj->quantity > 1 ? "daggers " : "dagger ";
+		case FOOD:
+			if (obj->which_kind == RATION) {
+				retstring = "food ";
+			} else {
+				retstring = fruit;
+			}
 			break;
-		case SHURIKEN:
-			retstring=obj->quantity > 1?"shurikens ":"shuriken ";
+		case WAND:
+			retstring = is_wood[obj->which_kind] ? "staff " : "wand ";
+			break;
+		case WEAPON:
+			switch(obj->which_kind) {
+				case DART:
+					retstring=obj->quantity > 1 ? "darts " : "dart ";
+					break;
+				case ARROW:
+					retstring=obj->quantity > 1 ? "arrows " : "arrow ";
+					break;
+				case DAGGER:
+					retstring=obj->quantity > 1 ? "daggers " : "dagger ";
+					break;
+				case SHURIKEN:
+					retstring=obj->quantity > 1?"shurikens ":"shuriken ";
+					break;
+				default:
+					retstring = id_weapons[obj->which_kind].title;
+			}
+			break;
+		case ARMOR:
+			retstring = "armor ";
+			break;
+		case RING:
+			retstring = "ring ";
+			break;
+		case AMULET:
+			retstring = "amulet ";
 			break;
 		default:
-			retstring = id_weapons[obj->which_kind].title;
-		}
-		break;
-	case ARMOR:
-		retstring = "armor ";
-		break;
-	case RING:
-			retstring = "ring ";
-		break;
-	case AMULET:
-		retstring = "amulet ";
-		break;
-	default:
-		retstring = "unknown ";
-		break;
+			retstring = "unknown ";
+			break;
 	}
 	return retstring;
 }
@@ -284,27 +284,27 @@ object *gr_object() {
 		obj->what_is = gr_what_is();
 	}
 	switch(obj->what_is) {
-	case SCROLL:
-		gr_scroll(obj);
-		break;
-	case POTION:
-		gr_potion(obj);
-		break;
-	case WEAPON:
-		gr_weapon(obj, 1);
-		break;
-	case ARMOR:
-		gr_armor(obj);
-		break;
-	case WAND:
-		gr_wand(obj);
-		break;
-	case FOOD:
-		get_food(obj, 0);
-		break;
-	case RING:
-		gr_ring(obj, 1);
-		break;
+		case SCROLL:
+			gr_scroll(obj);
+			break;
+		case POTION:
+			gr_potion(obj);
+			break;
+		case WEAPON:
+			gr_weapon(obj, 1);
+			break;
+		case ARMOR:
+			gr_armor(obj);
+			break;
+		case WAND:
+			gr_wand(obj);
+			break;
+		case FOOD:
+			get_food(obj, 0);
+			break;
+		case RING:
+			gr_ring(obj, 1);
+			break;
 	}
 	return obj;
 }
@@ -415,7 +415,7 @@ void gr_weapon(object *obj, boolean assign_wk) {
 		obj->which_kind = get_rand(0, (WEAPONS - 1));
 	}
 	if ((obj->which_kind == ARROW) || (obj->which_kind == DAGGER) ||
-		(obj->which_kind == SHURIKEN) | (obj->which_kind == DART)) {
+			(obj->which_kind == SHURIKEN) | (obj->which_kind == DART)) {
 		obj->quantity = get_rand(3, 15);
 		obj->quiver = get_rand(0, 126);
 	} else {
@@ -442,28 +442,28 @@ void gr_weapon(object *obj, boolean assign_wk) {
 		}
 	}
 	switch(obj->which_kind) {
-	case BOW:
-	case DART:
-		obj->damage = "1d1";
-		break;
-	case ARROW:
-		obj->damage = "1d2";
-		break;
-	case DAGGER:
-		obj->damage = "1d3";
-		break;
-	case SHURIKEN:
-		obj->damage = "1d4";
-		break;
-	case MACE:
-		obj->damage = "2d3";
-		break;
-	case LONG_SWORD:
-		obj->damage = "3d4";
-		break;
-	case TWO_HANDED_SWORD:
-		obj->damage = "4d5";
-		break;
+		case BOW:
+		case DART:
+			obj->damage = "1d1";
+			break;
+		case ARROW:
+			obj->damage = "1d2";
+			break;
+		case DAGGER:
+			obj->damage = "1d3";
+			break;
+		case SHURIKEN:
+			obj->damage = "1d4";
+			break;
+		case MACE:
+			obj->damage = "2d3";
+			break;
+		case LONG_SWORD:
+			obj->damage = "3d4";
+			break;
+		case TWO_HANDED_SWORD:
+			obj->damage = "4d5";
+			break;
 	}
 }
 
@@ -534,9 +534,9 @@ object *alloc_object() {
 		obj = free_list;
 		free_list = free_list->next_object;
 	} else if (!(obj = (object *) malloc(sizeof(object)))) {
-/*			free_free_list();	*/
-			message("cannot allocate object, saving game", 0);
-			save_into_file(error_file);
+		/*			free_free_list();	*/
+		message("cannot allocate object, saving game", 0);
+		save_into_file(error_file);
 	}
 	obj->quantity = 1;
 	obj->ichar = 'L';
@@ -583,7 +583,7 @@ void show_objects() {
 		}
 		mc = mvinch(row, col);
 		if (((mc < 'A') || (mc > 'Z')) &&
-			((row != rogue.row) || (col != rogue.col))) {
+				((row != rogue.row) || (col != rogue.col))) {
 			mvaddch(row, col, rc);
 		}
 		obj = obj->next_object;
@@ -637,36 +637,36 @@ void new_object_for_wizard() {
 	obj = alloc_object();
 
 	switch(ch) {
-	case '!':
-		obj->what_is = POTION;
-		max = POTIONS - 1;
-		break;
-	case '?':
-		obj->what_is = SCROLL;
-		max = SCROLLS - 1;
-		break;
-	case ',':
-		obj->what_is = AMULET;
-		break;
-	case ':':
-		get_food(obj, 0);
-		break;
-	case ')':
-		gr_weapon(obj, 0);
-		max = WEAPONS - 1;
-		break;
-	case ']':
-		gr_armor(obj);
-		max = ARMORS - 1;
-		break;
-	case '/':
-		gr_wand(obj);
-		max = WANDS - 1;
-		break;
-	case '=':
-		max = RINGS - 1;
-		obj->what_is = RING;
-		break;
+		case '!':
+			obj->what_is = POTION;
+			max = POTIONS - 1;
+			break;
+		case '?':
+			obj->what_is = SCROLL;
+			max = SCROLLS - 1;
+			break;
+		case ',':
+			obj->what_is = AMULET;
+			break;
+		case ':':
+			get_food(obj, 0);
+			break;
+		case ')':
+			gr_weapon(obj, 0);
+			max = WEAPONS - 1;
+			break;
+		case ']':
+			gr_armor(obj);
+			max = ARMORS - 1;
+			break;
+		case '/':
+			gr_wand(obj);
+			max = WANDS - 1;
+			break;
+		case '=':
+			max = RINGS - 1;
+			obj->what_is = RING;
+			break;
 	}
 	if ((ch != ',') && (ch != ':')) {
 GIL:

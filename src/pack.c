@@ -54,7 +54,7 @@ object *pick_up(int row, int col, int *status) {
 	*status = 1;
 
 	if ((obj->what_is == SCROLL) && (obj->which_kind == SCARE_MONSTER) &&
-		obj->picked_up) {
+			obj->picked_up) {
 		message("the scroll turns to dust as you pick it up", 0);
 		dungeon[row][col] &= (~OBJECT);
 		vanish(obj, 0, &level_objects);
@@ -155,16 +155,16 @@ object *check_duplicate(object *obj, object *pack) {
 	op = pack->next_object;
 
 	while (op) {
-		if ((op->what_is == obj->what_is) && 
-			(op->which_kind == obj->which_kind)) {
+		if ((op->what_is == obj->what_is) &&
+				(op->which_kind == obj->which_kind)) {
 
 			if ((obj->what_is != WEAPON) ||
-			((obj->what_is == WEAPON) &&
-			((obj->which_kind == ARROW) ||
-			(obj->which_kind == DAGGER) ||
-			(obj->which_kind == DART) ||
-			(obj->which_kind == SHURIKEN)) &&
-			(obj->quiver == op->quiver))) {
+					((obj->what_is == WEAPON) &&
+					 ((obj->which_kind == ARROW) ||
+					  (obj->which_kind == DAGGER) ||
+					  (obj->which_kind == DART) ||
+					  (obj->which_kind == SHURIKEN)) &&
+					 (obj->quiver == op->quiver))) {
 				op->quantity += obj->quantity;
 				return op;
 			}
@@ -318,7 +318,7 @@ void wield() {
 	}
 	if (obj->what_is & (ARMOR | RING)) {
 		sprintf(desc, "you can't wield %s",
-			((obj->what_is == ARMOR) ? "armor" : "rings"));
+				((obj->what_is == ARMOR) ? "armor" : "rings"));
 		message(desc, 0);
 		return;
 	}
@@ -385,12 +385,12 @@ int pack_count(object *new_obj) {
 		} else if (!new_obj) {
 			count++;
 		} else if ((new_obj->what_is != WEAPON) ||
-			((obj->which_kind != ARROW) &&
-			(obj->which_kind != DAGGER) &&
-			(obj->which_kind != DART) &&
-			(obj->which_kind != SHURIKEN)) ||
-			(new_obj->which_kind != obj->which_kind) ||
-			(obj->quiver != new_obj->quiver)) {
+				((obj->which_kind != ARROW) &&
+				 (obj->which_kind != DAGGER) &&
+				 (obj->which_kind != DART) &&
+				 (obj->which_kind != SHURIKEN)) ||
+				(new_obj->which_kind != obj->which_kind) ||
+				(obj->quiver != new_obj->quiver)) {
 			count++;
 		}
 		obj = obj->next_object;
@@ -410,32 +410,32 @@ boolean mask_pack(object *pack, unsigned int mask) {
 
 boolean is_pack_letter(int *c, unsigned int *mask) {
 	if (((*c == '?') || (*c == '!') || (*c == ':') || (*c == '=') ||
-		(*c == ')') || (*c == ']') || (*c == '/') || (*c == ','))) {
+				(*c == ')') || (*c == ']') || (*c == '/') || (*c == ','))) {
 		switch(*c) {
-		case '?':
-			*mask = SCROLL;
-			break;
-		case '!':
-			*mask = POTION;
-			break;
-		case ':':
-			*mask = FOOD;
-			break;
-		case ')':
-			*mask = WEAPON;
-			break;
-		case ']':
-			*mask = ARMOR;
-			break;
-		case '/':
-			*mask = WAND;
-			break;
-		case '=':
-			*mask = RING;
-			break;
-		case ',':
-			*mask = AMULET;
-			break;
+			case '?':
+				*mask = SCROLL;
+				break;
+			case '!':
+				*mask = POTION;
+				break;
+			case ':':
+				*mask = FOOD;
+				break;
+			case ')':
+				*mask = WEAPON;
+				break;
+			case ']':
+				*mask = ARMOR;
+				break;
+			case '/':
+				*mask = WAND;
+				break;
+			case '=':
+				*mask = RING;
+				break;
+			case ',':
+				*mask = AMULET;
+				break;
 		}
 		*c = LIST;
 		return 1;
@@ -448,29 +448,29 @@ boolean has_amulet() {
 }
 
 void kick_into_pack() {
-    object *obj;
-    char desc[DCOLS];
-    int n, stat;
+	object *obj;
+	char desc[DCOLS];
+	int n, stat;
 
-    if (!(dungeon[rogue.row][rogue.col] & OBJECT)) {
-        message("nothing here", 0);
-    } else {
-        if ((obj = pick_up(rogue.row, rogue.col, &stat))) {
-            get_desc(obj, desc);
-            if (obj->what_is == GOLD) {
-                message(desc, 0);
-                free_object(obj);
-            } else {
-                n = strlen(desc);
-                desc[n] = '(';
-                desc[n+1] = obj->ichar;
-               desc[n+2] = ')';
-                desc[n+3] = 0;
-                message(desc, 0);
-            }
-        }
-        if (obj || (!stat)) {
-            reg_move();
-        }
-    }
+	if (!(dungeon[rogue.row][rogue.col] & OBJECT)) {
+		message("nothing here", 0);
+	} else {
+		if ((obj = pick_up(rogue.row, rogue.col, &stat))) {
+			get_desc(obj, desc);
+			if (obj->what_is == GOLD) {
+				message(desc, 0);
+				free_object(obj);
+			} else {
+				n = strlen(desc);
+				desc[n] = '(';
+				desc[n+1] = obj->ichar;
+				desc[n+2] = ')';
+				desc[n+3] = 0;
+				message(desc, 0);
+			}
+		}
+		if (obj || (!stat)) {
+			reg_move();
+		}
+	}
 }

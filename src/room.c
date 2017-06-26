@@ -20,10 +20,8 @@ void light_up_room(int rn) {
 	int i, j;
 
 	if (!blind) {
-		for (i = rooms[rn].top_row;
-			i <= rooms[rn].bottom_row; i++) {
-			for (j = rooms[rn].left_col;
-				j <= rooms[rn].right_col; j++) {
+		for (i = rooms[rn].top_row; i <= rooms[rn].bottom_row; i++) {
+			for (j = rooms[rn].left_col; j <= rooms[rn].right_col; j++) {
 				if (dungeon[i][j] & MONSTER) {
 					object *monster;
 
@@ -67,8 +65,7 @@ void darken_room(int rn) {
 			if (blind) {
 				mvaddch(i, j, ' ');
 			} else {
-				if (!(dungeon[i][j] & (OBJECT | STAIRS)) &&
-					!(detect_monster && (dungeon[i][j] & MONSTER))) {
+				if (!(dungeon[i][j] & (OBJECT | STAIRS)) && !(detect_monster && (dungeon[i][j] & MONSTER))) {
 					if (!imitating(i, j)) {
 						mvaddch(i, j, ' ');
 					}
@@ -114,7 +111,7 @@ char get_dungeon_char(int row, int col) {
 		if (mask & DOOR) {
 			if (mask & HIDDEN) {
 				if (((col > 0) && (dungeon[row][col-1] & HORWALL)) ||
-					((col < (DCOLS-1)) && (dungeon[row][col+1] & HORWALL))) {
+						((col < (DCOLS-1)) && (dungeon[row][col+1] & HORWALL))) {
 					return '-';
 				} else {
 					return '|';
@@ -128,7 +125,7 @@ char get_dungeon_char(int row, int col) {
 }
 
 char get_mask_char(unsigned int mask) {
-		switch(mask) {
+	switch(mask) {
 		case SCROLL:
 			return '?';
 		case POTION:
@@ -149,7 +146,7 @@ char get_mask_char(unsigned int mask) {
 			return ',';
 		default:
 			return '~';	/* unknown, something is wrong */
-		}
+	}
 }
 
 void gr_row_col(int *row, int *col, unsigned int mask) {
@@ -161,10 +158,10 @@ void gr_row_col(int *row, int *col, unsigned int mask) {
 		c = get_rand(0, DCOLS-1);
 		rn = get_room_number(r, c);
 	} while ((rn == NO_ROOM) ||
-		(!(dungeon[r][c] & mask)) ||
-		(dungeon[r][c] & (~mask)) ||
-		(!(rooms[rn].is_room & (R_ROOM | R_MAZE))) ||
-		((r == rogue.row) && (c == rogue.col)));
+			(!(dungeon[r][c] & mask)) ||
+			(dungeon[r][c] & (~mask)) ||
+			(!(rooms[rn].is_room & (R_ROOM | R_MAZE))) ||
+			((r == rogue.row) && (c == rogue.col)));
 
 	*row = r;
 	*col = c;
@@ -195,9 +192,9 @@ int party_objects(int rn) {
 	for (i = 0; i < n; i++) {
 		for (j = found = 0; ((!found) && (j < 250)); j++) {
 			row = get_rand(rooms[rn].top_row+1,
-					   rooms[rn].bottom_row-1);
+					rooms[rn].bottom_row-1);
 			col = get_rand(rooms[rn].left_col+1,
-					   rooms[rn].right_col-1);
+					rooms[rn].right_col-1);
 			if ((dungeon[row][col] == FLOOR) || (dungeon[row][col] == TUNNEL)) {
 				found = 1;
 			}
@@ -216,7 +213,7 @@ int get_room_number(int row, int col) {
 
 	for (i = 0; i < MAXROOMS; i++) {
 		if ((row >= rooms[i].top_row) && (row <= rooms[i].bottom_row) &&
-			(col >= rooms[i].left_col) && (col <= rooms[i].right_col)) {
+				(col >= rooms[i].left_col) && (col <= rooms[i].right_col)) {
 			return i;
 		}
 	}
@@ -268,7 +265,7 @@ void draw_magic_map() {
 			s = dungeon[i][j];
 			if (s & mask) {
 				if (((ch = mvinch(i, j)) == ' ') ||
-					((ch >= 'A') && (ch <= 'Z')) || (s & (TRAP | HIDDEN))) {
+						((ch >= 'A') && (ch <= 'Z')) || (s & (TRAP | HIDDEN))) {
 					och = ch;
 					dungeon[i][j] &= (~HIDDEN);
 					if (s & HORWALL) {
@@ -328,7 +325,7 @@ void dr_course(object *monster, boolean entering, int row, int col) {
 					monster->trow = rooms[rr].doors[k].oth_row;
 					monster->tcol = rooms[rr].doors[k].oth_col;
 					if ((monster->trow == row) &&
-						(monster->tcol == col)) {
+							(monster->tcol == col)) {
 						continue;
 					}
 					return;
@@ -339,7 +336,7 @@ void dr_course(object *monster, boolean entering, int row, int col) {
 		for (i = rooms[rn].top_row; i <= rooms[rn].bottom_row; i++) {
 			for (j = rooms[rn].left_col; j <= rooms[rn].right_col; j++) {
 				if ((i != monster->row) && (j != monster->col) &&
-					(dungeon[i][j] & DOOR)) {
+						(dungeon[i][j] & DOOR)) {
 					monster->trow = i;
 					monster->tcol = j;
 					return;

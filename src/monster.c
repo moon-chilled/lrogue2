@@ -53,14 +53,14 @@ object mon_tab[MONSTERS] = {
 	{(ASLEEP|WAKENS),"1d3",11,'E',2,1,7,65,0,0,0,0,0},
 	{(HOLDS|STATIONARY),"5d5",73,'F',91,12,126,80,0,0,0,0,0},
 	{(ASLEEP|WAKENS|WANDERS|FLIES),"5d5/5d5",115,'G',
-			2000,20,126,85,0,10,0,0,0},
+		2000,20,126,85,0,10,0,0,0},
 	{(ASLEEP|WAKENS|WANDERS),"1d3/1d2",15,'H',3,1,10,67,0,0,0,0,0},
 	{(ASLEEP|FREEZES),"0d0",15,'I',5,2,11,68,0,0,0,0,0},
 	{(ASLEEP|WANDERS),"3d10/4d5",132,'J',3000,21,126,100,0,0,0,0,0},
 	{(ASLEEP|WAKENS|WANDERS|FLIES),"1d4",10,'K',2,1,6,60,0,0,0,0,0},
 	{(ASLEEP|STEALS_GOLD),"0d0",25,'L',21,6,16,75,0,0,0,0,0},
 	{(ASLEEP|WAKENS|WANDERS|CONFUSES),"4d4/3d7",97,'M',
-			250,18,126,85,0,25,0,0,0},
+		250,18,126,85,0,25,0,0,0},
 	{(ASLEEP|STEALS_ITEM),"0d0",25,'N',39,10,19,75,0,100,0,0,0},
 	{(ASLEEP|WANDERS|WAKENS|SEEKS_GOLD),"1d6",25,'O',5,4,13,70,0,10,0,0,0},
 	{(ASLEEP|INVISIBLE|WANDERS|FLITS),"5d4",76,'P',120,15,24,80,0,50,0,0,0},
@@ -69,9 +69,9 @@ object mon_tab[MONSTERS] = {
 	{(ASLEEP|WAKENS|WANDERS),"1d3",8,'S',2,1,9,50,0,0,0,0,0},
 	{(ASLEEP|WAKENS|WANDERS),"4d6/1d4",75,'T',125,13,22,75,0,33,0,0,0},
 	{(ASLEEP|WAKENS|WANDERS),"4d10",90,'U',
-			200,17,26,85,0,33,0,0,0},
+		200,17,26,85,0,33,0,0,0},
 	{(ASLEEP|WAKENS|WANDERS|DRAINS_LIFE),"1d14/1d4",55,'V',
-			350,19,126,85,0,18,0,0,0},
+		350,19,126,85,0,18,0,0,0},
 	{(ASLEEP|WANDERS|DROPS_LEVEL),"2d8",45,'W',55,14,23,75,0,0,0,0,0},
 	{(ASLEEP|IMITATES),"4d6",42,'X',110,16,25,75,0,0,0,0,0},
 	{(ASLEEP|WANDERS),"3d6",35,'Y',50,11,20,80,0,20,0,0,0},
@@ -103,7 +103,7 @@ object *gr_monster(object *monster, int mn) {
 		for (;;) {
 			mn = get_rand(0, MONSTERS-1);
 			if ((cur_level >= mon_tab[mn].first_level) &&
-			(cur_level <= mon_tab[mn].last_level)) {
+					(cur_level <= mon_tab[mn].last_level)) {
 				break;
 			}
 		}
@@ -148,7 +148,7 @@ void mv_mons() {
 		}
 		flew = 0;
 		if ((monster->m_flags & FLIES) && !(monster->m_flags & NAPPING) &&
-			 !mon_can_go(monster, rogue.row, rogue.col)) {
+				!mon_can_go(monster, rogue.row, rogue.col)) {
 			flew = 1;
 			mv_monster(monster, rogue.row, rogue.col);
 		}
@@ -176,11 +176,11 @@ void party_monsters(int rn, int n) {
 		}
 		for (j = found = 0; ((!found) && (j < 250)); j++) {
 			row = get_rand(rooms[rn].top_row+1,
-				rooms[rn].bottom_row-1);
+					rooms[rn].bottom_row-1);
 			col = get_rand(rooms[rn].left_col+1,
-				rooms[rn].right_col-1);
+					rooms[rn].right_col-1);
 			if ((!(dungeon[row][col] & MONSTER)) &&
-				(dungeon[row][col] & (FLOOR | TUNNEL))) {
+					(dungeon[row][col] & (FLOOR | TUNNEL))) {
 				found = 1;
 			}
 		}
@@ -203,7 +203,7 @@ int gmc_row_col(int row, int col) {
 
 	if ((monster = object_at(&level_monsters, row, col))) {
 		if ((!(detect_monster || see_invisible || r_see_invisible) &&
-			(monster->m_flags & INVISIBLE)) || blind) {
+					(monster->m_flags & INVISIBLE)) || blind) {
 			retval = monster->trail_char;
 			return retval;
 		}
@@ -218,8 +218,8 @@ int gmc_row_col(int row, int col) {
 
 int gmc(object *monster) {
 	if ((!(detect_monster || see_invisible || r_see_invisible) &&
-		(monster->m_flags & INVISIBLE))
-		|| blind) {
+				(monster->m_flags & INVISIBLE))
+			|| blind) {
 		return monster->trail_char;
 	}
 	if (monster->m_flags & IMITATES) {
@@ -240,10 +240,10 @@ void mv_monster(object *monster, int row, int col) {
 			return;
 		}
 		if ((monster->m_flags & WAKENS) &&
-			 rogue_is_around(monster->row, monster->col) &&
-			 rand_percent(((stealthy > 0) ?
-			 	(WAKE_PERCENT / (STEALTH_FACTOR + stealthy)) :
-				WAKE_PERCENT))) {
+				rogue_is_around(monster->row, monster->col) &&
+				rand_percent(((stealthy > 0) ?
+						(WAKE_PERCENT / (STEALTH_FACTOR + stealthy)) :
+						WAKE_PERCENT))) {
 			wake_up(monster);
 		}
 		return;
@@ -255,7 +255,7 @@ void mv_monster(object *monster, int row, int col) {
 		return;
 	}
 	if ((monster->m_flags & STATIONARY) &&
-		(!mon_can_go(monster, rogue.row, rogue.col))) {
+			(!mon_can_go(monster, rogue.row, rogue.col))) {
 		return;
 	}
 	if (monster->m_flags & FREEZING_ROGUE) {
@@ -275,7 +275,7 @@ void mv_monster(object *monster, int row, int col) {
 		return;
 	}
 	if ((monster->trow == monster->row) &&
-		   (monster->tcol == monster->col)) {
+			(monster->tcol == monster->col)) {
 		monster->trow = NO_ROOM;
 	} else if (monster->trow != NO_ROOM) {
 		row = monster->trow;
@@ -287,7 +287,7 @@ void mv_monster(object *monster, int row, int col) {
 		row = monster->row + 1;
 	}
 	if ((dungeon[row][monster->col] & DOOR) &&
-		 mtry(monster, row, monster->col)) {
+			mtry(monster, row, monster->col)) {
 		return;
 	}
 	if (monster->col > col) {
@@ -296,7 +296,7 @@ void mv_monster(object *monster, int row, int col) {
 		col = monster->col + 1;
 	}
 	if ((dungeon[monster->row][col] & DOOR) &&
-		 mtry(monster, monster->row, col)) {
+			mtry(monster, monster->row, col)) {
 		return;
 	}
 	if (mtry(monster, row, col)) {
@@ -308,36 +308,36 @@ void mv_monster(object *monster, int row, int col) {
 	for (i = 0; i < 6; i++) {
 NEXT_TRY:	n = get_rand(0, 5);
 		switch(n) {
-		case 0:
-			if (!tried[n] && mtry(monster, row, monster->col-1)) {
-				goto O;
-			}
-			break;
-		case 1:
-			if (!tried[n] && mtry(monster, row, monster->col)) {
-				goto O;
-			}
-			break;
-		case 2:
-			if (!tried[n] && mtry(monster, row, monster->col+1)) {
-				goto O;
-			}
-			break;
-		case 3:
-			if (!tried[n] && mtry(monster, monster->row-1, col)) {
-				goto O;
-			}
-			break;
-		case 4:
-			if (!tried[n] && mtry(monster, monster->row, col)) {
-				goto O;
-			}
-			break;
-		case 5:
-			if (!tried[n] && mtry(monster, monster->row+1, col)) {
-				goto O;
-			}
-			break;
+			case 0:
+				if (!tried[n] && mtry(monster, row, monster->col-1)) {
+					goto O;
+				}
+				break;
+			case 1:
+				if (!tried[n] && mtry(monster, row, monster->col)) {
+					goto O;
+				}
+				break;
+			case 2:
+				if (!tried[n] && mtry(monster, row, monster->col+1)) {
+					goto O;
+				}
+				break;
+			case 3:
+				if (!tried[n] && mtry(monster, monster->row-1, col)) {
+					goto O;
+				}
+				break;
+			case 4:
+				if (!tried[n] && mtry(monster, monster->row, col)) {
+					goto O;
+				}
+				break;
+			case 5:
+				if (!tried[n] && mtry(monster, monster->row+1, col)) {
+					goto O;
+				}
+				break;
 		}
 		if (!tried[n]) {
 			tried[n] = 1;
@@ -401,17 +401,17 @@ void move_mon_to(object *monster, int row, int col) {
 	monster->trail_char = mvinch(row, col);
 	if (!blind && (detect_monster || rogue_can_see(row, col))) {
 		if ((!(monster->m_flags & INVISIBLE) ||
-			(detect_monster || see_invisible || r_see_invisible))) {
+					(detect_monster || see_invisible || r_see_invisible))) {
 			mvaddch(row, col, gmc(monster));
 		}
 	}
 	if ((dungeon[row][col] & DOOR) &&
-		(get_room_number(row, col) != cur_room) &&
-		(dungeon[mrow][mcol] == FLOOR) && !blind) {
-			mvaddch(mrow, mcol, ' ');
+			(get_room_number(row, col) != cur_room) &&
+			(dungeon[mrow][mcol] == FLOOR) && !blind) {
+		mvaddch(mrow, mcol, ' ');
 	}
 	if (dungeon[row][col] & DOOR) {
-			dr_course(monster, ((dungeon[mrow][mcol] & TUNNEL) ? 1 : 0),
+		dr_course(monster, ((dungeon[mrow][mcol] & TUNNEL) ? 1 : 0),
 				row, col);
 	} else {
 		monster->row = row;
@@ -438,11 +438,11 @@ boolean mon_can_go(object *monster, int row, int col) {
 		return 0;
 	}
 	if ((monster->row!=row)&&(monster->col!=col)&&((dungeon[row][col]&DOOR) ||
-		(dungeon[monster->row][monster->col]&DOOR))) {
+				(dungeon[monster->row][monster->col]&DOOR))) {
 		return 0;
 	}
 	if (!(monster->m_flags & (FLITS | CONFUSED | CAN_FLIT)) &&
-		(monster->trow == NO_ROOM)) {
+			(monster->trow == NO_ROOM)) {
 		if ((monster->row < rogue.row) && (row < monster->row)) return 0;
 		if ((monster->row > rogue.row) && (row > monster->row)) return 0;
 		if ((monster->col < rogue.col) && (col < monster->col)) return 0;
@@ -486,7 +486,7 @@ void wake_room(int rn, boolean entering, int row, int col) {
 			}
 		}
 		if ((monster->m_flags & WAKENS) &&
-			(rn == get_room_number(monster->row, monster->col))) {
+				(rn == get_room_number(monster->row, monster->col))) {
 			if (rand_percent(wake_percent)) {
 				wake_up(monster);
 			}
@@ -499,7 +499,7 @@ char *mon_name(object *monster) {
 	int ch;
 
 	if (blind || ((monster->m_flags & INVISIBLE) &&
-		!(detect_monster || see_invisible || r_see_invisible))) {
+				!(detect_monster || see_invisible || r_see_invisible))) {
 		return "something";
 	}
 	if (halluc) {
@@ -587,7 +587,7 @@ void create_monster() {
 			continue;
 		}
 		if ((!(dungeon[row][col] & MONSTER)) &&
-			  (dungeon[row][col] & (FLOOR|TUNNEL|STAIRS|DOOR))) {
+				(dungeon[row][col] & (FLOOR|TUNNEL|STAIRS|DOOR))) {
 			found = 1;
 			break;
 		}
@@ -633,9 +633,9 @@ boolean rogue_can_see(int row, int col) {
 	boolean retval;
 
 	retval = !blind &&
-			(((get_room_number(row, col) == cur_room) &&
-					!(rooms[cur_room].is_room & R_MAZE)) ||
-			rogue_is_around(row, col));
+		(((get_room_number(row, col) == cur_room) &&
+		!(rooms[cur_room].is_room & R_MAZE)) ||
+		rogue_is_around(row, col));
 
 	return retval;
 }
@@ -755,7 +755,7 @@ void mv_aquatars() {
 
 	while (monster) {
 		if ((monster->m_char == 'A') &&
-			mon_can_go(monster, rogue.row, rogue.col)) {
+				mon_can_go(monster, rogue.row, rogue.col)) {
 			mv_monster(monster, rogue.row, rogue.col);
 			monster->m_flags |= ALREADY_MOVED;
 		}

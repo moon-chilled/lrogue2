@@ -50,7 +50,7 @@ void  put_on_ring() {
 		do {
 			ch = rgetchar();
 		} while ((ch != CANCEL) && (ch != 'l') && (ch != 'r') && (ch != '\n') &&
-			 	(ch != '\r'));
+				(ch != '\r'));
 	}
 	if ((ch != 'l') && (ch != 'r')) {
 		check_message();
@@ -105,7 +105,7 @@ void remove_ring() {
 		do {
 			ch = rgetchar();
 		} while ((ch != CANCEL) && (ch != 'l') && (ch != 'r') &&
-			(ch != '\n') && (ch != '\r'));
+				(ch != '\n') && (ch != '\r'));
 		left = (ch == 'l');
 		right = (ch == 'r');
 		check_message();
@@ -155,33 +155,33 @@ void gr_ring(object *ring, boolean assign_wk) {
 	ring->class = 0;
 
 	switch(ring->which_kind) {
-	/*
-	case STEALTH:
-		break;
-	case SLOW_DIGEST:
-		break;
-	case REGENERATION:
-		break;
-	case R_SEE_INVISIBLE:
-		break;
-	case SUSTAIN_STRENGTH:
-		break;
-	case R_MAINTAIN_ARMOR:
-		break;
-	case SEARCHING:
-		break;
-	*/
-	case R_TELEPORT:
-		ring->is_cursed = 1;
-		break;
-	case ADD_STRENGTH:
-	case DEXTERITY:
-		while ((ring->class = (get_rand(0, 4) - 2)) == 0) ;
-		ring->is_cursed = (ring->class < 0);
-		break;
-	case ADORNMENT:
-		ring->is_cursed = coin_toss();
-		break;
+		/*
+		   case STEALTH:
+		   break;
+		   case SLOW_DIGEST:
+		   break;
+		   case REGENERATION:
+		   break;
+		   case R_SEE_INVISIBLE:
+		   break;
+		   case SUSTAIN_STRENGTH:
+		   break;
+		   case R_MAINTAIN_ARMOR:
+		   break;
+		   case SEARCHING:
+		   break;
+		   */
+		case R_TELEPORT:
+			ring->is_cursed = 1;
+			break;
+		case ADD_STRENGTH:
+		case DEXTERITY:
+			while ((ring->class = (get_rand(0, 4) - 2)) == 0) ;
+			ring->is_cursed = (ring->class < 0);
+			break;
+		case ADORNMENT:
+			ring->is_cursed = coin_toss();
+			break;
 	}
 }
 
@@ -202,9 +202,9 @@ void inv_rings() {
 	}
 	if (wizard) {
 		sprintf(buf, "ste %d, r_r %d, e_r %d, r_t %d, s_s %d, a_s %d, reg %d, r_e %d, s_i %d, m_a %d, aus %d",
-			stealthy, r_rings, e_rings, r_teleport, sustain_strength,
-			add_strength, regeneration, ring_exp, r_see_invisible,
-			maintain_armor, auto_search);
+				stealthy, r_rings, e_rings, r_teleport, sustain_strength,
+				add_strength, regeneration, ring_exp, r_see_invisible,
+				maintain_armor, auto_search);
 		message(buf, 0);
 	}
 }
@@ -232,38 +232,38 @@ void ring_stats(boolean pr) {
 		r_rings++;
 		e_rings++;
 		switch(ring->which_kind) {
-		case STEALTH:
-			stealthy++;
-			break;
-		case R_TELEPORT:
-			r_teleport = 1;
-			break;
-		case REGENERATION:
-			regeneration++;
-			break;
-		case SLOW_DIGEST:
-			e_rings -= 2;
-			break;
-		case ADD_STRENGTH:
-			add_strength += ring->class;
-			break;
-		case SUSTAIN_STRENGTH:
-			sustain_strength = 1;
-			break;
-		case DEXTERITY:
-			ring_exp += ring->class;
-			break;
-		case ADORNMENT:
-			break;
-		case R_SEE_INVISIBLE:
-			r_see_invisible = 1;
-			break;
-		case MAINTAIN_ARMOR:
-			maintain_armor = 1;
-			break;
-		case SEARCHING:
-			auto_search += 2;
-			break;
+			case STEALTH:
+				stealthy++;
+				break;
+			case R_TELEPORT:
+				r_teleport = 1;
+				break;
+			case REGENERATION:
+				regeneration++;
+				break;
+			case SLOW_DIGEST:
+				e_rings -= 2;
+				break;
+			case ADD_STRENGTH:
+				add_strength += ring->class;
+				break;
+			case SUSTAIN_STRENGTH:
+				sustain_strength = 1;
+				break;
+			case DEXTERITY:
+				ring_exp += ring->class;
+				break;
+			case ADORNMENT:
+				break;
+			case R_SEE_INVISIBLE:
+				r_see_invisible = 1;
+				break;
+			case MAINTAIN_ARMOR:
+				maintain_armor = 1;
+				break;
+			case SEARCHING:
+				auto_search += 2;
+				break;
 		}
 	}
 	if (pr) {

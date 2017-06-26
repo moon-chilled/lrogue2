@@ -5,12 +5,12 @@
 #include "rogue.h"
 #include "extern.h"
 
-const int instructionnum = 23;
-char *instructinos[instructionnum] = {"Movement                                                y  k  u",
-"        With SHIFT or CTRL to move until you hit         \\ | /",
-"        an obstacle                                     h -+- l",
-"                                                         / | \\",
-"        .        Rest                                   b  j  n",
+char *instructions[] = {
+"Movement                                                y k u",
+"        With SHIFT or CTRL to move until you hit         \\|/",
+"        an obstacle                                     h-+-l",
+"                                                         /|\\",
+"        .        Rest                                   b j n",
 "        m <direction>    Move onto something without taking it",
 "        ,                Pick up item at your location.",
 "",
@@ -28,12 +28,11 @@ char *instructinos[instructionnum] = {"Movement                                 
 "w          Wield weapon              c                Call something a name",
 "z          Zap something             t<direction>     Throw something",
 "v          Version                   Q                Quit",
-"CTRL-A     Show average hit points   S                Save game"};
+"CTRL-A     Show average hit points   S                Save game",
+NULL};
 
 void Instructions() {
 	char buffer[DROWS+1][DCOLS+1];
-/*	char buf[256];
-	FILE *f;*/
 	int row;
 	int i,j;
 	for (row = 0; row < DROWS; row++) {
@@ -48,12 +47,16 @@ void Instructions() {
 	for(i=0; i<DROWS; i++) {
 		move(i,0);
 		clrtoeol();
-	}	
+	}
 	refresh();
-	for(i=0; i < instructionnum; i++) {
+	for(i=0; /* nothing */ ; i++) {
+		if (instructions[i] == NULL) {
+			break;
+		}
+
 		move(i,0);
 		clrtoeol();
-		mvaddstr(i,0,instructinos[i]);
+		mvaddstr(i,0,instructions[i]);
 	}
 	refresh();
 	rgetchar();

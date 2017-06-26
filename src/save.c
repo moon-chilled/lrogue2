@@ -19,8 +19,7 @@ char *save_file = "";
 void save_game() {
 	char fname[64];
 
-	if (!get_input_line("file name?", save_file, fname, "game not saved",
-			0, 1)) {
+	if (!get_input_line("file name?", save_file, fname, "game not saved", 0, 1)) {
 		return;
 	}
 	check_message();
@@ -190,12 +189,11 @@ void read_pack(object *pack, FILE *fp, boolean is_rogue) {
 		*new_obj = read_obj;
 		if (is_rogue) {
 			if (new_obj->in_use_flags & BEING_WORN) {
-					do_wear(new_obj);
+				do_wear(new_obj);
 			} else if (new_obj->in_use_flags & BEING_WIELDED) {
-					do_wield(new_obj);
+				do_wield(new_obj);
 			} else if (new_obj->in_use_flags & (ON_EITHER_HAND)) {
-				do_put_on(new_obj,
-					((new_obj->in_use_flags & ON_LEFT_HAND) ? 1 : 0));
+				do_put_on(new_obj, ((new_obj->in_use_flags & ON_LEFT_HAND) ? 1 : 0));
 			}
 		}
 		pack->next_object = new_obj;
@@ -231,12 +229,12 @@ void rw_id(id id_table[], FILE *fp, int n, boolean wr) {
 		if (wr) {
 			r_write(fp, (char *) &(id_table[i].value), sizeof(int));
 			r_write(fp, (char *) &(id_table[i].id_status),
-				sizeof(unsigned int));
+					sizeof(unsigned int));
 			write_string(id_table[i].title, fp);
 		} else {
 			r_read(fp, (char *) &(id_table[i].value), sizeof(int));
 			r_read(fp, (char *) &(id_table[i].id_status),
-				sizeof(unsigned int));
+					sizeof(unsigned int));
 			read_string(id_table[i].title, fp);
 		}
 	}
@@ -249,12 +247,12 @@ void rw_id_alloc(id id_table[], FILE *fp, int n, boolean wr) {
 		if (wr) {
 			r_write(fp, (char *) &(id_table[i].value), sizeof(int));
 			r_write(fp, (char *) &(id_table[i].id_status),
-				sizeof(unsigned int));
+					sizeof(unsigned int));
 			write_string(id_table[i].title, fp);
 		} else {
 			r_read(fp, (char *) &(id_table[i].value), sizeof(int));
 			r_read(fp, (char *) &(id_table[i].id_status),
-				sizeof(unsigned int));
+					sizeof(unsigned int));
 			id_table[i].title=(char *)malloc(80);
 			read_string(id_table[i].title, fp);
 		}

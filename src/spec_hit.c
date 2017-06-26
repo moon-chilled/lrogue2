@@ -47,8 +47,7 @@ void special_hit(object *monster) {
 }
 
 void rust(object *monster) {
-	if ((!rogue.armor) || (get_armor_class(rogue.armor) <= 1) ||
-		(rogue.armor->which_kind == LEATHER)) {
+	if ((!rogue.armor) || (get_armor_class(rogue.armor) <= 1) || (rogue.armor->which_kind == LEATHER)) {
 		return;
 	}
 	if ((rogue.armor->is_protected) || maintain_armor) {
@@ -226,10 +225,10 @@ boolean try_to_cough(int row, int col, object *obj) {
 		return 0;
 	}
 	if ((!(dungeon[row][col] & (OBJECT | STAIRS | TRAP))) &&
-		(dungeon[row][col] & (TUNNEL | FLOOR | DOOR))) {
+			(dungeon[row][col] & (TUNNEL | FLOOR | DOOR))) {
 		place_at(obj, row, col);
 		if (((row != rogue.row) || (col != rogue.col)) &&
-			(!(dungeon[row][col] & MONSTER))) {
+				(!(dungeon[row][col] & MONSTER))) {
 			mvaddch(row, col, get_dungeon_char(row, col));
 		}
 		return 1;
@@ -327,7 +326,7 @@ void sting(object *monster) {
 	}
 	if (rand_percent(sting_chance)) {
 		sprintf(msg, "the %s's bite has weakened you",
-		mon_name(monster));
+				mon_name(monster));
 		message(msg, 0);
 		rogue.str_current--;
 		print_stats(STAT_STRENGTH);
@@ -414,7 +413,7 @@ boolean flame_broil(object *monster) {
 		col = -col;
 	}
 	if (((row != 0) && (col != 0) && (row != col)) ||
-		((row > 7) || (col > 7))) {
+			((row > 7) || (col > 7))) {
 		return 0;
 	}
 	if ((!blind) && (!rogue_is_around(monster->row, monster->col))) {

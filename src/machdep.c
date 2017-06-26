@@ -62,8 +62,8 @@
 void md_control_keyboard(int mode) {
 	static boolean called_before = 0;
 #ifdef _POSIX_SOURCE
-        static struct termios tc_orig ;
-        static struct termios tc_temp ;
+	static struct termios tc_orig ;
+	static struct termios tc_temp ;
 #else
 	static struct ltchars ltc_orig;
 	static struct tchars tc_orig;
@@ -75,7 +75,7 @@ void md_control_keyboard(int mode) {
 	if (!called_before) {
 		called_before = 1;
 #ifdef _POSIX_SOURCE
-        tcgetattr(0,&tc_orig);	
+		tcgetattr(0,&tc_orig);
 #else
 		ioctl(0, TIOCGETC, &tc_orig);
 		ioctl(0, TIOCGLTC, &ltc_orig);
@@ -88,10 +88,10 @@ void md_control_keyboard(int mode) {
 
 	if (!mode) {
 #ifdef _POSIX_SOURCE
-	/* tc_temp.c_cc[VSUSP] = -1; */
-	tc_temp.c_cc[VERASE] = -1;
-	tc_temp.c_cc[VSTART] = -1;
-	tc_temp.c_cc[VSTOP] = -1;
+		/* tc_temp.c_cc[VSUSP] = -1; */
+		tc_temp.c_cc[VERASE] = -1;
+		tc_temp.c_cc[VSTART] = -1;
+		tc_temp.c_cc[VSTOP] = -1;
 #endif
 #ifndef _POSIX_SOURCE
 		ltc_temp.t_rprntc = ltc_temp.t_flushc = -1;
@@ -100,7 +100,7 @@ void md_control_keyboard(int mode) {
 #endif
 	}
 #ifdef _POSIX_SOURCE
-       tcsetattr(0,TCSANOW,&tc_temp);
+	tcsetattr(0,TCSANOW,&tc_temp);
 #else
 	ioctl(0, TIOCSETC, &tc_temp);
 	ioctl(0, TIOCSLTC, &ltc_temp);
@@ -194,7 +194,7 @@ int md_link_count(char *fname) {
  * system doesn't provide all of the time units requested here, then you
  * can provide only those that it does, and return zeros for the others.
  * If you cannot provide good time values, then users may be able to copy
- * saved-game files and play them.  
+ * saved-game files and play them.
  */
 
 rogue_time md_gct() {
@@ -229,7 +229,7 @@ rogue_time md_gct() {
  * exactly the same here.
  * Or if md_gct() is implemented correctly, but your system does not provide
  * file modification dates, you may return some date far in the past so
- * that the program will never know that a saved-game file being modified.  
+ * that the program will never know that a saved-game file being modified.
  * You may also do this if you wish to be able to restore games from
  * saved-games that have been modified.
  */
@@ -295,7 +295,7 @@ char *md_gln() {
  * You need to find some single random integer, such as:
  *   process id.
  *   current time (minutes + seconds) returned from md_gct(), if implemented.
- *   
+ *
  * It will not help to return "get_rand()" or "rand()" or the return value of
  * any pseudo-RNG.  If you cannot a random number, you can just return 1,
  * but this means you games will ALWAYS start the same way, and will play

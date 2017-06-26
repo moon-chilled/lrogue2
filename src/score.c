@@ -26,18 +26,18 @@ void killed_by(object *monster, int other) {
 
 	if (other) {
 		switch(other) {
-		case HYPOTHERMIA:
-			strcpy(buf, "died of hypothermia");
-			break;
-		case STARVATION:
-			strcpy(buf, "died of starvation");
-			break;
-		case POISON_DART:
-			strcpy(buf, "killed by a dart");
-			break;
-		case QUIT:
-			strcpy(buf, "quit");
-			break;
+			case HYPOTHERMIA:
+				strcpy(buf, "died of hypothermia");
+				break;
+			case STARVATION:
+				strcpy(buf, "died of starvation");
+				break;
+			case POISON_DART:
+				strcpy(buf, "killed by a dart");
+				break;
+			case QUIT:
+				strcpy(buf, "quit");
+				break;
 		}
 	} else {
 		strcpy(buf, "Killed by ");
@@ -212,7 +212,7 @@ void put_scores(object *monster, int other) {
 		}
 		if (rank < 10) {
 			insert_score(scores, n_names, nick_name, rank, ne, monster,
-				other);
+					other);
 			if (ne < 10) {
 				ne++;
 			}
@@ -269,21 +269,21 @@ void insert_score(char scores[][82], char n_names[][30], char *n_name, int rank,
 
 	if (other) {
 		switch(other) {
-		case HYPOTHERMIA:
-			strcat(buf, "died of hypothermia");
-			break;
-		case STARVATION:
-			strcat(buf, "died of starvation");
-			break;
-		case POISON_DART:
-			strcat(buf, "killed by a dart");
-			break;
-		case QUIT:
-			strcat(buf, "quit");
-			break;
-		case WIN:
-			strcat(buf, "a total winner");
-			break;
+			case HYPOTHERMIA:
+				strcat(buf, "died of hypothermia");
+				break;
+			case STARVATION:
+				strcat(buf, "died of starvation");
+				break;
+			case POISON_DART:
+				strcat(buf, "killed by a dart");
+				break;
+			case QUIT:
+				strcat(buf, "quit");
+				break;
+			case WIN:
+				strcat(buf, "a total winner");
+				break;
 		}
 	} else {
 		strcat(buf, "killed by ");
@@ -352,37 +352,37 @@ int get_value(object *obj) {
 	wc = obj->which_kind;
 
 	switch(obj->what_is) {
-	case WEAPON:
-		val = id_weapons[wc].value;
-		if ((wc == ARROW) || (wc == DAGGER) || (wc == SHURIKEN) ||
-			(wc == DART)) {
-			val *= obj->quantity;
-		}
-		val += (obj->d_enchant * 85);
-		val += (obj->hit_enchant * 85);
-		break;
-	case ARMOR:
-		val = id_armors[wc].value;
-		val += (obj->d_enchant * 75);
-		if (obj->is_protected) {
-			val += 200;
-		}
-		break;
-	case WAND:
-		val = id_wands[wc].value * (obj->class + 1);
-		break;
-	case SCROLL:
-		val = id_scrolls[wc].value * obj->quantity;
-		break;
-	case POTION:
-		val = id_potions[wc].value * obj->quantity;
-		break;
-	case AMULET:
-		val = 5000;
-		break;
-        case RING:
-	        val = id_rings[wc].value * (obj->class + 1);
-                break;
+		case WEAPON:
+			val = id_weapons[wc].value;
+			if ((wc == ARROW) || (wc == DAGGER) || (wc == SHURIKEN) ||
+					(wc == DART)) {
+				val *= obj->quantity;
+			}
+			val += (obj->d_enchant * 85);
+			val += (obj->hit_enchant * 85);
+			break;
+		case ARMOR:
+			val = id_armors[wc].value;
+			val += (obj->d_enchant * 75);
+			if (obj->is_protected) {
+				val += 200;
+			}
+			break;
+		case WAND:
+			val = id_wands[wc].value * (obj->class + 1);
+			break;
+		case SCROLL:
+			val = id_scrolls[wc].value * obj->quantity;
+			break;
+		case POTION:
+			val = id_potions[wc].value * obj->quantity;
+			break;
+		case AMULET:
+			val = 5000;
+			break;
+		case RING:
+			val = id_rings[wc].value * (obj->class + 1);
+			break;
 	}
 	if (val <= 0) {
 		val = 10;

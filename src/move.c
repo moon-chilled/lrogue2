@@ -65,13 +65,13 @@ int one_move_rogue(int dirch, int pickup) {
 			light_passage(row, col);
 		}
 	} else if ((dungeon[rogue.row][rogue.col] & DOOR) &&
-		   (dungeon[row][col] & TUNNEL)) {
+			(dungeon[row][col] & TUNNEL)) {
 		light_passage(row, col);
 		wake_room(cur_room, 0, rogue.row, rogue.col);
 		darken_room(cur_room);
 		cur_room = PASSAGE;
 	} else if (dungeon[row][col] & TUNNEL) {
-			light_passage(row, col);
+		light_passage(row, col);
 	}
 	mvaddch(rogue.row, rogue.col, get_dungeon_char(rogue.row, rogue.col));
 	mvaddch(row, col, rogue.fchar);
@@ -122,7 +122,7 @@ NOT_IN_PACK:
 		return STOPPED_ON_SOMETHING;
 	}
 MVED:	if (reg_move()) {			/* fainted from hunger */
-			return STOPPED_ON_SOMETHING;
+		return STOPPED_ON_SOMETHING;
 	}
 	return (confused ? STOPPED_ON_SOMETHING : MOVED);
 }
@@ -144,8 +144,8 @@ void multiple_move_rogue(char dirch) {
 				row = rogue.row;
 				col = rogue.col;
 				if (((m = one_move_rogue((dirch + 96), 1)) == MOVE_FAILED) ||
-					(m == STOPPED_ON_SOMETHING) ||
-					interrupted) {
+						(m == STOPPED_ON_SOMETHING) ||
+						interrupted) {
 					break;
 				}
 			} while (!next_to_something(row, col));
@@ -166,7 +166,7 @@ void multiple_move_rogue(char dirch) {
 
 boolean is_passable(int row, int col) {
 	if ((row < MIN_ROW) || (row > (DROWS - 2)) || (col < 0) ||
-		(col > (DCOLS-1))) {
+			(col > (DCOLS-1))) {
 		return 0;
 	}
 	if (dungeon[row][col] & HIDDEN) {
@@ -204,10 +204,11 @@ boolean next_to_something(int drow, int dcol) {
 				continue;
 			}
 			/* If the rogue used to be right, up, left, down, or right of
-			 * row,col, and now isn't, then don't stop */
+			 * row,col, and now isn't, then don't stop
+			 */
 			if (s & (MONSTER | OBJECT | STAIRS)) {
 				if (((row == drow) || (col == dcol)) &&
-					(!((row == rogue.row) || (col == rogue.col)))) {
+						(!((row == rogue.row) || (col == rogue.col)))) {
 					continue;
 				}
 				return 1;
@@ -215,7 +216,7 @@ boolean next_to_something(int drow, int dcol) {
 			if (s & TRAP) {
 				if (!(s & HIDDEN)) {
 					if (((row == drow) || (col == dcol)) &&
-						(!((row == rogue.row) || (col == rogue.col)))) {
+							(!((row == rogue.row) || (col == rogue.col)))) {
 						continue;
 					}
 					return 1;
@@ -227,7 +228,7 @@ boolean next_to_something(int drow, int dcol) {
 				}
 			}
 			if ((s & DOOR) && ((i == 0) || (j == 0))) {
-					return 1;
+				return 1;
 			}
 		}
 	}
@@ -321,25 +322,25 @@ boolean check_hunger(boolean messages_only) {
 	}
 
 	switch(e_rings) {
-	/*case -2:
-		Subtract 0, i.e. do nothing.
-		break;*/
-	case -1:
-		rogue.moves_left -= (rogue.moves_left % 2);
-		break;
-	case 0:
-		rogue.moves_left--;
-		break;
-	case 1:
-		rogue.moves_left--;
-		check_hunger(1);
-		rogue.moves_left -= (rogue.moves_left % 2);
-		break;
-	case 2:
-		rogue.moves_left--;
-		check_hunger(1);
-		rogue.moves_left--;
-		break;
+		/*case -2:
+		  Subtract 0, i.e. do nothing.
+		  break;*/
+		case -1:
+			rogue.moves_left -= (rogue.moves_left % 2);
+			break;
+		case 0:
+			rogue.moves_left--;
+			break;
+		case 1:
+			rogue.moves_left--;
+			check_hunger(1);
+			rogue.moves_left -= (rogue.moves_left % 2);
+			break;
+		case 2:
+			rogue.moves_left--;
+			check_hunger(1);
+			rogue.moves_left--;
+			break;
 	}
 	return fainted;
 }
@@ -458,49 +459,49 @@ void heal() {
 		heal_exp = rogue.exp;
 
 		switch(heal_exp) {
-		case 1:
-			n = 20;
-			break;
-		case 2:
-			n = 18;
-			break;
-		case 3:
-			n = 17;
-			break;
-		case 4:
-			n = 14;
-			break;
-		case 5:
-			n = 13;
-			break;
-		case 6:
-			n = 10;
-			break;
-		case 7:
-			n = 9;
-			break;
-		case 8:
-			n = 8;
-			break;
-		case 9:
-			n = 7;
-			break;
-		case 10:
-			n = 4;
-			break;
-		case 11:
-			n = 3;
-			break;
-		case 12:
-		default:
-			n = 2;
+			case 1:
+				n = 20;
+				break;
+			case 2:
+				n = 18;
+				break;
+			case 3:
+				n = 17;
+				break;
+			case 4:
+				n = 14;
+				break;
+			case 5:
+				n = 13;
+				break;
+			case 6:
+				n = 10;
+				break;
+			case 7:
+				n = 9;
+				break;
+			case 8:
+				n = 8;
+				break;
+			case 9:
+				n = 7;
+				break;
+			case 10:
+				n = 4;
+				break;
+			case 11:
+				n = 3;
+				break;
+			case 12:
+			default:
+				n = 2;
 		}
 	}
 	if (++c >= n) {
 		c = 0;
 		rogue.hp_current++;
 
-		
+
 		/* It's glorious, and if you don't like it, fuck you. */
 		if ((alt = !alt)) {
 			rogue.hp_current++;

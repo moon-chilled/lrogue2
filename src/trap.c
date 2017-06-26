@@ -17,19 +17,13 @@ trap traps[MAX_TRAPS];
 boolean trap_door = 0;
 int bear_trap = 0;
 
-char *trap_strings[TRAPS * 2] = {
-	"trap door",
-			"you fell down a trap",
-	"bear trap",
-			"you are caught in a bear trap",
-	"teleport trap",
-			"teleport",
-	"poison dart trap",
-			"a small dart just hit you in the shoulder",
-	"sleeping gas trap",
-			"a strange white mist envelops you and you fall asleep",
-	"rust trap",
-			"a gush of water hits you on the head"
+char *trap_strings[] = {
+	"trap door", "you fell down a trap",
+	"bear trap", "you are caught in a bear trap",
+	"teleport trap", "teleport",
+	"poison dart trap", "a small dart just hit you in the shoulder",
+	"sleeping gas trap", "a strange white mist envelops you and you fall asleep",
+	"rust trap", "a gush of water hits you on the head"
 };
 
 int trap_at(int row, int col) {
@@ -55,41 +49,41 @@ void trap_player(int row, int col) {
 		return;
 	}
 	switch(t) {
-	case TRAP_DOOR:
-		trap_door = 1;
-		new_level_message = trap_strings[(t*2)+1];
-		break;
-	case BEAR_TRAP:
-		message(trap_strings[(t*2)+1], 1);
-		bear_trap = get_rand(4, 7);
-		break;
-	case TELE_TRAP:
-		mvaddch(rogue.row, rogue.col, '^');
-		tele();
-		break;
-	case DART_TRAP:
-		message(trap_strings[(t*2)+1], 1);
-		rogue.hp_current -= get_damage("1d6", 1);
-		if (rogue.hp_current <= 0) {
-			rogue.hp_current = 0;
-		}
-		if ((!sustain_strength) && rand_percent(40) &&
-			(rogue.str_current >= 3)) {
-			rogue.str_current--;
-		}
-		print_stats(STAT_HP | STAT_STRENGTH);
-		if (rogue.hp_current <= 0) {
-			killed_by((object *) 0, POISON_DART);
-		}
-		break;
-	case SLEEPING_GAS_TRAP:
-		message(trap_strings[(t*2)+1], 1);
-		take_a_nap();
-		break;
-	case RUST_TRAP:
-		message(trap_strings[(t*2)+1], 1);
-		rust((object *) 0);
-		break;
+		case TRAP_DOOR:
+			trap_door = 1;
+			new_level_message = trap_strings[(t*2)+1];
+			break;
+		case BEAR_TRAP:
+			message(trap_strings[(t*2)+1], 1);
+			bear_trap = get_rand(4, 7);
+			break;
+		case TELE_TRAP:
+			mvaddch(rogue.row, rogue.col, '^');
+			tele();
+			break;
+		case DART_TRAP:
+			message(trap_strings[(t*2)+1], 1);
+			rogue.hp_current -= get_damage("1d6", 1);
+			if (rogue.hp_current <= 0) {
+				rogue.hp_current = 0;
+			}
+			if ((!sustain_strength) && rand_percent(40) &&
+					(rogue.str_current >= 3)) {
+				rogue.str_current--;
+			}
+			print_stats(STAT_HP | STAT_STRENGTH);
+			if (rogue.hp_current <= 0) {
+				killed_by((object *) 0, POISON_DART);
+			}
+			break;
+		case SLEEPING_GAS_TRAP:
+			message(trap_strings[(t*2)+1], 1);
+			take_a_nap();
+			break;
+		case RUST_TRAP:
+			message(trap_strings[(t*2)+1], 1);
+			rust((object *) 0);
+			break;
 	}
 }
 
@@ -123,7 +117,7 @@ void add_traps() {
 						(rooms[party_room].right_col-1));
 				tries++;
 			} while (((dungeon[row][col] & (OBJECT|STAIRS|TRAP|TUNNEL)) ||
-					(dungeon[row][col] == NOTHING)) && (tries < 15));
+						(dungeon[row][col] == NOTHING)) && (tries < 15));
 			if (tries >= 15) {
 				gr_row_col(&row, &col, (FLOOR | MONSTER));
 			}
@@ -206,7 +200,7 @@ void search(int n, boolean is_auto) {
 					if (rand_percent(17 + (rogue.exp + ring_exp))) {
 						dungeon[row][col] &= (~HIDDEN);
 						if ((!blind) && ((row != rogue.row) ||
-								(col != rogue.col))) {
+									(col != rogue.col))) {
 							mvaddch(row, col, get_dungeon_char(row, col));
 						}
 						shown++;

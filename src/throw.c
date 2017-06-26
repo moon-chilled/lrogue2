@@ -81,15 +81,14 @@ boolean throw_at_monster(object *monster, object *weapon) {
 
 	hit_chance = get_hit_chance(weapon);
 	damage = get_weapon_damage(weapon);
-	if ((weapon->which_kind == ARROW) &&
-		(rogue.weapon && (rogue.weapon->which_kind == BOW))) {
+	if ((weapon->which_kind == ARROW) && (rogue.weapon && (rogue.weapon->which_kind == BOW))) {
 		damage += get_weapon_damage(rogue.weapon);
 		damage = ((damage * 2) / 3);
 		hit_chance += (hit_chance / 3);
 	} else if ((weapon->in_use_flags & BEING_WIELDED) &&
-		((weapon->which_kind == DAGGER) ||
-		(weapon->which_kind == SHURIKEN) ||
-		(weapon->which_kind == DART))) {
+			((weapon->which_kind == DAGGER) ||
+			 (weapon->which_kind == SHURIKEN) ||
+			 (weapon->which_kind == DART))) {
 		damage = ((damage * 3) / 2);
 		hit_chance += (hit_chance / 3);
 	}
@@ -123,7 +122,7 @@ object *get_thrown_at_monster(object *obj, int dir, int *row, int *col) {
 		get_dir_rc(dir, row, col, 0);
 		if ((dungeon[*row][*col] == NOTHING) ||
 				((dungeon[*row][*col] & (HORWALL | VERTWALL | HIDDEN)) &&
-				(!(dungeon[*row][*col] & TRAP)))) {
+				 (!(dungeon[*row][*col] & TRAP)))) {
 			*row = orow;
 			*col = ocol;
 			return 0;
@@ -161,8 +160,8 @@ void flop_weapon(object *weapon, int row, int col) {
 	while ((i < 9) && dungeon[row][col] & ~(FLOOR | TUNNEL | DOOR | MONSTER)) {
 		rand_around(i++, &row, &col);
 		if ((row > (DROWS-2)) || (row < MIN_ROW) ||
-			(col > (DCOLS-1)) || (col < 0) || (!dungeon[row][col]) ||
-			(dungeon[row][col] & ~(FLOOR | TUNNEL | DOOR | MONSTER))) {
+				(col > (DCOLS-1)) || (col < 0) || (!dungeon[row][col]) ||
+				(dungeon[row][col] & ~(FLOOR | TUNNEL | DOOR | MONSTER))) {
 			continue;
 		}
 		found = 1;
@@ -206,7 +205,7 @@ void flop_weapon(object *weapon, int row, int col) {
 }
 
 void rand_around(int i, int *r, int *c) {
-	static char* pos = "\010\007\001\003\004\005\002\006\0";
+	static char pos[] = "\010\007\001\003\004\005\002\006\0";
 	static int row, col;
 	int j;
 
@@ -227,41 +226,41 @@ void rand_around(int i, int *r, int *c) {
 		}
 	}
 	switch(pos[i]) {
-	case 0:
-		*r = row + 1;
-		*c = col + 1;
-		break;
-	case 1:
-		*r = row + 1;
-		*c = col - 1;
-		break;
-	case 2:
-		*r = row - 1;
-		*c = col + 1;
-		break;
-	case 3:
-		*r = row - 1;
-		*c = col - 1;
-		break;
-	case 4:
-		*r = row;
-		*c = col + 1;
-		break;
-	case 5:
-		*r = row + 1;
-		*c = col;
-		break;
-	case 6:
-		*r = row;
-		*c = col;
-		break;
-	case 7:
-		*r = row - 1;
-		*c = col;
-		break;
-	case 8:
-		*r = row;
-		*c = col - 1;
-		break;
+		case 0:
+			*r = row + 1;
+			*c = col + 1;
+			break;
+		case 1:
+			*r = row + 1;
+			*c = col - 1;
+			break;
+		case 2:
+			*r = row - 1;
+			*c = col + 1;
+			break;
+		case 3:
+			*r = row - 1;
+			*c = col - 1;
+			break;
+		case 4:
+			*r = row;
+			*c = col + 1;
+			break;
+		case 5:
+			*r = row + 1;
+			*c = col;
+			break;
+		case 6:
+			*r = row;
+			*c = col;
+			break;
+		case 7:
+			*r = row - 1;
+			*c = col;
+			break;
+		case 8:
+			*r = row;
+			*c = col - 1;
+			break;
 	}
 }

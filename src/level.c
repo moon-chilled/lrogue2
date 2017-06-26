@@ -21,26 +21,26 @@ int party_room = NO_ROOM;
 int r_de;
 
 long level_points[MAX_EXP_LEVEL] = {
-		  10L,
-		  20L,
-		  40L,
-		  80L,
-		 160L,
-		 320L,
-		 640L,
-		1300L,
-		2600L,
-		5200L,
-	   10000L,
-	   20000L,
-	   40000L,
-	   80000L,
-	  160000L,
-	  320000L,
-	 1000000L,
-	 3333333L,
-	 6666666L,
-	  MAX_EXP,
+	10L,
+	20L,
+	40L,
+	80L,
+	160L,
+	320L,
+	640L,
+	1300L,
+	2600L,
+	5200L,
+	10000L,
+	20000L,
+	40000L,
+	80000L,
+	160000L,
+	320000L,
+	1000000L,
+	3333333L,
+	6666666L,
+	MAX_EXP,
 	99900000L
 };
 
@@ -60,36 +60,36 @@ void make_level() {
 	must_exist1 = get_rand(0, 5);
 
 	switch(must_exist1) {
-	case 0:
-		must_exist1 = 0;
-		must_exist2 = 1;
-		must_exist3 = 2;
-		break;
-	case 1:
-		must_exist1 = 3;
-		must_exist2 = 4;
-		must_exist3 = 5;
-		break;
-	case 2:
-		must_exist1 = 6;
-		must_exist2 = 7;
-		must_exist3 = 8;
-		break;
-	case 3:
-		must_exist1 = 0;
-		must_exist2 = 3;
-		must_exist3 = 6;
-		break;
-	case 4:
-		must_exist1 = 1;
-		must_exist2 = 4;
-		must_exist3 = 7;
-		break;
-	case 5:
-		must_exist1 = 2;
-		must_exist2 = 5;
-		must_exist3 = 8;
-		break;
+		case 0:
+			must_exist1 = 0;
+			must_exist2 = 1;
+			must_exist3 = 2;
+			break;
+		case 1:
+			must_exist1 = 3;
+			must_exist2 = 4;
+			must_exist3 = 5;
+			break;
+		case 2:
+			must_exist1 = 6;
+			must_exist2 = 7;
+			must_exist3 = 8;
+			break;
+		case 3:
+			must_exist1 = 0;
+			must_exist2 = 3;
+			must_exist3 = 6;
+			break;
+		case 4:
+			must_exist1 = 1;
+			must_exist2 = 4;
+			must_exist3 = 7;
+			break;
+		case 5:
+			must_exist1 = 2;
+			must_exist2 = 5;
+			must_exist3 = 8;
+			break;
 	}
 	big_room = ((cur_level == party_counter) && rand_percent(1));
 	if (big_room) {
@@ -147,67 +147,67 @@ void make_room(int rn, int r1, int r2, int r3) {
 	int ch;
 
 	switch(rn) {
-	case 0:
-		left_col = 0;
-		right_col = COL1-1;
-		top_row = MIN_ROW;
-		bottom_row = ROW1-1;
-		break;
-	case 1:
-		left_col = COL1+1;
-		right_col = COL2-1;
-		top_row = MIN_ROW;
-		bottom_row = ROW1-1;
-		break;
-	case 2:
-		left_col = COL2+1;
-		right_col = DCOLS-1;
-		top_row = MIN_ROW;
-		bottom_row = ROW1-1;
-		break;
-	case 3:
-		left_col = 0;
-		right_col = COL1-1;
-		top_row = ROW1+1;
-		bottom_row = ROW2-1;
-		break;
-	case 4:
-		left_col = COL1+1;
-		right_col = COL2-1;
-		top_row = ROW1+1;
-		bottom_row = ROW2-1;
-		break;
-	case 5:
-		left_col = COL2+1;
-		right_col = DCOLS-1;
-		top_row = ROW1+1;
-		bottom_row = ROW2-1;
-		break;
-	case 6:
-		left_col = 0;
-		right_col = COL1-1;
-		top_row = ROW2+1;
-		bottom_row = DROWS - 2;
-		break;
-	case 7:
-		left_col = COL1+1;
-		right_col = COL2-1;
-		top_row = ROW2+1;
-		bottom_row = DROWS - 2;
-		break;
-	case 8:
-		left_col = COL2+1;
-		right_col = DCOLS-1;
-		top_row = ROW2+1;
-		bottom_row = DROWS - 2;
-		break;
-	case BIG_ROOM:
-		top_row = get_rand(MIN_ROW, MIN_ROW+5);
-		bottom_row = get_rand(DROWS-7, DROWS-2);
-		left_col = get_rand(0, 10);;
-		right_col = get_rand(DCOLS-11, DCOLS-1);
-		rn = 0;
-		goto B;
+		case 0:
+			left_col = 0;
+			right_col = COL1-1;
+			top_row = MIN_ROW;
+			bottom_row = ROW1-1;
+			break;
+		case 1:
+			left_col = COL1+1;
+			right_col = COL2-1;
+			top_row = MIN_ROW;
+			bottom_row = ROW1-1;
+			break;
+		case 2:
+			left_col = COL2+1;
+			right_col = DCOLS-1;
+			top_row = MIN_ROW;
+			bottom_row = ROW1-1;
+			break;
+		case 3:
+			left_col = 0;
+			right_col = COL1-1;
+			top_row = ROW1+1;
+			bottom_row = ROW2-1;
+			break;
+		case 4:
+			left_col = COL1+1;
+			right_col = COL2-1;
+			top_row = ROW1+1;
+			bottom_row = ROW2-1;
+			break;
+		case 5:
+			left_col = COL2+1;
+			right_col = DCOLS-1;
+			top_row = ROW1+1;
+			bottom_row = ROW2-1;
+			break;
+		case 6:
+			left_col = 0;
+			right_col = COL1-1;
+			top_row = ROW2+1;
+			bottom_row = DROWS - 2;
+			break;
+		case 7:
+			left_col = COL1+1;
+			right_col = COL2-1;
+			top_row = ROW2+1;
+			bottom_row = DROWS - 2;
+			break;
+		case 8:
+			left_col = COL2+1;
+			right_col = DCOLS-1;
+			top_row = ROW2+1;
+			bottom_row = DROWS - 2;
+			break;
+		case BIG_ROOM:
+			top_row = get_rand(MIN_ROW, MIN_ROW+5);
+			bottom_row = get_rand(DROWS-7, DROWS-2);
+			left_col = get_rand(0, 10);;
+			right_col = get_rand(DCOLS-11, DCOLS-1);
+			rn = 0;
+			goto B;
 	}
 	height = get_rand(4, (bottom_row-top_row+1));
 	width = get_rand(7, (right_col-left_col-2));
@@ -232,7 +232,7 @@ B:
 			if ((i == top_row) || (i == bottom_row)) {
 				ch = HORWALL;
 			} else if (((i != top_row) && (i != bottom_row)) &&
-			((j == left_col) || (j == right_col))) {
+					((j == left_col) || (j == right_col))) {
 				ch = VERTWALL;
 			} else {
 				ch = FLOOR;
@@ -251,26 +251,26 @@ boolean connect_rooms(int room1, int room2) {
 	int row1, col1, row2, col2, dir;
 
 	if ((!(rooms[room1].is_room & (R_ROOM | R_MAZE))) ||
-		(!(rooms[room2].is_room & (R_ROOM | R_MAZE)))) {
+			(!(rooms[room2].is_room & (R_ROOM | R_MAZE)))) {
 		return 0;
 	}
 	if (same_row(room1, room2) &&
-		(rooms[room1].left_col > rooms[room2].right_col)) {
+			(rooms[room1].left_col > rooms[room2].right_col)) {
 		put_door(&rooms[room1], LEFT, &row1, &col1);
 		put_door(&rooms[room2], RIGHT, &row2, &col2);
 		dir = LEFT;
 	} else if (same_row(room1, room2) &&
-		(rooms[room2].left_col > rooms[room1].right_col)) {
+			(rooms[room2].left_col > rooms[room1].right_col)) {
 		put_door(&rooms[room1], RIGHT, &row1, &col1);
 		put_door(&rooms[room2], LEFT, &row2, &col2);
 		dir = RIGHT;
 	} else if (same_col(room1, room2) &&
-		(rooms[room1].top_row > rooms[room2].bottom_row)) {
+			(rooms[room1].top_row > rooms[room2].bottom_row)) {
 		put_door(&rooms[room1], UP, &row1, &col1);
 		put_door(&rooms[room2], DOWN, &row2, &col2);
 		dir = UP;
 	} else if (same_col(room1, room2) &&
-		(rooms[room2].top_row > rooms[room1].bottom_row)) {
+			(rooms[room2].top_row > rooms[room1].bottom_row)) {
 		put_door(&rooms[room1], DOWN, &row1, &col1);
 		put_door(&rooms[room2], UP, &row2, &col2);
 		dir = DOWN;
@@ -323,22 +323,22 @@ void put_door(room *rm, int dir, int *row, int *col) {
 	wall_width = (rm->is_room & R_MAZE) ? 0 : 1;
 
 	switch(dir) {
-	case UP:
-	case DOWN:
-		*row = ((dir == UP) ? rm->top_row : rm->bottom_row);
-		do {
-			*col = get_rand(rm->left_col+wall_width,
-				rm->right_col-wall_width);
-		} while (!(dungeon[*row][*col] & (HORWALL | TUNNEL)));
-		break;
-	case RIGHT:
-	case LEFT:
-		*col = (dir == LEFT) ? rm->left_col : rm->right_col;
-		do {
-			*row = get_rand(rm->top_row+wall_width,
-				rm->bottom_row-wall_width);
-		} while (!(dungeon[*row][*col] & (VERTWALL | TUNNEL)));
-		break;
+		case UP:
+		case DOWN:
+			*row = ((dir == UP) ? rm->top_row : rm->bottom_row);
+			do {
+				*col = get_rand(rm->left_col+wall_width,
+						rm->right_col-wall_width);
+			} while (!(dungeon[*row][*col] & (HORWALL | TUNNEL)));
+			break;
+		case RIGHT:
+		case LEFT:
+			*col = (dir == LEFT) ? rm->left_col : rm->right_col;
+			do {
+				*row = get_rand(rm->top_row+wall_width,
+						rm->bottom_row-wall_width);
+			} while (!(dungeon[*row][*col] & (VERTWALL | TUNNEL)));
+			break;
 	}
 	if (rm->is_room & R_ROOM) {
 		dungeon[*row][*col] = DOOR;
@@ -413,14 +413,14 @@ void add_mazes() {
 			j = ((start + i) % MAXROOMS);
 			if (rooms[j].is_room & R_NOTHING) {
 				if (rand_percent(maze_percent)) {
-				rooms[j].is_room = R_MAZE;
-				make_maze(get_rand(rooms[j].top_row+1, rooms[j].bottom_row-1),
-					get_rand(rooms[j].left_col+1, rooms[j].right_col-1),
-					rooms[j].top_row, rooms[j].bottom_row,
-					rooms[j].left_col, rooms[j].right_col);
-				hide_boxed_passage(rooms[j].top_row, rooms[j].left_col,
-					rooms[j].bottom_row, rooms[j].right_col,
-					get_rand(0, 2));
+					rooms[j].is_room = R_MAZE;
+					make_maze(get_rand(rooms[j].top_row+1, rooms[j].bottom_row-1),
+							get_rand(rooms[j].left_col+1, rooms[j].right_col-1),
+							rooms[j].top_row, rooms[j].bottom_row,
+							rooms[j].left_col, rooms[j].right_col);
+					hide_boxed_passage(rooms[j].top_row, rooms[j].left_col,
+							rooms[j].bottom_row, rooms[j].right_col,
+							get_rand(0, 2));
 				}
 			}
 		}
@@ -437,7 +437,7 @@ void fill_out_level() {
 	for (i = 0; i < MAXROOMS; i++) {
 		rn = random_rooms[i];
 		if ((rooms[rn].is_room & R_NOTHING) ||
-			((rooms[rn].is_room & R_CROSS) && coin_toss())) {
+				((rooms[rn].is_room & R_CROSS) && coin_toss())) {
 			fill_it(rn, 1);
 		}
 	}
@@ -465,8 +465,8 @@ void fill_it(int rn, boolean do_rec_de) {
 		target_room = rn + offsets[i];
 
 		if (((target_room < 0) || (target_room >= MAXROOMS)) ||
-			(!(same_row(rn,target_room) || same_col(rn,target_room))) ||
-			(!(rooms[target_room].is_room & (R_ROOM | R_MAZE)))) {
+				(!(same_row(rn,target_room) || same_col(rn,target_room))) ||
+				(!(rooms[target_room].is_room & (R_ROOM | R_MAZE)))) {
 			continue;
 		}
 		if (same_row(rn, target_room)) {
@@ -481,7 +481,7 @@ void fill_it(int rn, boolean do_rec_de) {
 			continue;
 		}
 		if (((!do_rec_de) || did_this) ||
-			(!mask_room(rn, &srow, &scol, TUNNEL))) {
+				(!mask_room(rn, &srow, &scol, TUNNEL))) {
 			srow = (rooms[rn].top_row + rooms[rn].bottom_row) / 2;
 			scol = (rooms[rn].left_col + rooms[rn].right_col) / 2;
 		}
@@ -514,7 +514,7 @@ void recursive_deadend(int rn, int *offsets, int srow, int scol) {
 	for (i = 0; i < 4; i++) {
 		de = rn + offsets[i];
 		if (((de < 0) || (de >= MAXROOMS)) ||
-			(!(same_row(rn, de) || same_col(rn, de)))) {
+				(!(same_row(rn, de) || same_col(rn, de)))) {
 			continue;
 		}
 		if (!(rooms[de].is_room & R_NOTHING)) {
@@ -573,42 +573,42 @@ void make_maze(int r, int c, int tr, int br, int lc, int rc) {
 	}
 	for (i = 0; i < 4; i++) {
 		switch(dirs[i]) {
-		case UP:
-			if (((r-1) >= tr) &&
-				(dungeon[r-1][c] != TUNNEL) &&
-				(dungeon[r-1][c-1] != TUNNEL) &&
-				(dungeon[r-1][c+1] != TUNNEL) &&
-				(dungeon[r-2][c] != TUNNEL)) {
-				make_maze((r-1), c, tr, br, lc, rc);
-			}
-			break;
-		case DOWN:
-			if (((r+1) <= br) &&
-				(dungeon[r+1][c] != TUNNEL) &&
-				(dungeon[r+1][c-1] != TUNNEL) &&
-				(dungeon[r+1][c+1] != TUNNEL) &&
-				(dungeon[r+2][c] != TUNNEL)) {
-				make_maze((r+1), c, tr, br, lc, rc);
-			}
-			break;
-		case LEFT:
-			if (((c-1) >= lc) &&
-				(dungeon[r][c-1] != TUNNEL) &&
-				(dungeon[r-1][c-1] != TUNNEL) &&
-				(dungeon[r+1][c-1] != TUNNEL) &&
-				(dungeon[r][c-2] != TUNNEL)) {
-				make_maze(r, (c-1), tr, br, lc, rc);
-			}
-			break;
-		case RIGHT:
-			if (((c+1) <= rc) &&
-				(dungeon[r][c+1] != TUNNEL) &&
-				(dungeon[r-1][c+1] != TUNNEL) &&
-				(dungeon[r+1][c+1] != TUNNEL) &&
-				(dungeon[r][c+2] != TUNNEL)) {
-				make_maze(r, (c+1), tr, br, lc, rc);
-			}
-			break;
+			case UP:
+				if (((r-1) >= tr) &&
+						(dungeon[r-1][c] != TUNNEL) &&
+						(dungeon[r-1][c-1] != TUNNEL) &&
+						(dungeon[r-1][c+1] != TUNNEL) &&
+						(dungeon[r-2][c] != TUNNEL)) {
+					make_maze((r-1), c, tr, br, lc, rc);
+				}
+				break;
+			case DOWN:
+				if (((r+1) <= br) &&
+						(dungeon[r+1][c] != TUNNEL) &&
+						(dungeon[r+1][c-1] != TUNNEL) &&
+						(dungeon[r+1][c+1] != TUNNEL) &&
+						(dungeon[r+2][c] != TUNNEL)) {
+					make_maze((r+1), c, tr, br, lc, rc);
+				}
+				break;
+			case LEFT:
+				if (((c-1) >= lc) &&
+						(dungeon[r][c-1] != TUNNEL) &&
+						(dungeon[r-1][c-1] != TUNNEL) &&
+						(dungeon[r+1][c-1] != TUNNEL) &&
+						(dungeon[r][c-2] != TUNNEL)) {
+					make_maze(r, (c-1), tr, br, lc, rc);
+				}
+				break;
+			case RIGHT:
+				if (((c+1) <= rc) &&
+						(dungeon[r][c+1] != TUNNEL) &&
+						(dungeon[r-1][c+1] != TUNNEL) &&
+						(dungeon[r+1][c+1] != TUNNEL) &&
+						(dungeon[r][c+2] != TUNNEL)) {
+					make_maze(r, (c+1), tr, br, lc, rc);
+				}
+				break;
 		}
 	}
 }
@@ -697,10 +697,10 @@ boolean check_up() {
 			message("I see no way up", 0);
 			return 0;
 		}
-	        if (!has_amulet()) {
-                        message("Your way is magically blocked",0);
-                        return 0;
-                }
+		if (!has_amulet()) {
+			message("Your way is magically blocked",0);
+			return 0;
+		}
 	}
 	new_level_message = "you feel a wrenching sensation in your gut";
 	if (cur_level == 1) {
@@ -765,13 +765,13 @@ void show_average_hp() {
 	if (rogue.exp == 1) {
 		real_average = effective_average = 0.00;
 	} else {
-		real_average = 
+		real_average =
 			((rogue.hp_max - extra_hp - INIT_HP) + less_hp) / (rogue.exp - 1);
 		effective_average = (rogue.hp_max - INIT_HP) / (rogue.exp - 1);
 
 	}
 	sprintf(mbuf, "R-Hp: %.2f, E-Hp: %.2f (!: %d, V: %d)", real_average,
-		effective_average, extra_hp, less_hp);
+			effective_average, extra_hp, less_hp);
 	message(mbuf, 0);
 }
 
