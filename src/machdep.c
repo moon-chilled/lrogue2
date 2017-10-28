@@ -30,7 +30,9 @@
 
 /* getlogin_r() */
 #define __USE_REENTRANT
+#define __USE_POSIX199506
 #include <unistd.h>
+#undef __USE_POSIX199506
 #undef __USE_REENTRANT
 
 #include "rogue.h"
