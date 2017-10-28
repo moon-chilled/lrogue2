@@ -6,11 +6,11 @@ CC = gcc
 
 
 CFLAGS = -c -DUNIX -std=c99 -g3 -ggdb -Iinclude #-fwritable-strings
-LDFLAGS = -lncurses -g
+LDFLAGS = $(shell pkg-config ncursesw --libs)
 
 
 lrogue2: $(ROGUE_OBJ)
-	$(CC) $(LDFLAGS) src/*.o -o lrogue2
+	$(CC) $(LDFLAGS) $(ROGUE_OBJ) -o lrogue2
 
 clean:
 	-rm -f src/*.o lrogue2
