@@ -10,7 +10,7 @@ LDFLAGS = $(shell pkg-config ncursesw --libs)
 
 
 lrogue2: $(ROGUE_OBJ)
-	$(CC) $(LDFLAGS) $(ROGUE_OBJ) -o lrogue2
+	$(CC) -o lrogue2 $(ROGUE_OBJ) $(LDFLAGS)
 
 clean:
 	-rm -f src/*.o lrogue2
