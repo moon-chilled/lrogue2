@@ -425,7 +425,7 @@ id *get_id_table(object *obj) {
 	return (id*)NULL;
 }
 
-void inv_armor_weapon(boolean is_weapon) {
+void inv_armor_weapon(bool is_weapon) {
 	if (is_weapon) {
 		if (rogue.weapon) {
 			single_inv(rogue.weapon->ichar);

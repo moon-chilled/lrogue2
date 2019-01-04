@@ -20,7 +20,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-/* so struct timezone is defined */
+// so struct timezone is defined
 #define __USE_MISC
 #include <sys/time.h>
 #undef __USE_MISC
@@ -28,7 +28,7 @@
 #include <signal.h>
 #include <time.h>
 
-/* getlogin_r() */
+// getlogin_r()
 #define __USE_REENTRANT
 #define __USE_POSIX199506
 #include <unistd.h>
@@ -90,7 +90,7 @@ void md_control_keyboard(int mode) {
 
 	if (!mode) {
 #ifdef _POSIX_SOURCE
-		/* tc_temp.c_cc[VSUSP] = -1; */
+		// tc_temp.c_cc[VSUSP] = -1;
 		tc_temp.c_cc[VERASE] = -1;
 		tc_temp.c_cc[VSTART] = -1;
 		tc_temp.c_cc[VSTOP] = -1;
@@ -147,7 +147,7 @@ void md_ignore_signals() {
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGHUP, SIG_IGN);
-	signal(SIGTSTP,SIG_IGN);	/* No ^Z ! */
+	signal(SIGTSTP,SIG_IGN);	// No ^Z !
 }
 
 /* md_get_file_id():
@@ -308,4 +308,4 @@ unsigned long getseed() {
 	return (getpid() * 1024) | md_gct().second*md_gct().second;
 }
 
-#endif /* UNIX */
+#endif // UNIX

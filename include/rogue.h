@@ -143,7 +143,7 @@
 #define STEALTH_FACTOR 3
 #define R_TELE_PERCENT 8
 
-#define UNIDENTIFIED	((unsigned int) 0x0)	/* MUST BE ZERO! */
+#define UNIDENTIFIED	((unsigned int) 0x0)	// MUST BE ZERO!
 #define IDENTIFIED	((unsigned int) 0x1)
 #define CALLED		((unsigned int) 0x2)
 
@@ -188,27 +188,27 @@ struct id {
 #define next_monster next_object
 
 typedef struct object object;
-struct object {			/* comment is monster meaning */
-	unsigned long m_flags;	/* monster flags */
-	char *damage;		/* damage it does */
-	int quantity;		/* hit points to kill */
-	int ichar;		/* 'A' is for aquatar */
-	int kill_exp;		/* exp for killing it */
-	int is_protected;	/* level starts */
-	int is_cursed;		/* level ends */
-	int class;		/* chance of hitting you */
-	int identified;		/* 'F' damage, 1,2,3... */
-	unsigned int which_kind; /* item carry/drop % */
-	int o_row, o_col, o;	/* o is how many times stuck at o_row, o_col */
-	int row, col;		/* current row, col */
-	int d_enchant;		/* room char when detect_monster */
-	int quiver;		/* monster slowed toggle */
-	int trow, tcol;		/* target row, col */
-	int hit_enchant;	/* how many moves is confused */
-	unsigned int what_is;	/* imitator's charactor (?!%: */
-	int picked_up;		/* sleep from wand of sleep */
+struct object {			// comment is monster meaning
+	unsigned long m_flags;	// monster flags
+	char *damage;		// damage it does
+	int quantity;		// hit points to kill
+	int ichar;		// 'A' is for aquatar
+	int kill_exp;		// exp for killing it
+	int is_protected;	// level starts
+	int is_cursed;		// level ends
+	int class;		// chance of hitting you
+	int identified;		// 'F' damage, 1,2,3...
+	unsigned int which_kind; // item carry/drop %
+	int o_row, o_col, o;	// o is how many times stuck at o_row, o_col
+	int row, col;		// current row, col
+	int d_enchant;		// room char when detect_monster
+	int quiver;		// monster slowed toggle
+	int trow, tcol;		// target row, col
+	int hit_enchant;	// how many moves is confused
+	unsigned int what_is;	// imitator's charactor (?!%:
+	int picked_up;		// sleep from wand of sleep
 	unsigned int in_use_flags;
-	struct object *next_object;	/* next monster */
+	struct object *next_object;	// next monster
 };
 
 #define INIT_HP 12
@@ -252,7 +252,7 @@ struct room {
 
 #define NO_ROOM -1
 
-#define PASSAGE -3		/* cur_room value */
+#define PASSAGE -3		// cur_room value
 
 #define AMULET_LEVEL 26
 
@@ -280,9 +280,9 @@ struct room {
 #define STAT_LABEL	0x80
 #define STAT_ALL	(STAT_LEVEL | STAT_GOLD | STAT_HP | STAT_STRENGTH | STAT_ARMOR | STAT_EXP | STAT_HUNGER | STAT_LABEL)
 
-#define PARTY_TIME 10	/* one party somewhere in each 10 level span */
+#define PARTY_TIME 10	// one party somewhere in each 10 level span
 
-#define MAX_TRAPS 10	/* maximum traps per level */
+#define MAX_TRAPS 10	// maximum traps per level
 
 #define HIDE_PERCENT 12
 
@@ -318,7 +318,7 @@ extern object level_monsters;
 #define WANDERS				0x20L
 #define FLIES				0x40L
 #define FLITS				0x80L
-#define CAN_FLIT			0x100L		/* can, but usually doesn't, flit */
+#define CAN_FLIT			0x100L		// can, but usually doesn't, flit
 #define CONFUSED	 		0x200L
 #define RUSTS				0x400L
 #define HOLDS				0x800L
@@ -334,8 +334,8 @@ extern object level_monsters;
 #define CONFUSES			0x200000L
 #define IMITATES			0x400000L
 #define FLAMES				0x800000L
-#define STATIONARY			0x1000000L	/* damage will be 1,2,3,... */
-#define NAPPING				0x2000000L	/* can't wake up for a while */
+#define STATIONARY			0x1000000L	// damage will be 1,2,3,...
+#define NAPPING				0x2000000L	// can't wake up for a while
 #define ALREADY_MOVED			0x4000000L
 
 #define SPECIAL_HIT		(RUSTS|HOLDS|FREEZES|STEALS_GOLD|STEALS_ITEM|STINGS|DRAINS_LIFE|DROPS_LEVEL)
@@ -381,11 +381,11 @@ extern object level_monsters;
 
 typedef struct rogue_time rogue_time;
 struct rogue_time {
-	int year;		/* >= 1987 */
-	int month;	/* 1 - 12 */
-	int day;		/* 1 - 31 */
-	int hour;		/* 0 - 23 */
-	int minute;	/* 0 - 59 */
-	int second;	/* 0 - 59 */
+	int year;	// >= 1987
+	int month;	// 1 - 12
+	int day;	// 1 - 31
+	int hour;	// 0 - 23
+	int minute;	// 0 - 59
+	int second;	// 0 - 59
 };
-#endif /* ROGUE_H */
+#endif // ROGUE_H

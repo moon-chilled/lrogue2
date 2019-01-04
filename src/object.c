@@ -21,17 +21,17 @@ object *free_list = (object *) 0;
 char *fruit = "slime-mold ";
 
 fighter rogue = {
-	0, 0,		/* armor, weapon */
-	0, 0,		/* rings */
-	INIT_HP,	/* Hp current */
-	INIT_HP,	/* Hp max */
-	16, 16,		/* Str */
-	{0},		/* pack */
-	0,			/* gold */
-	1, 0,		/* exp, exp_points */
-	0, 0,		/* row, col */
-	'@',		/* char */
-	1250		/* moves */
+	0, 0,		// armor, weapon
+	0, 0,		// rings
+	INIT_HP,	// Hp current
+	INIT_HP,	// Hp max
+	16, 16,		// Str
+	{0},		// pack
+	0,		// gold
+	1, 0,		// exp, exp_points
+	0, 0,		// row, col
+	'@',		// char
+	1250		// moves
 };
 
 id id_potions[POTIONS] = {
@@ -534,7 +534,7 @@ object *alloc_object() {
 		obj = free_list;
 		free_list = free_list->next_object;
 	} else if (!(obj = (object *) malloc(sizeof(object)))) {
-		/*			free_free_list();	*/
+		//			free_free_list();
 		message("cannot allocate object, saving game", 0);
 		save_into_file(error_file);
 	}

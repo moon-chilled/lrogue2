@@ -20,6 +20,11 @@ char *new_level_message = 0;
 int party_room = NO_ROOM;
 int r_de;
 
+static bool connect_rooms(int room1, int room2);
+static bool same_row(int room1, int room2);
+static bool same_col(int room1, int room2);
+
+
 long level_points[MAX_EXP_LEVEL] = {
 	10L,
 	20L,
@@ -247,7 +252,7 @@ END:
 	rooms[rn].right_col = right_col;
 }
 
-boolean connect_rooms(int room1, int room2) {
+static bool connect_rooms(int room1, int room2) {
 	int row1, col1, row2, col2, dir;
 
 	if ((!(rooms[room1].is_room & (R_ROOM | R_MAZE))) ||
@@ -389,11 +394,11 @@ void draw_simple_passage(int row1, int col1, int row2, int col2, int dir) {
 	}
 }
 
-boolean same_row(int room1, int room2) {
+static bool same_row(int room1, int room2) {
 	return (room1 / 3) == (room2 / 3);
 }
 
-boolean same_col(int room1, int room2) {
+static bool same_col(int room1, int room2) {
 	return (room1 % 3) == (room2 % 3);
 }
 
@@ -646,7 +651,7 @@ void hide_boxed_passage(int row1, int col1, int row2, int col2, int n) {
 	}
 }
 
-/* try not to put in this room */
+// try not to put in this room
 void put_player(int nr) {
 	int rn = nr, misses;
 	int row, col;

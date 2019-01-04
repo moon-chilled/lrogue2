@@ -150,7 +150,7 @@ void print_stats(int stat_mask) {
 		if (label) {
 			mvaddstr(row, 0, "Level: ");
 		}
-		/* max level taken care of in make_level() */
+		// max level taken care of in make_level()
 		sprintf(buf, "%d", cur_level);
 		mvaddstr(row, 7, buf);
 		pad(buf, 2);
@@ -206,7 +206,7 @@ void print_stats(int stat_mask) {
 		if (label) {
 			mvaddstr(row, 56, "Exp: ");
 		}
-		/*  Max exp taken care of in add_exp() */
+		//  Max exp taken care of in add_exp()
 		sprintf(buf, "%d/%ld", rogue.exp, rogue.exp_points);
 		mvaddstr(row, 61, buf);
 		pad(buf, 11);

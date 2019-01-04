@@ -212,7 +212,7 @@ int gmc_row_col(int row, int col) {
 		}
 		return monster->m_char;
 	} else {
-		return '&';	/* BUG if this ever happens */
+		return '&';	// BUG if this ever happens
 	}
 }
 
@@ -423,7 +423,7 @@ boolean mon_can_go(object *monster, int row, int col) {
 	object *obj;
 	int dr, dc;
 
-	dr = monster->row - row;	/* check if move distance > 1 */
+	dr = monster->row - row;	// check if move distance > 1
 	if ((dr >= 2) || (dr <= -2)) {
 		return 0;
 	}

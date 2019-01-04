@@ -81,7 +81,7 @@ void player_init() {
 	get_food(obj, 1);
 	add_to_pack(obj, &rogue.pack, 1);
 
-	obj = alloc_object();		/* initial armor */
+	obj = alloc_object();		// initial armor
 	obj->what_is = ARMOR;
 	obj->which_kind = RINGMAIL;
 	obj->class = RINGMAIL+2;
@@ -90,7 +90,7 @@ void player_init() {
 	add_to_pack(obj, &rogue.pack, 1);
 	do_wear(obj);
 
-	obj = alloc_object();		/* initial weapons */
+	obj = alloc_object();		// initial weapons
 	obj->what_is = WEAPON;
 	obj->which_kind = MACE;
 	obj->damage = "2d3";
@@ -223,7 +223,7 @@ void do_opts() {
 	}
 }
 
-void env_get_value(char **s, char *e, boolean add_blank) {
+void env_get_value(char **s, char *e, bool add_blank) {
 	int i = 0;
 	char *t;
 
@@ -231,7 +231,7 @@ void env_get_value(char **s, char *e, boolean add_blank) {
 
 	while ((*e) && (*e != ',')) {
 		if (*e == ':') {
-			*e = ';';		/* ':' reserved for score file purposes */
+			*e = ';';		// ':' reserved for score file purposes
 		}
 		e++;
 		if (++i >= 30) {

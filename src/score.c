@@ -78,7 +78,7 @@ void killed_by(object *monster, int other) {
 }
 
 void win() {
-	unwield(rogue.weapon);		/* disarm and relax */
+	unwield(rogue.weapon);		// disarm and relax
 	unwear(rogue.armor);
 	un_put_on(rogue.left_ring);
 	un_put_on(rogue.right_ring);

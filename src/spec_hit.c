@@ -357,7 +357,7 @@ void drain_life() {
 	if (rand_percent(60) || (rogue.hp_max <= 30) || (rogue.hp_current < 10)) {
 		return;
 	}
-	n = get_rand(1, 3);		/* 1 Hp, 2 Str, 3 both */
+	n = get_rand(1, 3);		// 1 Hp, 2 Str, 3 both
 
 	if ((n != 2) || (!sustain_strength)) {
 		message("you feel weaker", 0);
@@ -385,7 +385,7 @@ boolean m_confuse(object *monster) {
 		return 0;
 	}
 	if (rand_percent(45)) {
-		monster->m_flags &= (~CONFUSES);	/* will not confuse the rogue */
+		monster->m_flags &= (~CONFUSES);	// will not confuse the rogue
 		return 0;
 	}
 	if (rand_percent(55)) {

@@ -69,7 +69,7 @@ object *pick_up(int row, int col, int *status) {
 		dungeon[row][col] &= ~(OBJECT);
 		take_from_pack(obj, &level_objects);
 		print_stats(STAT_GOLD);
-		return obj;	/* obj will be free_object()ed in one_move_rogue() */
+		return obj;	// obj will be free_object()ed in one_move_rogue()
 	}
 	if (pack_count(obj) >= MAX_PACK_COUNT) {
 		message("pack too full", 1);

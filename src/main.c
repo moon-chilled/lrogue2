@@ -33,11 +33,11 @@ void turn_into_user() {
 
 int main(int argc, char *argv[]) {
 	setlocale(LC_ALL, "en_US.UTF-8");
-	/* Save the setuid we have got, then turn back into the player */
+	// Save the setuid we have got, then turn back into the player
 	saved_uid=geteuid();
 	setuid(true_uid=getuid());
 
-	if (init(argc, argv)) {		/* restored game */
+	if (init(argc, argv)) {		// restored game
 		goto playlevel;
 	}
 

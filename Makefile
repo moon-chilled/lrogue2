@@ -5,7 +5,7 @@ ROGUE_OBJ = src/hit.o src/init.o src/instruct.o src/inventory.o src/level.o src/
 CC = gcc
 
 
-CFLAGS = -c -DUNIX -std=c99 -g3 -ggdb -Iinclude #-fwritable-strings
+CFLAGS = -c -Wno-constant-conversion -DUNIX -std=c99 -g3 -ggdb -Iinclude
 LDFLAGS = $(shell pkg-config ncursesw --libs)
 
 

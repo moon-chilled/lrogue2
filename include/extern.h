@@ -1,26 +1,30 @@
 #ifndef EXTERN_H
 #define EXTERN_H
 
+// vim: ft=c
+
+#include <stdbool.h>
+
 #define boolean char
 
-/* hit.c */
-void mon_hit(object*, char*, boolean);
-void rogue_hit(object*, boolean);
-void rogue_damage(int, object*);
-int get_damage(char*, boolean);
-int get_w_damage(object*);
-int get_number(char*);
-long lget_number(char*);
-int to_hit(object*);
-int damage_for_strength();
-boolean mon_damage(object*, int);
-void fight(boolean);
-void get_dir_rc(int, int*, int*, boolean);
-int get_hit_chance(object*);
-int get_weapon_damage(object*);
+// hit.c
+void mon_hit(object *monster, char *other, bool flame);
+void rogue_hit(object *monster, bool force_hit);
+void rogue_damage(int d, object *monster);
+int get_damage(char *ds, bool r);
+int get_w_damage(object *obj);
+int get_number(char *s);
+long lget_number(char *s);
+int to_hit(object *obj);
+int damage_for_strength(void);
+bool mon_damage(object *monster, int damage);
+void fight(bool to_the_death);
+void get_dir_rc(int dir, int *row, int *col, bool allow_off_screen);
+int get_hit_chance(object *weapon);
+int get_weapon_damage(object *weapon);
 
 
-/* init.c */
+// init.c
 int init(int, char*[]);
 void player_init();
 void clean_up(char*);
@@ -31,14 +35,14 @@ void onintr();
 void error_save();
 void do_args(int, char*[]);
 void do_opts();
-void env_get_value(char **s, char *e, boolean add_blank);
+void env_get_value(char **s, char *e, bool add_blank);
 
 
-/* instructions.c */
+// instructions.c
 void Instructions();
 
 
-/* inventory.c */
+// inventory.c
 void inventory(object*, unsigned int);
 void mix_colors();
 void make_scroll_titles();
@@ -46,21 +50,15 @@ void get_desc(object*, char*);
 void get_wand_and_ring_materials();
 void single_inv(int);
 id *get_id_table(object*);
-void inv_armor_weapon(boolean);
+void inv_armor_weapon(bool is_weapon);
 
 
-/* level.c */
+// level.c
 void make_level();
 void make_room(int, int, int, int);
-boolean connect_rooms(int, int);
 void clear_level();
 void put_door(room*, int, int*, int*);
 void draw_simple_passage(int, int, int, int, int);
-
-/* tentative, might change because inputs weren't originally specified */
-boolean same_row(int, int);
-boolean same_col(int, int);
-
 void add_mazes();
 void fill_out_level();
 void fill_it(int, boolean);
@@ -78,7 +76,7 @@ void show_average_hp();
 void mix_random_rooms();
 
 
-/* machdep.c */
+// machdep.c
 void md_control_keyboard(int);
 void md_heed_signals();
 void md_ignore_signals();
@@ -91,12 +89,12 @@ char *md_gln();
 unsigned long getseed();
 
 
-/* main.c */
+// main.c
 void turn_into_games();
 void turn_into_user();
 
 
-/* message.c */
+// message.c
 void message(char*, boolean);
 void remessage();
 void check_message();
@@ -110,7 +108,7 @@ boolean is_digit(int);
 int r_index(char*, int, boolean);
 
 
-/* monster.c */
+// monster.c
 void put_mons();
 object *gr_monster(object*, int);
 void mv_mons();
@@ -140,7 +138,7 @@ boolean mon_sees(object*, int, int);
 void mv_aquatars();
 
 
-/* move.c */
+// move.c
 int one_move_rogue(int, int);
 void multiple_move_rogue(char);
 boolean is_passable(int, int);
@@ -155,7 +153,7 @@ int gr_dir();
 void heal();
 
 
-/* object.c */
+// object.c
 void put_objects();
 void put_gold();
 void plant_gold(int, int, boolean);
@@ -184,7 +182,7 @@ void new_object_for_wizard();
 int next_party();
 
 
-/* pack.c */
+// pack.c
 object *add_to_pack(object*, object*, boolean);
 void take_from_pack(object*, object*);
 object *pick_up(int, int, int*);
@@ -208,11 +206,11 @@ boolean has_amulet();
 void kick_into_pack();
 
 
-/* play.c */
+// play.c
 void play_level();
 
 
-/* random.c */
+// random.c
 void srrandom(unsigned long);
 long rrandom();
 int get_rand(int, int);
@@ -220,7 +218,7 @@ int rand_percent(int);
 boolean coin_toss();
 
 
-/* ring.c */
+// ring.c
 void put_on_ring();
 void do_put_on(object*, boolean);
 void remove_ring();
@@ -230,7 +228,7 @@ void inv_rings();
 void ring_stats(boolean);
 
 
-/* room.c */
+// room.c
 void light_up_room(int);
 void light_passage(int, int);
 void darken_room(int);
@@ -240,14 +238,14 @@ void gr_row_col(int*, int*, unsigned int);
 int gr_room();
 int party_objects(int);
 int get_room_number(int, int);
-boolean is_all_connected();
+bool is_all_connected(void);
 void visit_rooms(int);
 void draw_magic_map();
-void dr_course(object*, boolean, int, int);
-boolean get_oth_room(int, int*, int*);
+void dr_course(object*, bool, int, int);
+bool get_oth_room(int, int*, int*);
 
 
-/* save.c */
+// save.c
 void save_game();
 void save_into_file(char*);
 void restore(char*);
@@ -263,7 +261,7 @@ void r_read(FILE*, char*, int);
 void r_write(FILE*, char*, int);
 
 
-/* score.c */
+// score.c
 void killed_by(object*, int);
 void win();
 void quit(boolean);
@@ -279,7 +277,7 @@ void center(int, char*);
 void sf_error();
 
 
-/* spec_hit.c */
+// spec_hit.c
 void special_hit(object*);
 void rust(object*);
 void freeze(object*);
@@ -301,7 +299,7 @@ boolean flame_broil(object*);
 void get_closer(int*, int*, int, int);
 
 
-/* throw.c */
+// throw.c
 void throw();
 boolean throw_at_monster(object*, object*);
 object *get_thrown_at_monster(object*, int, int*, int*);
@@ -309,7 +307,7 @@ void flop_weapon(object*, int, int);
 void rand_around(int, int*, int*);
 
 
-/* trap.c */
+// trap.c
 int trap_at(int, int);
 void trap_player(int, int);
 void add_traps();
@@ -318,7 +316,7 @@ void show_traps();
 void search(int, boolean);
 
 
-/* use.c */
+// use.c
 void quaff();
 void read_scroll();
 void vanish(object*, int, object*);
@@ -339,7 +337,7 @@ void unconfuse();
 void uncurse_all();
 
 
-/* zap.c */
+// zap.c
 void zapp();
 object *get_zapped_monster(int, int*, int*);
 void zap_monster(object*, unsigned int);
@@ -355,4 +353,4 @@ extern int add_strength, auto_search, bear_trap, blind, confused, cur_level, cur
 extern long level_points[];
 
 
-#endif /* EXTERN_H */
+#endif // EXTERN_H

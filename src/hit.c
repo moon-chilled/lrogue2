@@ -17,7 +17,7 @@ object *fight_monster = 0;
 boolean detect_monster;
 char hit_message[80] = "";
 
-void mon_hit(object *monster, char *other, boolean flame) {
+void mon_hit(object *monster, char *other, bool flame) {
 	int damage, hit_chance;
 	char *mn;
 	int minus;
@@ -89,7 +89,7 @@ void mon_hit(object *monster, char *other, boolean flame) {
 	}
 }
 
-void rogue_hit(object *monster, boolean force_hit) {
+void rogue_hit(object *monster, bool force_hit) {
 	int damage, hit_chance;
 
 	if (monster) {
@@ -111,7 +111,7 @@ void rogue_hit(object *monster, boolean force_hit) {
 		if (wizard) {
 			damage *= 3;
 		}
-		if (mon_damage(monster, damage)) {	/* still alive? */
+		if (mon_damage(monster, damage)) {	// still alive?
 			if (!fight_monster) {
 				strcpy(hit_message, "you hit  ");
 			}
@@ -131,7 +131,8 @@ void rogue_damage(int d, object *monster) {
 	print_stats(STAT_HP);
 }
 
-int get_damage(char *ds, boolean r) {
+// it looks like if r is true then it does actual NdX semantics, otherwise it computes the maximum amount of damage it's possible to deal?
+int get_damage(char *ds, bool r) {
 	int i = 0, j, n, d, total = 0;
 
 	while (ds[i]) {
@@ -197,7 +198,7 @@ int to_hit(object *obj) {
 	return get_number(obj->damage) + obj->hit_enchant;
 }
 
-int damage_for_strength() {
+int damage_for_strength(void) {
 	int strength;
 
 	strength = rogue.str_current + add_strength;
@@ -226,7 +227,7 @@ int damage_for_strength() {
 	return 8;
 }
 
-boolean mon_damage(object *monster, int damage) {
+bool mon_damage(object *monster, int damage) {
 	char *mn;
 	int row, col;
 
@@ -251,13 +252,13 @@ boolean mon_damage(object *monster, int damage) {
 			being_held = 0;
 		}
 		free_object(monster);
-		return 0;
+		return false;
 	}
-	return 1;
+	return true;
 }
 
-void fight(boolean to_the_death) {
-	int ch, c;
+void fight(bool to_the_death) {
+	int ch;
 	int row, col;
 	boolean first_miss = 1;
 	int possible_damage;
@@ -277,15 +278,12 @@ void fight(boolean to_the_death) {
 	row = rogue.row; col = rogue.col;
 	get_dir_rc(ch, &row, &col, 0);
 
-	c = mvinch(row, col);
-	if (((c < 'A') || (c > 'Z')) ||
-		(!can_move(rogue.row, rogue.col, row, col))) {
+	if (!(fight_monster = object_at(&level_monsters, row, col)) ||
+			(!can_move(rogue.row, rogue.col, row, col))) {
 		message("I see no monster there", 0);
 		return;
 	}
-	if (!(fight_monster = object_at(&level_monsters, row, col))) {
-		return;
-	}
+
 	if (!(fight_monster->m_flags & STATIONARY)) {
 		possible_damage = ((get_damage(fight_monster->m_damage, 0) * 2) / 3);
 	} else {
@@ -305,7 +303,7 @@ void fight(boolean to_the_death) {
 	}
 }
 
-void get_dir_rc(int dir, int *row, int *col, boolean allow_off_screen) {
+void get_dir_rc(int dir, int *row, int *col, bool allow_off_screen) {
 	switch(dir) {
 	case 'h':
 		if (allow_off_screen || (*col > 0)) {

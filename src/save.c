@@ -83,12 +83,12 @@ void save_into_file(char *sfile) {
 	r_write(fp, (char *) &score_only, sizeof(score_only));
 	r_write(fp, (char *) &m_moves, sizeof(m_moves));
 	rt_buf = md_gct();
-	rt_buf.second += 10;		/* allow for some processing time */
+	rt_buf.second += 10;		// allow for some processing time
 	r_write(fp, (char *) &rt_buf, sizeof(rt_buf));
 	fclose(fp);
 
 	if (write_failed) {
-		md_df(sfile);	/* delete file */
+		md_df(sfile);	// delete file
 	} else {
 		clean_up("");
 	}

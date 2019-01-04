@@ -145,7 +145,7 @@ char get_mask_char(unsigned int mask) {
 		case AMULET:
 			return ',';
 		default:
-			return '~';	/* unknown, something is wrong */
+			return '~';	// unknown, something is wrong
 	}
 }
 
@@ -181,7 +181,7 @@ int party_objects(int rn) {
 	int i, j, nf = 0;
 	object *obj;
 	int n, N, row, col;
-	boolean found;
+	bool found;
 
 	N = ((rooms[rn].bottom_row - rooms[rn].top_row) - 1) *
 		((rooms[rn].right_col - rooms[rn].left_col) - 1);
@@ -190,13 +190,13 @@ int party_objects(int rn) {
 		n = N - 2;
 	}
 	for (i = 0; i < n; i++) {
-		for (j = found = 0; ((!found) && (j < 250)); j++) {
+		for (j = 0, found = false; ((!found) && (j < 250)); j++) {
 			row = get_rand(rooms[rn].top_row+1,
 					rooms[rn].bottom_row-1);
 			col = get_rand(rooms[rn].left_col+1,
 					rooms[rn].right_col-1);
 			if ((dungeon[row][col] == FLOOR) || (dungeon[row][col] == TUNNEL)) {
-				found = 1;
+				found = true;
 			}
 		}
 		if (found) {
@@ -220,7 +220,7 @@ int get_room_number(int row, int col) {
 	return NO_ROOM;
 }
 
-boolean is_all_connected() {
+bool is_all_connected(void) {
 	int i, starting_room;
 
 	for (i = 0; i < MAXROOMS; i++) {
@@ -234,10 +234,10 @@ boolean is_all_connected() {
 
 	for (i = 0; i < MAXROOMS; i++) {
 		if ((rooms[i].is_room & (R_ROOM | R_MAZE)) && (!rooms_visited[i])) {
-			return 0;
+			return false;
 		}
 	}
-	return 1;
+	return true;
 }
 
 void visit_rooms(int rn) {
@@ -299,7 +299,7 @@ void draw_magic_map() {
 	}
 }
 
-void dr_course(object *monster, boolean entering, int row, int col) {
+void dr_course(object *monster, bool entering, int row, int col) {
 	int i, j, k, rn;
 	int r, rr;
 
@@ -312,8 +312,9 @@ void dr_course(object *monster, boolean entering, int row, int col) {
 	}
 	rn = get_room_number(row, col);
 
-	if (entering) {		/* entering room */
-		/* look for door to some other room */
+	if (entering) {
+		// entering room
+		// look for door to some other room
 		r = get_rand(0, MAXROOMS-1);
 		for (i = 0; i < MAXROOMS; i++) {
 			rr = (r + i) % MAXROOMS;
@@ -332,7 +333,7 @@ void dr_course(object *monster, boolean entering, int row, int col) {
 				}
 			}
 		}
-		/* look for door to dead end */
+		// look for door to dead end
 		for (i = rooms[rn].top_row; i <= rooms[rn].bottom_row; i++) {
 			for (j = rooms[rn].left_col; j <= rooms[rn].right_col; j++) {
 				if ((i != monster->row) && (j != monster->col) &&
@@ -343,7 +344,7 @@ void dr_course(object *monster, boolean entering, int row, int col) {
 				}
 			}
 		}
-		/* return monster to room that he came from */
+		// return monster to room that he came from
 		for (i = 0; i < MAXROOMS; i++) {
 			for (j = 0; j < 4; j++) {
 				if (rooms[i].doors[j].oth_room == rn) {
@@ -357,9 +358,9 @@ void dr_course(object *monster, boolean entering, int row, int col) {
 				}
 			}
 		}
-		/* no place to send monster */
+		// no place to send monster
 		monster->trow = -1;
-	} else {		/* exiting room */
+	} else {		// exiting room
 		if (!get_oth_room(rn, &row, &col)) {
 			monster->trow = NO_ROOM;
 		} else {
@@ -369,7 +370,7 @@ void dr_course(object *monster, boolean entering, int row, int col) {
 	}
 }
 
-boolean get_oth_room(int rn, int *row, int *col) {
+bool get_oth_room(int rn, int *row, int *col) {
 	int d = -1;
 
 	if (*row == rooms[rn].top_row) {
@@ -384,7 +385,7 @@ boolean get_oth_room(int rn, int *row, int *col) {
 	if ((d != -1) && (rooms[rn].doors[d].oth_room >= 0)) {
 		*row = rooms[rn].doors[d].oth_row;
 		*col = rooms[rn].doors[d].oth_col;
-		return 1;
+		return true;
 	}
-	return 0;
+	return false;
 }

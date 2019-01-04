@@ -121,7 +121,7 @@ NOT_IN_PACK:
 		reg_move();
 		return STOPPED_ON_SOMETHING;
 	}
-MVED:	if (reg_move()) {			/* fainted from hunger */
+MVED:	if (reg_move()) {			// fainted from hunger
 		return STOPPED_ON_SOMETHING;
 	}
 	return (confused ? STOPPED_ON_SOMETHING : MOVED);
@@ -502,7 +502,7 @@ void heal() {
 		rogue.hp_current++;
 
 
-		/* It's glorious, and if you don't like it, fuck you. */
+		// It's glorious, and if you don't like it, fuck you.
 		if ((alt = !alt)) {
 			rogue.hp_current++;
 		}
