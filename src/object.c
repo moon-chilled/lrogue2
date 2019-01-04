@@ -444,25 +444,25 @@ void gr_weapon(object *obj, boolean assign_wk) {
 	switch(obj->which_kind) {
 		case BOW:
 		case DART:
-			obj->damage = "1d1";
+			strcpy(obj->damage, "1d1");
 			break;
 		case ARROW:
-			obj->damage = "1d2";
+			strcpy(obj->damage, "1d2");
 			break;
 		case DAGGER:
-			obj->damage = "1d3";
+			strcpy(obj->damage, "1d3");
 			break;
 		case SHURIKEN:
-			obj->damage = "1d4";
+			strcpy(obj->damage, "1d4");
 			break;
 		case MACE:
-			obj->damage = "2d3";
+			strcpy(obj->damage, "2d3");
 			break;
 		case LONG_SWORD:
-			obj->damage = "3d4";
+			strcpy(obj->damage, "3d4");
 			break;
 		case TWO_HANDED_SWORD:
-			obj->damage = "4d5";
+			strcpy(obj->damage, "4d5");
 			break;
 	}
 }
@@ -543,7 +543,7 @@ object *alloc_object() {
 	obj->picked_up = obj->is_cursed = 0;
 	obj->in_use_flags = NOT_USED;
 	obj->identified = UNIDENTIFIED;
-	obj->damage = "1d1";
+	strcpy(obj->damage, "1d1");
 	return obj;
 }
 

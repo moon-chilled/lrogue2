@@ -190,7 +190,7 @@ struct id {
 typedef struct object object;
 struct object {			// comment is monster meaning
 	unsigned long m_flags;	// monster flags
-	char *damage;		// damage it does
+	char damage[64];		// damage it does
 	int quantity;		// hit points to kill
 	int ichar;		// 'A' is for aquatar
 	int kill_exp;		// exp for killing it
