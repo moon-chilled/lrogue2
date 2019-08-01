@@ -1,3 +1,12 @@
-This is a modernized-ish fork of lrogue, in turn a fork of a clone of the original rogue.  I originally got this as a tarball from here: ftp://ftp.sun.ac.za/pub/mirrors/sunsite.unc.edu/pub/Linux/games/dungeon/lrogue0.1.tar.Z  However, if that goes down, or is annoyingly slow, I have mirrored it at https://github.com/Elronnd/lrogue/archive/original.tar.gz  You can also get it from the internet archive at https://web.archive.org/web/20190322183021/http://ftp.sun.ac.za/ftp/pub/mirrors/sunsite.unc.edu/pub/Linux/games/dungeon/lrogue0.1.tar.Z  That doesn't compile easily, however, and you are encouraged to clone directly from the latest master of the github repository.
+This is a modernized-ish version of lrogue, which stands for linux
+rogue; it's a clone of rogue.  See rogue's wikipedia article:
+https://en.wikipedia.org/wiki/Rogue_(video_game).
 
-To build, type "make"
+To build, type "make".  I have not tested it on windows, but it should work
+there with pdcurses.
+
+It comes originally from ftp://ftp.sun.ac.za/pub/mirrors/sunsite.unc.edu/pub/Linux/games/dungeon/lrogue0.1.tar.Z,
+and you can also get a copy at https://github.com/Elronnd/lrogue/archive/original.tar.gz.
+Or from the internet archive at https://web.archive.org/web/20190322183021/http://ftp.sun.ac.za/ftp/pub/mirrors/sunsite.unc.edu/pub/Linux/games/dungeon/lrogue0.1.tar.Z.
+Be advised that those are probably only useful for historical research; if you
+want something to play, the mainline of this version is probably what you want.
