@@ -14,28 +14,8 @@
 #include "extern.h"
 #include <locale.h>
 
-int saved_uid= -1;
-int true_uid= -1;
-
-void turn_into_games() {
-	if(setuid(saved_uid) == -1) {
-		perror("setuid(restore)");
-		clean_up("");
-	}
-}
-
-void turn_into_user() {
-	if(setuid(true_uid) == -1) {
-		perror("setuid(restore)");
-		clean_up("");
-	}
-}
-
 int main(int argc, char *argv[]) {
 	setlocale(LC_ALL, "en_US.UTF-8");
-	// Save the setuid we have got, then turn back into the player
-	saved_uid=geteuid();
-	setuid(true_uid=getuid());
 
 	if (init(argc, argv)) {		// restored game
 		goto playlevel;

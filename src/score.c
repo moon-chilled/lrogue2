@@ -145,19 +145,11 @@ void put_scores(object *monster, int other) {
 	char buf[100];
 	FILE *fp;
 	long s;
-	boolean failed = 0;
-	char *mode = "r+w";
-	turn_into_games();
-	while ((fp = fopen(score_file, mode)) == NULL) {
-		if (!failed) {
-			mode = "w";
-		} else {
-			message("cannot read/write/create score file", 0);
-			sf_error();
-		}
-		failed = 1;
+
+	if ((fp = fopen(score_file, "w+")) == NULL) {
+		message("cannot read/write/create score file", 0);
+		sf_error();
 	}
-	turn_into_user();
 
 	for (i = 0; i < 10; i++) {
 		if (((n = fread(scores[i], sizeof(char), 80, fp)) < 80) && (n != 0)) {

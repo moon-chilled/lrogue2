@@ -89,11 +89,6 @@ char *md_gln();
 unsigned long getseed();
 
 
-// main.c
-void turn_into_games();
-void turn_into_user();
-
-
 // message.c
 void message(char*, boolean);
 void remessage();
