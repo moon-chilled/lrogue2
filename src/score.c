@@ -143,12 +143,15 @@ void put_scores(object *monster, int other) {
 	char scores[10][82];
 	char n_names[10][30];
 	char buf[100];
-	FILE *fp;
 	long s;
 
-	if ((fp = fopen(score_file, "w+")) == NULL) {
-		message("cannot read/write/create score file", 0);
-		sf_error();
+	FILE *fp;
+	if ((fp = fopen(score_file, "r")) == NULL) {
+		// doesn't exist; try to create it
+		if ((fp = fopen(score_file, "w")) == NULL) {
+			message("cannot read/create score file", 0);
+			sf_error();
+		}
 	}
 
 	for (i = 0; i < 10; i++) {
@@ -177,8 +180,13 @@ void put_scores(object *monster, int other) {
 			}
 		}
 	}
+
+	if (i < 9 && found_player == -1) {
+		found_player = i + 1;
+		score_only = 0;
+	}
+
 	if (found_player != -1) {
-		ne--;
 		for (i = found_player; i < ne; i++) {
 			strcpy(scores[i], scores[i+1]);
 			strcpy(n_names[i], n_names[i+1]);
@@ -209,14 +217,20 @@ void put_scores(object *monster, int other) {
 				ne++;
 			}
 		}
-		rewind(fp);
 	}
+	fclose(fp);
+
 
 	clear();
 	mvaddstr(3, 30, "Top  Ten  Rogueists");
 	mvaddstr(8, 0, "Rank   Score   Name");
 
 	md_ignore_signals();
+
+	if ((fp = fopen(score_file, "w")) == NULL) {
+		message("cannot write score file", 0);
+		sf_error();
+	}
 
 	for (i = 0; i < ne; i++) {
 		if (i == rank) {
