@@ -14,7 +14,7 @@
 #include "extern.h"
 
 object *fight_monster = 0;
-boolean detect_monster;
+extern boolean detect_monster;
 char hit_message[80] = "";
 
 void mon_hit(object *monster, char *other, bool flame) {
