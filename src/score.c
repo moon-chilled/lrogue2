@@ -145,6 +145,7 @@ void put_scores(object *monster, int other) {
 	char buf[100];
 	FILE *fp;
 	long s;
+	bool add_new_score = !score_only;
 
 	if ((fp = fopen(score_file, "r+")) == NULL) {
 		message("cannot read/write/create score file", 0);
@@ -162,7 +163,7 @@ void put_scores(object *monster, int other) {
 			break;
 		}
 		ne++;
-		if (!score_only) {
+		if (add_new_score) {
 			if (!name_cmp(scores[i]+15, login_name)) {
 				x = 5;
 				while (scores[i][x] == ' ') {
@@ -170,7 +171,7 @@ void put_scores(object *monster, int other) {
 				}
 				s = lget_number(scores[i] + x);
 				if (rogue.gold < s) {
-					score_only = 1;
+					add_new_score = 0;
 				} else {
 					found_player = i;
 				}
@@ -184,7 +185,7 @@ void put_scores(object *monster, int other) {
 			strcpy(n_names[i], n_names[i+1]);
 		}
 	}
-	if (!score_only) {
+	if (add_new_score) {
 		for (i = 0; i < ne; i++) {
 			x = 5;
 			while (scores[i][x] == ' ') {
@@ -241,6 +242,7 @@ void put_scores(object *monster, int other) {
 	refresh();
 	fclose(fp);
 	message("", 0);
+	if (score_only) message("", 0);
 	clean_up("");
 }
 
