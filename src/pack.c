@@ -260,7 +260,7 @@ void wear() {
 	char desc[DCOLS];
 
 	if (rogue.armor) {
-		message("your already wearing some", 0);
+		message("you're already wearing some", 0);
 		return;
 	}
 	ch = pack_letter("wear what?", ARMOR);
