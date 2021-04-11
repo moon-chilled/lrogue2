@@ -146,7 +146,7 @@ void put_scores(object *monster, int other) {
 	FILE *fp;
 	long s;
 
-	if ((fp = fopen(score_file, "w+")) == NULL) {
+	if ((fp = fopen(score_file, "r+")) == NULL) {
 		message("cannot read/write/create score file", 0);
 		sf_error();
 	}
@@ -203,8 +203,7 @@ void put_scores(object *monster, int other) {
 			rank = ne;
 		}
 		if (rank < 10) {
-			insert_score(scores, n_names, nick_name, rank, ne, monster,
-					other);
+			insert_score(scores, n_names, nick_name, rank, ne, monster, other);
 			if (ne < 10) {
 				ne++;
 			}
