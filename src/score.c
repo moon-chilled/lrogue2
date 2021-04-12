@@ -163,20 +163,6 @@ void put_scores(object *monster, int other) {
 			break;
 		}
 		ne++;
-		if (add_new_score) {
-			if (!name_cmp(scores[i]+15, login_name)) {
-				x = 5;
-				while (scores[i][x] == ' ') {
-					x++;
-				}
-				s = lget_number(scores[i] + x);
-				if (rogue.gold < s) {
-					add_new_score = 0;
-				} else {
-					found_player = i;
-				}
-			}
-		}
 	}
 	if (found_player != -1) {
 		ne--;
