@@ -13,27 +13,25 @@
 
 #ifdef UNIX
 
+#define __XSI_VISIBLE 1
+#define __USE_REENTRANT
+#define __USE_POSIX199506
+#define _POSIX_C_SOURCE 199506
 #define __BSD_VISIBLE 1
+#define __USE_MISC
 #include <sys/types.h>
-#undef __BSD_VISIBLE
 #include <sys/file.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 
 // so struct timezone is defined
-#define __USE_MISC
 #include <sys/time.h>
-#undef __USE_MISC
 
 #include <signal.h>
 #include <time.h>
 
 // getlogin_r()
-#define __USE_REENTRANT
-#define __USE_POSIX199506
 #include <unistd.h>
-#undef __USE_POSIX199506
-#undef __USE_REENTRANT
 
 #include "rogue.h"
 #include "extern.h"
