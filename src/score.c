@@ -145,7 +145,6 @@ void put_scores(object *monster, int other) {
 	char buf[100];
 	FILE *fp;
 	long s;
-	bool add_new_score = !score_only;
 
 	if ((fp = fopen(score_file, "r+")) == NULL) {
 		message("cannot read/write/create score file", 0);
@@ -163,29 +162,9 @@ void put_scores(object *monster, int other) {
 			break;
 		}
 		ne++;
-		if (add_new_score) {
-			if (!name_cmp(scores[i]+15, login_name)) {
-				x = 5;
-				while (scores[i][x] == ' ') {
-					x++;
-				}
-				s = lget_number(scores[i] + x);
-				if (rogue.gold < s) {
-					add_new_score = 0;
-				} else {
-					found_player = i;
-				}
-			}
-		}
 	}
-	if (found_player != -1) {
-		ne--;
-		for (i = found_player; i < ne; i++) {
-			strcpy(scores[i], scores[i+1]);
-			strcpy(n_names[i], n_names[i+1]);
-		}
-	}
-	if (add_new_score) {
+
+	if (!score_only) {
 		for (i = 0; i < ne; i++) {
 			x = 5;
 			while (scores[i][x] == ' ') {
@@ -193,7 +172,7 @@ void put_scores(object *monster, int other) {
 			}
 			s = lget_number(scores[i] + x);
 
-			if (rogue.gold >= s) {
+			if (rogue.gold > s) {
 				rank = i;
 				break;
 			}
@@ -204,16 +183,16 @@ void put_scores(object *monster, int other) {
 			rank = ne;
 		}
 		if (rank < 10) {
+			rewind(fp);
 			insert_score(scores, n_names, nick_name, rank, ne, monster, other);
 			if (ne < 10) {
 				ne++;
 			}
 		}
-		rewind(fp);
 	}
 
 	clear();
-	mvaddstr(3, 30, "Top  Ten  Rogueists");
+	mvaddstr(3, 29, "Top Ten Games Of Rogue");
 	mvaddstr(8, 0, "Rank   Score   Name");
 
 	md_ignore_signals();
