@@ -201,11 +201,11 @@ rogue_time md_gct() {
 	struct timeval tv;
 	struct timezone tzp;
 	struct tm *t;
-	long seconds;
+	time_t seconds;
 	rogue_time tmp;
 
 	gettimeofday(&tv, &tzp);
-	seconds = (long) tv.tv_sec;
+	seconds = tv.tv_sec;
 	t = localtime(&seconds);
 
 	tmp.year = t->tm_year;
@@ -236,11 +236,11 @@ rogue_time md_gct() {
 
 void md_gfmt(char *fname, rogue_time *rt_buf) {
 	struct stat sbuf;
-	long seconds;
+	time_t seconds;
 	struct tm *t;
 
 	stat(fname, &sbuf);
-	seconds = (long) sbuf.st_mtime;
+	seconds = sbuf.st_mtime;
 	t = localtime(&seconds);
 
 	rt_buf->year = t->tm_year;

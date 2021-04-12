@@ -4,8 +4,8 @@ ROGUE_OBJ = src/hit.o src/init.o src/instruct.o src/inventory.o src/level.o src/
 
 CC ?= cc
 
-CFLAGS = -c -Wno-constant-conversion -DUNIX -std=c99 -g3 -ggdb -Iinclude
-LDFLAGS != pkg-config ncursesw --libs
+CFLAGS = -Wno-constant-conversion -DUNIX -std=c99 -g3 -ggdb -Iinclude
+LDFLAGS = -lcurses
 
 
 lrogue2: $(ROGUE_OBJ)
@@ -13,3 +13,6 @@ lrogue2: $(ROGUE_OBJ)
 
 clean:
 	-rm -f src/*.o lrogue2
+
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $@

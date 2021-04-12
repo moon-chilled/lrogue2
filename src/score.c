@@ -146,10 +146,11 @@ void put_scores(object *monster, int other) {
 	FILE *fp;
 	long s;
 
-	if ((fp = fopen(score_file, "r+")) == NULL) {
+	if ((fp = fopen(score_file, "a+")) == NULL) {
 		message("cannot read/write/create score file", 0);
 		sf_error();
 	}
+	rewind(fp);
 
 	for (i = 0; i < 10; i++) {
 		if (((n = fread(scores[i], sizeof(char), 80, fp)) < 80) && (n != 0)) {
