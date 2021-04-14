@@ -198,15 +198,10 @@ int md_link_count(char *fname) {
  */
 
 rogue_time md_gct() {
-	struct timeval tv;
-	struct timezone tzp;
-	struct tm *t;
-	time_t seconds;
 	rogue_time tmp;
-
-	gettimeofday(&tv, &tzp);
-	seconds = tv.tv_sec;
-	t = localtime(&seconds);
+	struct timespec tp;
+	clock_gettime(CLOCK_REALTIME, &tp);
+	struct tm *t = localtime(&(time_t){tp.tv_sec});
 
 	tmp.year = t->tm_year;
 	tmp.month = t->tm_mon + 1;
