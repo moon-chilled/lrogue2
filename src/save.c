@@ -135,8 +135,7 @@ void restore(char *fname) {
 	r_read(fp, (char *) &saved_time, sizeof(saved_time));
 
 	if (fread(buf, sizeof(char), 1, fp) > 0) {
-		clear();
-		clean_up("extra characters in file");
+		message("extra characters in file; bug, probably", 1);
 	}
 
 	if ((!wizard) && !md_df(fname)) {
