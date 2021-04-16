@@ -40,7 +40,6 @@ void Instructions() {
 			buffer[row][j] = (char)mvinch(row, j);
 		}
 		buffer[row][j] = 0;
-		mvaddstr(row, 0, buffer[row]);
 		clrtoeol();
 	}
 	move(0,0);
