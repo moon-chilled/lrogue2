@@ -80,8 +80,6 @@ void mix_random_rooms();
 void md_control_keyboard(int);
 void md_heed_signals();
 void md_ignore_signals();
-int md_get_file_id(char*);
-int md_link_count(char*);
 rogue_time md_gct();
 void md_gfmt(char*, rogue_time*);
 boolean md_df(char*);

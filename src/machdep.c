@@ -148,41 +148,6 @@ void md_ignore_signals() {
 	signal(SIGTSTP,SIG_IGN);	// No ^Z !
 }
 
-/* md_get_file_id():
- *
- * This function returns an integer that uniquely identifies the specified
- * file.  It need not check for the file's existence.  In UNIX, the inode
- * number is used.
- *
- * This function need not be implemented.  To stub the routine, just make
- * it return 0.  This will make the game less able to prevent users from
- * modifying saved-game files.  This is probably no big deal.
- */
-
-int md_get_file_id(char *fname) {
-	struct stat sbuf;
-
-	if (stat(fname, &sbuf)) {
-		return -1;
-	}
-	return (int)sbuf.st_ino;
-}
-
-/* md_link_count():
- *
- * This routine returns the number of hard links to the specified file.
- *
- * This function is not strictly necessary.  On systems without hard links
- * this routine can be stubbed by just returning 1.
- */
-
-int md_link_count(char *fname) {
-	struct stat sbuf;
-
-	stat(fname, &sbuf);
-	return (int)sbuf.st_nlink;
-}
-
 /* md_gct(): (Get Current Time)
  *
  * This function returns the current year, month(1-12), day(1-31), hour(0-23),

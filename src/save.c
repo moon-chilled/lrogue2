@@ -29,7 +29,6 @@ void save_game() {
 
 void save_into_file(char *sfile) {
 	FILE *fp;
-	int file_id;
 	char name_buffer[80];
 	char *hptr;
 	rogue_time rt_buf;
@@ -41,8 +40,7 @@ void save_into_file(char *sfile) {
 			sfile = name_buffer;
 		}
 	}
-	if (	((fp = fopen(sfile, "w")) == NULL) ||
-			((file_id = md_get_file_id(sfile)) == -1)) {
+	if (!(fp = fopen(sfile, "w"))) {
 		message("problem accessing the save file", 0);
 		return;
 	}
@@ -52,12 +50,10 @@ void save_into_file(char *sfile) {
 	r_write(fp, (char *) &cur_level, sizeof(cur_level));
 	r_write(fp, (char *) &max_level, sizeof(max_level));
 	write_string(hunger_str, fp);
-	write_string(login_name, fp);
 	r_write(fp, (char *) &party_room, sizeof(party_room));
 	r_write(fp, (char *) &party_counter, sizeof(party_counter));
 	write_pack(&level_monsters, fp);
 	write_pack(&level_objects, fp);
-	r_write(fp, (char *) &file_id, sizeof(file_id));
 	rw_dungeon(fp, 1);
 	r_write(fp, (char *) &foods, sizeof(foods));
 	r_write(fp, (char *) &rogue, sizeof(fighter));
@@ -99,34 +95,19 @@ void restore(char *fname) {
 	rogue_time saved_time, mod_time;
 	char buf[4];
 	char tbuf[40];
-	int new_file_id, saved_file_id;
 
-	if (	((new_file_id = md_get_file_id(fname)) == -1) ||
-			((fp = fopen(fname, "r")) == NULL)) {
+	if (!(fp = fopen(fname, "r"))) {
 		clean_up("cannot open file");
-	}
-	if (md_link_count(fname) > 1) {
-		clean_up("file has link");
 	}
 	r_read(fp, (char *) &detect_monster, sizeof(detect_monster));
 	r_read(fp, (char *) &cur_level, sizeof(cur_level));
 	r_read(fp, (char *) &max_level, sizeof(max_level));
 	read_string(hunger_str, fp);
 
-	strcpy(tbuf, login_name);
-	read_string(login_name, fp);
-	if (strcmp(tbuf, login_name)) {
-		clean_up("you're not the original player");
-	}
-
 	r_read(fp, (char *) &party_room, sizeof(party_room));
 	r_read(fp, (char *) &party_counter, sizeof(party_counter));
 	read_pack(&level_monsters, fp, 0);
 	read_pack(&level_objects, fp, 0);
-	r_read(fp, (char *) &saved_file_id, sizeof(saved_file_id));
-	if (new_file_id != saved_file_id) {
-		clean_up("sorry, saved game is not in the same file");
-	}
 	rw_dungeon(fp, 0);
 	r_read(fp, (char *) &foods, sizeof(foods));
 	r_read(fp, (char *) &rogue, sizeof(fighter));
